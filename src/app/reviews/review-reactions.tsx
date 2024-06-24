@@ -1,4 +1,5 @@
 import { CreateReactionParams, createReaction } from '@/api/createReaction'
+import { deleteReaction } from '@/api/deleteReaction'
 import { ReactionCountByType } from '@/api/getReactionCountByType'
 import { Badge } from '@/components/ui/badge'
 import { useToast } from '@/components/ui/use-toast'
@@ -23,8 +24,15 @@ export const ReviewReactions: React.FC<ReviewReactionsProps> = ({
   const { data: reviewsData } = useReviews()
   const { refetch: refetchReactions } = useReactions(reviewsData)
 
-  const mutation = useMutation({
+  const createReactionMutation = useMutation({
     mutationFn: (params: CreateReactionParams) => createReaction(params),
+    onSuccess: () => {
+      refetchReactions()
+    },
+  })
+
+  const deleteReactionMutation = useMutation({
+    mutationFn: (id: string) => deleteReaction(id),
     onSuccess: () => {
       refetchReactions()
     },
@@ -39,42 +47,60 @@ export const ReviewReactions: React.FC<ReviewReactionsProps> = ({
         return
       }
 
-      mutation.mutate({
+      createReactionMutation.mutate({
         user: user!.id,
         type,
         target: { relationTo: 'reviews', value: reviewId },
       })
     },
-    [mutation, reviewId, toast]
+    [createReactionMutation, reviewId, toast]
   )
+
+  const handleDeleteReaction = useCallback(
+    (id: string, user: User | null | undefined) => {
+      if (!user) {
+        toast({
+          title: 'You need to log in before delete a reaction.',
+        })
+        return
+      }
+
+      deleteReactionMutation.mutate(id)
+    },
+    [deleteReactionMutation, toast]
+  )
+
+  const handleClickReaction = (type: Reaction['type']) => {
+    const reaction = hasReactionType(type)
+    return reaction
+      ? handleDeleteReaction(reaction.id, user)
+      : handleCreateReaction(type, user)
+  }
 
   if (!reactions) {
     return null
   }
   const { skull, redHeart, thumbUp, thumbDown, hasReactions } = reactions
 
+  const hasReactionType = (type: Reaction['type']) =>
+    hasReactions?.find((reaction) => reaction.type === type)
+
   return (
     <Badge variant="outline" className="flex gap-2 text-base">
       <div
         key={`${reviewId}_thumpup`}
         className="inline-flex cursor-pointer gap-1"
-        onClick={() => handleCreateReaction('thumbs_up', user)}
+        onClick={() => handleClickReaction('thumbs_up')}
       >
         <em-emoji id="+1"></em-emoji>
-        <span
-          className={
-            hasReactions?.find((reaction) => reaction.type === 'thumbs_up')
-              ? 'text-sky-400'
-              : ''
-          }
-        >
+        <span className={hasReactionType('thumbs_up') ? 'text-sky-400' : ''}>
           {thumbUp}
         </span>
       </div>
       <div
         key={`${reviewId}_thumpdown`}
         className="inline-flex cursor-pointer gap-1"
-        onClick={() => handleCreateReaction('thumbs_down', user)}
+        onClick={() => handleClickReaction('thumbs_down')}
       >
         <em-emoji id="-1"></em-emoji>
         <span
@@ -91,7 +117,7 @@ export const ReviewReactions: React.FC<ReviewReactionsProps> = ({
       <div
         key={`${reviewId}_redheart`}
         className="inline-flex cursor-pointer gap-1"
-        onClick={() => handleCreateReaction('red_heart', user)}
+        onClick={() => handleClickReaction('red_heart')}
       >
         <em-emoji id="heart"></em-emoji>
         <span
@@ -107,7 +133,7 @@ export const ReviewReactions: React.FC<ReviewReactionsProps> = ({
       <div
         key={`${reviewId}_skull`}
         className="inline-flex cursor-pointer gap-1"
-        onClick={() => handleCreateReaction('skull', user)}
+        onClick={() => handleClickReaction('skull')}
       >
         <em-emoji id="skull"></em-emoji>
         <span

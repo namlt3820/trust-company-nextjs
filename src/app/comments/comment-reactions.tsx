@@ -3,25 +3,25 @@ import { deleteReaction } from '@/api/deleteReaction'
 import { ReactionCountByType } from '@/api/getReactionCountByType'
 import { Badge } from '@/components/ui/badge'
 import { useToast } from '@/components/ui/use-toast'
+import { useComments } from '@/hooks/useComments'
 import { useReactions } from '@/hooks/useReactions'
-import { useReviews } from '@/hooks/useReviews'
 import { Reaction, User } from '@/lib/payloadTypes'
 import { useAuth } from '@/providers/Auth'
 import { useMutation } from '@tanstack/react-query'
 
-export type ReviewReactionsProps = {
+export type CommentReactionsProps = {
   reactions: ReactionCountByType | undefined
-  reviewId: string
+  commentId: string
 }
 
-export const ReviewReactions: React.FC<ReviewReactionsProps> = ({
+export const CommentReactions: React.FC<CommentReactionsProps> = ({
   reactions,
-  reviewId,
+  commentId,
 }) => {
   const { user } = useAuth()
   const { toast } = useToast()
-  const { data: reviewsData } = useReviews()
-  const { refetch: refetchReactions } = useReactions({ reviews: reviewsData })
+  const { data: commentsData } = useComments()
+  const { refetch: refetchReactions } = useReactions({ comments: commentsData })
 
   const createReactionMutation = useMutation({
     mutationFn: (params: CreateReactionParams) => createReaction(params),
@@ -51,7 +51,7 @@ export const ReviewReactions: React.FC<ReviewReactionsProps> = ({
     createReactionMutation.mutate({
       user: user!.id,
       type,
-      target: { relationTo: 'reviews', value: reviewId },
+      target: { relationTo: 'comments', value: commentId },
     })
   }
 
@@ -84,7 +84,7 @@ export const ReviewReactions: React.FC<ReviewReactionsProps> = ({
   return (
     <Badge variant="outline" className="flex gap-2 text-base">
       <div
-        key={`${reviewId}_thumpup`}
+        key={`${commentId}}_thumpup`}
         className="inline-flex cursor-pointer gap-1"
         onClick={() => handleClickReaction('thumbs_up')}
       >
@@ -94,7 +94,7 @@ export const ReviewReactions: React.FC<ReviewReactionsProps> = ({
         </span>
       </div>
       <div
-        key={`${reviewId}_thumpdown`}
+        key={`${commentId}}_thumpdown`}
         className="inline-flex cursor-pointer gap-1"
         onClick={() => handleClickReaction('thumbs_down')}
       >
@@ -111,7 +111,7 @@ export const ReviewReactions: React.FC<ReviewReactionsProps> = ({
       </div>
 
       <div
-        key={`${reviewId}_redheart`}
+        key={`${commentId}}_redheart`}
         className="inline-flex cursor-pointer gap-1"
         onClick={() => handleClickReaction('red_heart')}
       >
@@ -127,7 +127,7 @@ export const ReviewReactions: React.FC<ReviewReactionsProps> = ({
         </span>
       </div>
       <div
-        key={`${reviewId}_skull`}
+        key={`${commentId}}_skull`}
         className="inline-flex cursor-pointer gap-1"
         onClick={() => handleClickReaction('skull')}
       >

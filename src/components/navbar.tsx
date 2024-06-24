@@ -11,7 +11,7 @@ import { useToast } from '@/components/ui/use-toast'
 import { useAuth } from '@/providers/Auth'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
-import React, { useCallback, useRef } from 'react'
+import React, { useRef } from 'react'
 
 const LinkClassname = 'text-sm font-medium underline-offset-4 hover:underline'
 
@@ -22,7 +22,7 @@ export const NavBar: React.FC = () => {
   const searchParams = useSearchParams()
   const redirect = useRef(searchParams.get('redirect'))
 
-  const onLogoutClick = useCallback(async () => {
+  const onLogoutClick = async () => {
     try {
       await logout()
       toast({
@@ -34,7 +34,7 @@ export const NavBar: React.FC = () => {
         title: 'Logged out failed',
       })
     }
-  }, [logout, router, toast])
+  }
 
   return (
     <header className="container flex h-14 items-center px-16 md:px-20">

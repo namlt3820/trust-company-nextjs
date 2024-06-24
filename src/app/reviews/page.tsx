@@ -17,7 +17,7 @@ import { ReviewRichtext } from './review-richtext'
 
 const Reviews: React.FC = () => {
   const { isError, isLoading, data: reviewsData } = useReviews()
-  const { data: reactionsData } = useReactions(reviewsData)
+  const { data: reactionsData } = useReactions({ reviews: reviewsData })
   const { data: commentsData } = useCommentCountByReview(reviewsData)
 
   return (

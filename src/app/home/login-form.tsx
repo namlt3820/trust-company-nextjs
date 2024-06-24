@@ -15,7 +15,7 @@ import { useToast } from '@/components/ui/use-toast'
 import { useAuth } from '@/providers/Auth'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
-import React, { useCallback } from 'react'
+import React from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -38,24 +38,21 @@ export const LoginForm: React.FC = () => {
     },
   })
 
-  const onSubmit = useCallback(
-    async (data: z.infer<typeof formSchema>) => {
-      try {
-        await login(data)
-        toast({
-          title: 'Logged in successfully',
-        })
-        location.reload()
-      } catch (_) {
-        toast({
-          title: 'Logged in failed',
-          description:
-            'There was an error with the credentials provided. Please try again.',
-        })
-      }
-    },
-    [login, toast]
-  )
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    try {
+      await login(data)
+      toast({
+        title: 'Logged in successfully',
+      })
+      location.reload()
+    } catch (_) {
+      toast({
+        title: 'Logged in failed',
+        description:
+          'There was an error with the credentials provided. Please try again.',
+      })
+    }
+  }
 
   return (
     <Form {...form}>

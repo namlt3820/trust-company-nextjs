@@ -30,11 +30,11 @@ export const getReactionCountByType: GetReactionCountByType = async (
     comments?: string[]
   } = {}
 
-  if (reviews) {
+  if (reviews && reviews.length) {
     query.reviews = reviews
   }
 
-  if (comments) {
+  if (comments && comments.length) {
     query.comments = comments
   }
 

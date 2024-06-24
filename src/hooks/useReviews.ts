@@ -7,8 +7,8 @@ import { useSearchParams } from 'next/navigation'
 
 export const useReviews = () => {
   const searchParams = useSearchParams()
-  const company = searchParams.get('company')
-  const user = searchParams.get('user')
+  const company = searchParams.get('company') 
+  const user = searchParams.get('user') 
   const page = Number(searchParams.get('page')) || 1
   const limit = Number(searchParams.get('limit')) || 10
   const getReviewsParams = _.omitBy({ company, user, page, limit }, _.isNil)

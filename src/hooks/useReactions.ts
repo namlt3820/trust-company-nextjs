@@ -15,7 +15,7 @@ export const useReactions = (
     {
       queryKey: ['reactions/count-by-type', { reviews: reviewIds }],
       queryFn: () => getReactionCountByType({ reviews: reviewIds }),
-      enabled: !!reviewIds,
+      enabled: !!reviews,
     }
   )
 

@@ -45,6 +45,7 @@ export const LoginForm: React.FC = () => {
         toast({
           title: 'Logged in successfully',
         })
+        location.reload()
       } catch (_) {
         toast({
           title: 'Logged in failed',

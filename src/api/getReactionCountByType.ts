@@ -1,3 +1,4 @@
+import { Reaction } from '@/lib/payloadTypes'
 import qs from 'qs'
 
 export type ReactionCountByType = {
@@ -7,6 +8,7 @@ export type ReactionCountByType = {
   thumbDown: number
   redHeart: number
   skull: number
+  hasReactions?: Reaction[]
 }
 
 export type GetReactionCountByType = (

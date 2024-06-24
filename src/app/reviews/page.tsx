@@ -1,18 +1,11 @@
 'use client'
 
-import {
-  ReactionCountByType,
-  getReactionCountByType,
-} from '@/api/getReactionCountByType'
-import { getReviews } from '@/api/getReviews'
 import { ResourceStatus } from '@/components/resource-status'
 import { SectionHeader } from '@/components/section-header'
 import { SectionWrapper } from '@/components/section-wrapper'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
-import { GetPaginationResponse } from '@/lib/paginationResponse'
-import { Review } from '@/lib/payloadTypes'
-import { useQuery } from '@tanstack/react-query'
-import { useSearchParams } from 'next/navigation'
+import { useReactions } from '@/hooks/useReactions'
+import { useReviews } from '@/hooks/useReviews'
 import React from 'react'
 import { BasicReview } from './basic-review'
 import { RelevantInformation } from './relevant-information'
@@ -22,32 +15,8 @@ import { ReviewPagination } from './review-pagination'
 import { RichTextReview } from './richtext-review'
 
 const Reviews: React.FC = () => {
-  const searchParams = useSearchParams()
-  const company = searchParams.get('company') || undefined
-  const user = searchParams.get('user') || undefined
-  const page = Number(searchParams.get('page')) || 1
-  const limit = Number(searchParams.get('limit')) || 1
-
-  const {
-    data: reviewsData,
-    isLoading: isLoadingReviews,
-    isError: isErrorReviews,
-  } = useQuery<GetPaginationResponse<Review>>({
-    queryKey: ['get-reviews', { company, user, page, limit }],
-    queryFn: () => getReviews({ company, user, page, limit }),
-  })
-
-  const reviewIds = reviewsData?.docs?.map((review) => review.id) || []
-
-  const {
-    data: reactionsData,
-    isLoading: isLoadingReactions,
-    isError: isErrorReactions,
-  } = useQuery<ReactionCountByType[]>({
-    queryKey: ['reactions/count-by-type', { reviews: reviewIds }],
-    queryFn: () => getReactionCountByType({ reviews: reviewIds }),
-    enabled: !!reviewsData,
-  })
+  const { isError, isLoading, data: reviewsData } = useReviews()
+  const { data: reactionsData } = useReactions(reviewsData)
 
   return (
     <SectionWrapper backgroundColor="bg-white">
@@ -58,11 +27,9 @@ const Reviews: React.FC = () => {
       />
       <div className="mx-auto w-full">
         <ResourceStatus
-          isLoading={isLoadingReviews}
-          isNotFound={
-            !isErrorReviews && !isLoadingReviews && !reviewsData?.docs.length
-          }
-          isError={isErrorReviews}
+          isLoading={isLoading}
+          isNotFound={!isError && !isLoading && !reviewsData?.docs.length}
+          isError={isError}
           notFoundMessage="No reviews found"
         />
 

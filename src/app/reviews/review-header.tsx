@@ -10,11 +10,11 @@ type RatingColors = {
 }
 
 const ratingColors: RatingColors = {
-  excellent: '#4CAF50', // Green
-  good: '#8bc34a', // Light Green
-  normal: '#FFEB3B', // Yellow
-  bad: '#FF9800', // Orange
-  terrible: '#F44336', // Red
+  excellent: 'bg-[#4CAF50]', // Green
+  good: 'bg-[#8bc34a]', // Light Green
+  normal: 'bg-[#FFEB3B]', // Yellow
+  bad: 'bg-[#FF9800]', // Orange
+  terrible: 'bg-[#F44336]', // Red
 }
 
 export type ReviewHeaderProps = {
@@ -32,12 +32,11 @@ export const ReviewHeader: React.FC<ReviewHeaderProps> = ({
   reactions,
   reviewId,
 }) => {
-  const backgroundColor = `bg-[${ratingColors[rate]}]`
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center space-x-3">
         <span className="text-lg font-semibold">{name}</span>
-        <Badge variant={'outline'} className={backgroundColor}>
+        <Badge variant={'outline'} className={`${ratingColors[rate]}`}>
           {rate}
         </Badge>
         <ReviewReactions reactions={reactions} reviewId={reviewId} />

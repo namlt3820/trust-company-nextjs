@@ -28,8 +28,7 @@ export const NavBar: React.FC = () => {
       toast({
         title: 'Logged out successfully',
       })
-      if (redirect?.current) router.push(redirect.current as string)
-      else router.push('/')
+      router.push('/')
     } catch (_) {
       toast({
         title: 'Logged out failed',

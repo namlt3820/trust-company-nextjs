@@ -26,10 +26,6 @@ const serialize = (children?: Children): React.ReactNode[] =>
         text = <strong key={i}>{text}</strong>
       }
 
-      if (node.code) {
-        text = <code key={i}>{text}</code>
-      }
-
       if (node.italic) {
         text = <em key={i}>{text}</em>
       }

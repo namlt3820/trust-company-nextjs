@@ -8,6 +8,8 @@ import { useReviews } from '@/hooks/useReviews'
 import { Reaction, User } from '@/lib/payloadTypes'
 import { useAuth } from '@/providers/Auth'
 import { useMutation } from '@tanstack/react-query'
+import { Smile } from 'lucide-react'
+import { useState } from 'react'
 
 export type ReviewReactionsProps = {
   reactions: ReactionCountByType | undefined
@@ -22,18 +24,21 @@ export const ReviewReactions: React.FC<ReviewReactionsProps> = ({
   const { toast } = useToast()
   const { data: reviewsData } = useReviews()
   const { refetch: refetchReactions } = useReactions({ reviews: reviewsData })
+  const [showAllReactions, setShowFullReactions] = useState<boolean>(false)
 
   const createReactionMutation = useMutation({
     mutationFn: (params: CreateReactionParams) => createReaction(params),
-    onSuccess: () => {
-      refetchReactions()
+    onSuccess: async () => {
+      await refetchReactions()
+      await setShowFullReactions(false)
     },
   })
 
   const deleteReactionMutation = useMutation({
     mutationFn: (id: string) => deleteReaction(id),
-    onSuccess: () => {
-      refetchReactions()
+    onSuccess: async () => {
+      await refetchReactions()
+      await setShowFullReactions(false)
     },
   })
 
@@ -73,6 +78,10 @@ export const ReviewReactions: React.FC<ReviewReactionsProps> = ({
       : handleCreateReaction(type, user)
   }
 
+  const toggleShowFullReaction = () => {
+    setShowFullReactions((showFullReaction) => !showFullReaction)
+  }
+
   if (!reactions) {
     return null
   }
@@ -84,64 +93,81 @@ export const ReviewReactions: React.FC<ReviewReactionsProps> = ({
   return (
     <Badge variant="outline" className="flex gap-2 text-base">
       <div
-        key={`${reviewId}_thumpup`}
         className="inline-flex cursor-pointer gap-1"
-        onClick={() => handleClickReaction('thumbs_up')}
+        onClick={toggleShowFullReaction}
       >
-        <em-emoji id="+1"></em-emoji>
-        <span className={hasReactionType('thumbs_up') ? 'text-sky-400' : ''}>
-          {thumbUp}
-        </span>
-      </div>
-      <div
-        key={`${reviewId}_thumpdown`}
-        className="inline-flex cursor-pointer gap-1"
-        onClick={() => handleClickReaction('thumbs_down')}
-      >
-        <em-emoji id="-1"></em-emoji>
-        <span
-          className={
-            hasReactions?.find((reaction) => reaction.type === 'thumbs_down')
-              ? 'text-sky-400'
-              : ''
-          }
-        >
-          {thumbDown}
-        </span>
+        <Smile size={18} />
       </div>
 
-      <div
-        key={`${reviewId}_redheart`}
-        className="inline-flex cursor-pointer gap-1"
-        onClick={() => handleClickReaction('red_heart')}
-      >
-        <em-emoji id="heart"></em-emoji>
-        <span
-          className={
-            hasReactions?.find((reaction) => reaction.type === 'red_heart')
-              ? 'text-sky-400'
-              : ''
-          }
+      {showAllReactions || (!showAllReactions && thumbUp) ? (
+        <div
+          key={`${reviewId}_thumpup`}
+          className="inline-flex cursor-pointer gap-1"
+          onClick={() => handleClickReaction('thumbs_up')}
         >
-          {redHeart}
-        </span>
-      </div>
-      <div
-        key={`${reviewId}_skull`}
-        className="inline-flex cursor-pointer gap-1"
-        onClick={() => handleClickReaction('skull')}
-      >
-        <em-emoji id="skull"></em-emoji>
-        <span
-          className={
-            hasReactions?.find((reaction) => reaction.type === 'skull')
-              ? 'text-sky-400'
-              : ''
-          }
+          <em-emoji id="+1"></em-emoji>
+          <span className={hasReactionType('thumbs_up') ? 'text-sky-400' : ''}>
+            {thumbUp}
+          </span>
+        </div>
+      ) : null}
+
+      {showAllReactions || (!showAllReactions && thumbDown) ? (
+        <div
+          key={`${reviewId}_thumpdown`}
+          className="inline-flex cursor-pointer gap-1"
+          onClick={() => handleClickReaction('thumbs_down')}
         >
-          {skull}
-        </span>
-      </div>
+          <em-emoji id="-1"></em-emoji>
+          <span
+            className={
+              hasReactions?.find((reaction) => reaction.type === 'thumbs_down')
+                ? 'text-sky-400'
+                : ''
+            }
+          >
+            {thumbDown}
+          </span>
+        </div>
+      ) : null}
+
+      {showAllReactions || (!showAllReactions && redHeart) ? (
+        <div
+          key={`${reviewId}_redheart`}
+          className="inline-flex cursor-pointer gap-1"
+          onClick={() => handleClickReaction('red_heart')}
+        >
+          <em-emoji id="heart"></em-emoji>
+          <span
+            className={
+              hasReactions?.find((reaction) => reaction.type === 'red_heart')
+                ? 'text-sky-400'
+                : ''
+            }
+          >
+            {redHeart}
+          </span>
+        </div>
+      ) : null}
+
+      {showAllReactions || (!showAllReactions && skull) ? (
+        <div
+          key={`${reviewId}_skull`}
+          className="inline-flex cursor-pointer gap-1"
+          onClick={() => handleClickReaction('skull')}
+        >
+          <em-emoji id="skull"></em-emoji>
+          <span
+            className={
+              hasReactions?.find((reaction) => reaction.type === 'skull')
+                ? 'text-sky-400'
+                : ''
+            }
+          >
+            {skull}
+          </span>
+        </div>
+      ) : null}
     </Badge>
   )
 }

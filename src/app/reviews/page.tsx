@@ -1,5 +1,12 @@
 'use client'
 
+import { BasicReview } from '@/app/reviews/basic-review'
+import { RelevantInformation } from '@/app/reviews/relevant-information'
+import { ReviewCommentCount } from '@/app/reviews/review-comment-count'
+import { ReviewHeader } from '@/app/reviews/review-header'
+import { ReviewNavigation } from '@/app/reviews/review-navigation'
+import { ReviewPagination } from '@/app/reviews/review-pagination'
+import { ReviewRichtext } from '@/app/reviews/review-richtext'
 import { ResourceStatus } from '@/components/resource-status'
 import { SectionHeader } from '@/components/section-header'
 import { SectionWrapper } from '@/components/section-wrapper'
@@ -7,26 +14,24 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { useCommentCountByReview } from '@/hooks/useCommentCountByReview'
 import { useReactions } from '@/hooks/useReactions'
 import { useReviews } from '@/hooks/useReviews'
+import { useSearchParams } from 'next/navigation'
 import React from 'react'
-import { BasicReview } from './basic-review'
-import { RelevantInformation } from './relevant-information'
-import { ReviewCommentCount } from './review-comment-count'
-import { ReviewHeader } from './review-header'
-import { ReviewPagination } from './review-pagination'
-import { ReviewRichtext } from './review-richtext'
 
 const Reviews: React.FC = () => {
   const { isError, isLoading, data: reviewsData } = useReviews()
   const { data: reactionsData } = useReactions({ reviews: reviewsData })
   const { data: commentsData } = useCommentCountByReview(reviewsData)
 
+  const searchParams = useSearchParams()
+  const company = searchParams.get('company')
+
   return (
     <SectionWrapper backgroundColor="bg-white">
       <SectionHeader
-        title="Reviews"
-        subtitle="You can find reviews of your company here, as well as comments
-            related to them."
+        title={company ? 'Company Reviews' : 'User Reviews'}
+        subtitle={`You can find reviews of ${company ? 'company' : 'user'} here. Feel free to review, comment, and react as well.`}
       />
+      <ReviewNavigation />
       <div className="mx-auto w-full">
         <ResourceStatus
           isLoading={isLoading}
@@ -34,7 +39,6 @@ const Reviews: React.FC = () => {
           isError={isError}
           notFoundMessage="No reviews found"
         />
-
         <div className="grid gap-4">
           {reviewsData?.docs.map((review) => {
             const { id: reviewId, rate, populatedUser, updatedAt } = review

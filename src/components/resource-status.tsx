@@ -15,11 +15,11 @@ export const ResourceStatus: React.FC<ResourceStatusProps> = ({
   notFoundMessage = 'No content found',
   errorMessage = 'Something went wrong',
 }) => {
-  return (
+  return isError || isLoading || isNotFound ? (
     <div className="p-4 text-center">
       {isLoading ? loadingMessage : ''}
       {isNotFound ? notFoundMessage : ''}
       {isError ? errorMessage : ''}
     </div>
-  )
+  ) : null
 }

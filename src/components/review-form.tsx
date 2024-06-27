@@ -1,3 +1,4 @@
+import { CreateReviewParams, createReview } from '@/api/createReview'
 import { RichTextEditor } from '@/components/rich-text-editor'
 import { Button } from '@/components/ui/button'
 import {
@@ -9,58 +10,122 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { useToast } from '@/components/ui/use-toast'
 import { useAuth } from '@/providers/Auth'
 import { zodResolver } from '@hookform/resolvers/zod'
-import React from 'react'
+import { useMutation } from '@tanstack/react-query'
+import { useRouter, useSearchParams } from 'next/navigation'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { Descendant } from 'slate'
 import { z } from 'zod'
 
 const formSchema = z.object({
-  branch: z.string().max(100),
-  detailed_review: z.string(),
-  duration: z.coerce.number().min(1),
-  title: z.string().max(100),
-  facilities: z.string().max(500),
-  team: z.string().max(500),
-  process: z.string().max(500),
-  benefits: z.string().max(500),
+  rate: z.enum(['terrible', 'bad', 'normal', 'good', 'excellent']),
+  branch: z.string().max(100).optional(),
+  duration: z.coerce.number().min(1).max(1000).optional(),
+  title: z.string().max(100).optional(),
+  facilities: z.string().max(500).optional(),
+  team: z.string().max(500).optional(),
+  process: z.string().max(500).optional(),
+  benefits: z.string().max(500).optional(),
 })
+
+const initialValue: Descendant[] = [
+  {
+    type: 'paragraph',
+    children: [{ text: '' }],
+  },
+]
 
 export type ReviewFormProps = {}
 
 export const ReviewForm: React.FC<ReviewFormProps> = () => {
   const { user } = useAuth()
   const { toast } = useToast()
+  const [editorData, setEditorData] = useState<Descendant[]>(initialValue)
+  const searchParams = useSearchParams()
+  const router = useRouter()
+  const company = searchParams.get('company')
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       branch: '',
-      detailed_review: '',
       duration: 1,
-      title: '',
+      benefits: '',
       facilities: '',
+      title: '',
       team: '',
       process: '',
-      benefits: '',
+      rate: 'normal',
     },
   })
 
-  const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    try {
-      console.log({ data })
+  const createReviewMutation = useMutation({
+    mutationFn: (params: CreateReviewParams) => createReview(params),
+    onSuccess: async () => {
       toast({
         title: 'Created review successfully',
       })
-    } catch (_) {
+
+      location.reload()
+    },
+    onError: (error) => {
       toast({
         title: 'Created review failed',
         description:
           'There was an error with the data provided. Please try again.',
       })
+    },
+  })
+
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    if (!user) {
+      return toast({
+        title: 'Please log in to create a review',
+      })
     }
+
+    if (!company) {
+      toast({
+        title: 'Please select a company to create a review',
+      })
+      router.push('/')
+    }
+
+    const {
+      branch,
+      title,
+      duration,
+      benefits,
+      process,
+      team,
+      facilities,
+      rate,
+    } = data
+
+    await createReviewMutation.mutate({
+      user: user.id,
+      company: company as string,
+      branch,
+      title,
+      duration,
+      benefits,
+      process,
+      team,
+      facilities,
+      detailedReview: editorData,
+      rate,
+    })
   }
 
   return (
@@ -71,21 +136,41 @@ export const ReviewForm: React.FC<ReviewFormProps> = () => {
       >
         <FormField
           control={form.control}
-          name="detailed_review"
+          name="rate"
           render={({ field }) => (
             <FormItem>
-              <FormControl>
-                <div className="grid grid-cols-7 items-center gap-4">
-                  <Label htmlFor="detailed_review" className="text-right">
-                    Detailed review (*)
-                  </Label>
-                  <RichTextEditor className="col-span-6" />
-                  <FormMessage className="col-span-6 col-start-2" />
+              <div className="grid grid-cols-7 items-center gap-4">
+                <Label htmlFor="rate" className="text-right">
+                  Rate (*)
+                </Label>
+                <div className="col-span-6">
+                  <Select onValueChange={field.onChange}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Required. Select a rating for your company" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="excellent">excellent</SelectItem>
+                      <SelectItem value="good">good</SelectItem>
+                      <SelectItem value="normal">normal</SelectItem>
+                      <SelectItem value="bad">bad</SelectItem>
+                      <SelectItem value="terrible">terrible</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
-              </FormControl>
+              </div>
             </FormItem>
           )}
         />
+
+        <div className="grid grid-cols-7 items-center gap-4">
+          <Label htmlFor="detailed_review" className="text-right">
+            Detailed review (*)
+          </Label>
+          <RichTextEditor className="col-span-6" onChange={setEditorData} />
+          <FormMessage className="col-span-6 col-start-2" />
+        </div>
 
         <FormField
           control={form.control}
@@ -122,10 +207,10 @@ export const ReviewForm: React.FC<ReviewFormProps> = () => {
                   </Label>
                   <Input
                     id="duration"
-                    placeholder="Optional. Specify how long you have worked at that company. Must be at least one month."
+                    placeholder="Optional. Specify how many months you have worked at the company. Must be at least one month."
                     className="col-span-6"
                     type="number"
-                    {...field}
+                    onChange={field.onChange}
                     min={1}
                   />
                   <FormMessage className="col-span-6 col-start-2" />

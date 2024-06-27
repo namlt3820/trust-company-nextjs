@@ -18,17 +18,25 @@ import {
 } from '@/components/ui/select'
 import { PencilLine } from 'lucide-react'
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 import React from 'react'
 
 export const ReviewNavigation: React.FC = () => {
+  const searchParams = useSearchParams()
+  const company = searchParams.get('company')
+
   return (
     <div className="flex justify-between md:mb-10">
       <Dialog>
         <DialogTrigger asChild>
-          <Button className="flex gap-1">
-            <PencilLine className="h-4 w-4" />
-            Create review
-          </Button>
+          {company ? (
+            <Button className="flex gap-1">
+              <PencilLine className="h-4 w-4" />
+              Create review
+            </Button>
+          ) : (
+            <div></div>
+          )}
         </DialogTrigger>
         <DialogContent className="max-h-screen max-w-screen-xl overflow-y-scroll">
           <DialogHeader>
@@ -55,9 +63,11 @@ export const ReviewNavigation: React.FC = () => {
             </SelectGroup>
           </SelectContent>
         </Select>
-        <Link href={'/'} className={buttonVariants({ variant: 'outline' })}>
-          Find another company
-        </Link>
+        {company ? (
+          <Link href={'/'} className={buttonVariants({ variant: 'outline' })}>
+            Find another company
+          </Link>
+        ) : null}
       </div>
     </div>
   )

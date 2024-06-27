@@ -36,9 +36,9 @@ const HOTKEYS: { [key: string]: MarkType } = {
   'mod+s': 'strikethrough',
 }
 
-const LIST_TYPES = ['numbered-list', 'bulleted-list']
+const LIST_TYPES = ['ol', 'ul']
 
-type BlockType = 'bulleted-list' | 'list-item' | 'paragraph' | 'numbered-list'
+type BlockType = 'ol' | 'li' | 'paragraph' | 'ul'
 
 type MarkType = 'bold' | 'italic' | 'underline' | 'strikethrough'
 
@@ -55,11 +55,7 @@ const toggleBlock = (editor: Editor, blockType: BlockType) => {
   })
   let newProperties: Partial<SlateElement>
   newProperties = {
-    type: isActive
-      ? 'paragraph'
-      : isList
-        ? 'list-item'
-        : (blockType as BlockType),
+    type: isActive ? 'paragraph' : isList ? 'li' : (blockType as BlockType),
   }
   Transforms.setNodes<SlateElement>(editor, newProperties)
 
@@ -103,21 +99,21 @@ const isMarkActive = (editor: Editor, markType: MarkType) => {
 
 const Element = ({ attributes, children, element }: RenderElementProps) => {
   switch (element.type) {
-    case 'bulleted-list':
+    case 'ol':
       return (
         <ul {...attributes} className="list-inside list-disc">
           {children}
         </ul>
       )
 
-    case 'numbered-list':
+    case 'ul':
       return (
         <ol {...attributes} className="list-inside list-decimal">
           {children}
         </ol>
       )
 
-    case 'list-item':
+    case 'li':
       return <li {...attributes}>{children}</li>
 
     default:
@@ -155,6 +151,7 @@ const BlockButton = ({
   const editor = useSlate()
   return (
     <Button
+      type="button"
       onMouseDown={(event: any) => {
         event.preventDefault()
         toggleBlock(editor, blockType)
@@ -179,6 +176,7 @@ const MarkButton = ({
   const editor = useSlate()
   return (
     <Button
+      type="button"
       variant={'outline'}
       className={cn('h-7 px-2', {
         'bg-slate-300': isMarkActive(editor, markType),
@@ -202,10 +200,12 @@ const initialValue: Descendant[] = [
 
 export type RichTextEditorProps = {
   className?: string
+  onChange: (value: Descendant[]) => void
 }
 
 export const RichTextEditor: React.FC<RichTextEditorProps> = ({
   className,
+  onChange,
 }) => {
   const renderElement = useCallback(
     (props: RenderElementProps) => <Element {...props} />,
@@ -219,7 +219,18 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
 
   return (
     <div className={className}>
-      <Slate editor={editor} initialValue={initialValue}>
+      <Slate
+        editor={editor}
+        initialValue={initialValue}
+        onChange={(value) => {
+          const isAstChange = editor.operations.some(
+            (op) => 'set_selection' !== op.type
+          )
+          if (isAstChange) {
+            onChange(value)
+          }
+        }}
+      >
         <div className="mb-2 flex gap-2">
           <MarkButton markType="bold">
             <Bold className="h-4 w-4" />
@@ -233,10 +244,10 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
           <MarkButton markType="strikethrough">
             <Strikethrough className="h-4 w-4" />
           </MarkButton>
-          <BlockButton blockType="numbered-list">
+          <BlockButton blockType="ol">
             <ListOrdered className="h-4 w-4" />
           </BlockButton>
-          <BlockButton blockType="bulleted-list">
+          <BlockButton blockType="ul">
             <List className="h-4 w-4" />
           </BlockButton>
         </div>
@@ -244,12 +255,6 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
           className="rounded-md border border-input px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           renderElement={renderElement}
           renderLeaf={renderLeaf}
-          placeholder="This is the detailed content of your review about the company. You can fill in more specific information in the optional fields below."
-          renderPlaceholder={({ children, attributes }) => (
-            <div {...attributes} style={{ opacity: 0.7 }}>
-              <p className="text-slate-800">{children}</p>
-            </div>
-          )}
           spellCheck
           autoFocus
           onKeyDown={(event) => {

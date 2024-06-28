@@ -19,6 +19,7 @@ export const RelevantInformation: React.FC<RelevantInformationProps> = ({
       <div className="text-gray-500 dark:text-gray-400" key={`${id}_${key}`}>
         <span className="font-medium">{_.capitalize(key)}: </span>{' '}
         {relevantInformation[key as keyof Review['relevantInformation']]}
+        {key === 'duration' ? ' months' : ''}
       </div>
     )
   }

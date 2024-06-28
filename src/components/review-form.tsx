@@ -79,7 +79,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = () => {
 
       location.reload()
     },
-    onError: (error) => {
+    onError: () => {
       toast({
         title: 'Created review failed',
         description:

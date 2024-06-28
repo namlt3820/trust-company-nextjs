@@ -1,7 +1,9 @@
 'use client'
 
+import { CommentNavigation } from '@/app/comments/comment-navigation'
 import { CommentPagination } from '@/app/comments/comment-pagination'
 import { CommentReactions } from '@/app/comments/comment-reactions'
+import { ResourceStatus } from '@/components/resource-status'
 import { SectionHeader } from '@/components/section-header'
 import { SectionWrapper } from '@/components/section-wrapper'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
@@ -16,12 +18,14 @@ export default function Comments() {
   return (
     <SectionWrapper backgroundColor="bg-white">
       <SectionHeader title="Comments" />
+      <CommentNavigation />
       <div className="mx-auto w-full">
-        {isLoading && <div className="p-4 text-center">Searching...</div>}
-        {!isError && !isLoading && !commentsData?.docs.length && (
-          <div className="p-4 text-center">No comments found</div>
-        )}
-        {isError && <div className="p-4 text-center">Something went wrong</div>}
+        <ResourceStatus
+          isLoading={isLoading}
+          isNotFound={!isError && !isLoading && !commentsData?.docs.length}
+          isError={isError}
+          notFoundMessage="No comments found"
+        />
 
         <div className="grid gap-4">
           {commentsData?.docs.map((comment) => {
@@ -48,7 +52,7 @@ export default function Comments() {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <p className="font-medium text-gray-500 dark:text-gray-400">
+                  <p className="whitespace-pre-line font-medium text-gray-500 dark:text-gray-400">
                     {content}
                   </p>
                 </CardContent>

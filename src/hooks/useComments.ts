@@ -11,15 +11,16 @@ export const useComments = () => {
   const page = Number(searchParams.get('page')) || 1
   const limit = Number(searchParams.get('limit')) || 10
 
-  const { data, isLoading, isError } = useQuery<GetPaginationResponse<Comment>>(
-    {
-      queryKey: ['get-comments', { review, user, page, limit }],
-      queryFn: () => getComments({ review, user, page, limit }),
-    }
-  )
+  const { data, isLoading, isError, refetch } = useQuery<
+    GetPaginationResponse<Comment>
+  >({
+    queryKey: ['get-comments', { review, user, page, limit }],
+    queryFn: () => getComments({ review, user, page, limit }),
+  })
 
   return {
     data,
+    refetch,
     isLoading,
     isError,
   }

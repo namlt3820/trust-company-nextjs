@@ -1,3 +1,4 @@
+import { CommentEdit } from '@/app/comments/comment-edit'
 import { CommentForm } from '@/components/comment-form'
 import { Button } from '@/components/ui/button'
 import {
@@ -53,7 +54,11 @@ export const CommentActions: React.FC<CommentActionsProps> = ({ comment }) => {
                   helpful as you&apos;d like.
                 </DialogDescription>
               </DialogHeader>
-              <CommentForm />
+              <CommentEdit
+                id={commentId}
+                content={content}
+                setIsEditDialogOpen={setIsEditDialogOpen}
+              />
             </>
           ) : null}
           {isDeleteDialogOpen ? (

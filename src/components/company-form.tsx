@@ -69,7 +69,6 @@ export const CompanyForm: React.FC<CompanyProps> = () => {
     onSuccess: async () => {
       toast({
         onOpenChange: (open) => {
-          console.log({ open })
           if (!open) {
             location.reload()
           }

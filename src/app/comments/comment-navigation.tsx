@@ -9,13 +9,12 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { PencilLine } from 'lucide-react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import React from 'react'
 
 export const CommentNavigation: React.FC = () => {
   const searchParams = useSearchParams()
   const review = searchParams.get('review')
-  const router = useRouter()
 
   return (
     <div className="flex justify-between md:mb-10">
@@ -41,9 +40,6 @@ export const CommentNavigation: React.FC = () => {
           <CommentForm />
         </DialogContent>
       </Dialog>
-      <Button variant={'outline'} onClick={router.back}>
-        Back to reviews
-      </Button>
     </div>
   )
 }

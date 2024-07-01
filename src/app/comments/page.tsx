@@ -1,5 +1,6 @@
 'use client'
 
+import { CommentActions } from '@/app/comments/comment-actions'
 import { CommentNavigation } from '@/app/comments/comment-navigation'
 import { CommentPagination } from '@/app/comments/comment-pagination'
 import { CommentReactions } from '@/app/comments/comment-reactions'
@@ -10,10 +11,12 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { useComments } from '@/hooks/useComments'
 import { useReactions } from '@/hooks/useReactions'
 import { formatDate } from '@/lib/formatDate'
+import { useAuth } from '@/providers/Auth'
 
 export default function Comments() {
   const { data: commentsData, isLoading, isError } = useComments()
   const { data: reactionsData } = useReactions({ comments: commentsData })
+  const { user } = useAuth()
 
   return (
     <SectionWrapper backgroundColor="bg-white">
@@ -30,8 +33,8 @@ export default function Comments() {
         <div className="grid gap-4">
           {commentsData?.docs.map((comment) => {
             const { id: commentId, populatedUser, content, updatedAt } = comment
+            const { name, id } = populatedUser!
 
-            const { name } = populatedUser!
             return (
               <Card key={commentId}>
                 <CardHeader>
@@ -45,6 +48,7 @@ export default function Comments() {
                         )}
                         commentId={commentId}
                       />
+                      <CommentActions comment={comment} />
                     </div>
                     <span className="font-medium text-gray-500 dark:text-gray-400">
                       {formatDate(new Date(updatedAt))}

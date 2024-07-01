@@ -1,28 +1,24 @@
 import { Comment } from '@/lib/payloadTypes'
 
-export type UpdateComment = (params: UpdateCommentParams) => Promise<Comment>
+export type DeleteComment = (params: DeleteCommentParams) => Promise<Comment>
 
-export type UpdateCommentParams = {
-  content: string
+export type DeleteCommentParams = {
   id: string
 }
 
-export const updateComment: UpdateComment = async (
-  params: UpdateCommentParams
+export const deleteComment: DeleteComment = async (
+  params: DeleteCommentParams
 ) => {
-  const { content, id } = params
+  const { id } = params
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_PAYLOAD_CMS_SERVER_URL}/api/comments/${id}`,
       {
-        method: 'PATCH',
+        method: 'DELETE',
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          content,
-        }),
       }
     )
 
@@ -32,8 +28,8 @@ export const updateComment: UpdateComment = async (
       return doc
     }
 
-    throw new Error('An error occurred while updating comment.')
+    throw new Error('An error occurred while creating comment.')
   } catch (e) {
-    throw new Error('An error occurred while updating comment.')
+    throw new Error('An error occurred while creating comment.')
   }
 }

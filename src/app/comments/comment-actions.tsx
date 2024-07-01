@@ -1,3 +1,4 @@
+import { CommentDelete } from '@/app/comments/comment-delete'
 import { CommentEdit } from '@/app/comments/comment-edit'
 import { CommentForm } from '@/components/comment-form'
 import { Button } from '@/components/ui/button'
@@ -66,11 +67,13 @@ export const CommentActions: React.FC<CommentActionsProps> = ({ comment }) => {
               <DialogHeader>
                 <DialogTitle>Delete comment</DialogTitle>
                 <DialogDescription>
-                  Please follow our guide and try to be as descriptive and
-                  helpful as you&apos;d like.
+                  Are you sure you want to delete your comment?
                 </DialogDescription>
               </DialogHeader>
-              <CommentForm />
+              <CommentDelete
+                id={commentId}
+                setIsDeleteDialogOpen={setIsDeleteDialogOpen}
+              />
             </>
           ) : null}
           {isReportDialogOpen ? (

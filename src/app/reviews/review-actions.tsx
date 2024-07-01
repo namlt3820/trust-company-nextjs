@@ -1,5 +1,5 @@
-import { CommentEdit } from '@/app/comments/comment-edit'
 import { ReviewDelete } from '@/app/reviews/review-delete'
+import { ReviewEdit } from '@/app/reviews/review-edit'
 import { CommentForm } from '@/components/comment-form'
 import { Button } from '@/components/ui/button'
 import {
@@ -55,9 +55,9 @@ export const ReviewActions: React.FC<ReviewActionsProps> = ({ review }) => {
                   helpful as you&apos;d like.
                 </DialogDescription>
               </DialogHeader>
-              <CommentEdit
+              <ReviewEdit
                 id={reviewId}
-                content={'content'}
+                review={review}
                 setIsEditDialogOpen={setIsEditDialogOpen}
               />
             </>

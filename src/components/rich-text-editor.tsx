@@ -201,11 +201,13 @@ const initialValue: Descendant[] = [
 export type RichTextEditorProps = {
   className?: string
   onChange: (value: Descendant[]) => void
+  editValue?: Descendant[]
 }
 
 export const RichTextEditor: React.FC<RichTextEditorProps> = ({
   className,
   onChange,
+  editValue,
 }) => {
   const renderElement = useCallback(
     (props: RenderElementProps) => <Element {...props} />,
@@ -221,7 +223,7 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
     <div className={className}>
       <Slate
         editor={editor}
-        initialValue={initialValue}
+        initialValue={editValue ? editValue : initialValue}
         onChange={(value) => {
           const isAstChange = editor.operations.some(
             (op) => 'set_selection' !== op.type

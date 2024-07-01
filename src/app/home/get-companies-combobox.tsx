@@ -1,13 +1,21 @@
 'use client'
 
 import { GetCompaniesCommand } from '@/app/home/get-companies-command'
+import { CompanyForm } from '@/components/company-form'
 import { SectionHeader } from '@/components/section-header'
 import { SectionWrapper } from '@/components/section-wrapper'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog'
 import type { Company } from '@/lib/payloadTypes'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import * as React from 'react'
-
-import Link from 'next/link'
 
 export const GetCompaniesSubtitle: React.FC = () => {
   return (
@@ -16,12 +24,23 @@ export const GetCompaniesSubtitle: React.FC = () => {
       name,
       <br />
       you can create one{' '}
-      <Link
-        href={'/companies/draft'}
-        className="underline decoration-1 underline-offset-4"
-      >
-        here
-      </Link>{' '}
+      <Dialog>
+        <DialogTrigger asChild>
+          <span className="cursor-pointer underline decoration-1 underline-offset-4">
+            here
+          </span>
+        </DialogTrigger>
+        <DialogContent className="max-h-screen max-w-screen-xl overflow-y-scroll">
+          <DialogHeader>
+            <DialogTitle>Create company</DialogTitle>
+            <DialogDescription>
+              Please follow our guide and try to be as descriptive and helpful
+              as you&apos;d like.
+            </DialogDescription>
+          </DialogHeader>
+          <CompanyForm />
+        </DialogContent>
+      </Dialog>{' '}
       or{' '}
       <Link
         href={'/companies'}

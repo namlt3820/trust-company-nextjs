@@ -107,7 +107,7 @@ export const CommentForm: React.FC<CommentFormProps> = () => {
         />
 
         <div className="flex justify-center">
-          <Button type="submit">Create content</Button>
+          <Button type="submit">Create comment</Button>
         </div>
       </form>
     </Form>

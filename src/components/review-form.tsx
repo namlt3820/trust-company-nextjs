@@ -184,7 +184,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = () => {
                   </Label>
                   <Input
                     id="branch"
-                    placeholder="Optional. A large company can have many branches. Specify the geographical location or the name of the branch where you work. Max 200 characters. "
+                    placeholder="Optional. Max 100 characters. A large company can have many branches. Specify the geographical location or the name of the branch where you work. "
                     className="col-span-6"
                     {...field}
                   />
@@ -203,15 +203,15 @@ export const ReviewForm: React.FC<ReviewFormProps> = () => {
               <FormControl>
                 <div className="grid grid-cols-7 items-center gap-4">
                   <Label htmlFor="duration" className="text-right">
-                    Duration
+                    Duration (months)
                   </Label>
                   <Input
                     id="duration"
                     placeholder="Optional. Specify how many months you have worked at the company. Must be at least one month."
                     className="col-span-6"
                     type="number"
-                    onChange={field.onChange}
                     min={1}
+                    {...field}
                   />
                   <FormMessage className="col-span-6 col-start-2" />
                 </div>
@@ -232,7 +232,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = () => {
                   </Label>
                   <Input
                     id="title"
-                    placeholder="Optional. List all the titles you have held while working at the company. Max 100 characters. "
+                    placeholder="Optional. Max 100 characters. List all the titles you have held while working at the company."
                     className="col-span-6"
                     {...field}
                   />
@@ -255,7 +255,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = () => {
                   </Label>
                   <Textarea
                     id="facilities"
-                    placeholder="Optional. Provide a brief description of the company's infrastructure or office working conditions, focusing on factors that support or hinder your work. Max 500 characters. "
+                    placeholder="Optional. Max 500 characters. Provide a brief description of the company's infrastructure or office working conditions, focusing on factors that support or hinder your work. "
                     className="col-span-6"
                     {...field}
                   />
@@ -279,7 +279,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = () => {
                   </Label>
                   <Textarea
                     id="team"
-                    placeholder="Optional. Provide a brief description of your work team. Include the number, quality, and teamwork capabilities. Focus on general experiences—positive or negative—working with them, without going into specific individuals. Max 500 characters. "
+                    placeholder="Optional. Max 500 characters. Provide a brief description of your work team. Include the number, quality, and teamwork capabilities. Focus on general experiences—positive or negative—working with them, without going into specific individuals.  "
                     className="col-span-6"
                     {...field}
                   />
@@ -302,7 +302,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = () => {
                   </Label>
                   <Textarea
                     id="process"
-                    placeholder="Optional. Provide a brief description of the company's workflow and how it has either supported or hindered your job functions. Max 500 characters. "
+                    placeholder="Optional. Max 500 characters. Provide a brief description of the company's workflow and how it has either supported or hindered your job functions.  "
                     className="col-span-6"
                     {...field}
                   />
@@ -325,7 +325,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = () => {
                   </Label>
                   <Textarea
                     id="benefits"
-                    placeholder="Optional. Provide a brief description of the benefits you receive while working at the company. Have they met your expectations? Are there any benefits you feel are lacking? Max 500 characters. "
+                    placeholder="Optional. Max 500 characters. Provide a brief description of the benefits you receive while working at the company. Have they met your expectations? Are there any benefits you feel are lacking? "
                     className="col-span-6"
                     {...field}
                   />

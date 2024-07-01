@@ -1,9 +1,10 @@
 import { ReactionCountByType } from '@/api/getReactionCountByType'
+import { ReviewActions } from '@/app/reviews/review-actions'
+import { ReviewReactions } from '@/app/reviews/review-reactions'
 import { Badge } from '@/components/ui/badge'
 import { formatDate } from '@/lib/formatDate'
 import { Review } from '@/lib/payloadTypes'
 import React from 'react'
-import { ReviewReactions } from './review-reactions'
 
 type RatingColors = {
   [key in Review['rate']]: string
@@ -22,7 +23,7 @@ export type ReviewHeaderProps = {
   rate: Review['rate']
   updatedAt: string
   reactions: ReactionCountByType | undefined
-  reviewId: string
+  review: Review
 }
 
 export const ReviewHeader: React.FC<ReviewHeaderProps> = ({
@@ -30,7 +31,7 @@ export const ReviewHeader: React.FC<ReviewHeaderProps> = ({
   rate,
   updatedAt,
   reactions,
-  reviewId,
+  review,
 }) => {
   return (
     <div className="flex items-center justify-between">
@@ -39,7 +40,8 @@ export const ReviewHeader: React.FC<ReviewHeaderProps> = ({
         <Badge variant={'outline'} className={`${ratingColors[rate]}`}>
           {rate}
         </Badge>
-        <ReviewReactions reactions={reactions} reviewId={reviewId} />
+        <ReviewReactions reactions={reactions} reviewId={review.id} />
+        <ReviewActions review={review} />
       </div>
       <span className="font-medium text-gray-500">
         {formatDate(new Date(updatedAt))}

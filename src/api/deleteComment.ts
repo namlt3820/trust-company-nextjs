@@ -28,8 +28,8 @@ export const deleteComment: DeleteComment = async (
       return doc
     }
 
-    throw new Error('An error occurred while creating comment.')
+    throw new Error('An error occurred while delete comment.')
   } catch (e) {
-    throw new Error('An error occurred while creating comment.')
+    throw new Error('An error occurred while delete comment.')
   }
 }

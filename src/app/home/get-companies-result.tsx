@@ -3,9 +3,7 @@
 import { getCompanies } from '@/api/getCompanies'
 import { CommandItem, CommandList } from '@/components/ui/command'
 import type { Company, Media } from '@/lib/payloadTypes'
-import { cn } from '@/lib/utils'
 import { useQuery } from '@tanstack/react-query'
-import { Check } from 'lucide-react'
 import Image from 'next/image'
 import React from 'react'
 import { useDebounce } from 'use-debounce'
@@ -60,12 +58,6 @@ export const GetCompaniesResult: React.FC<GetCompaniesResultProps> = ({
             value={name}
           >
             <Image src={url} width={100} height={100} alt="Company logo" />
-            <Check
-              className={cn(
-                'mr-2 h-4 w-4',
-                selectedResult?.id === id ? 'opacity-100' : 'opacity-0'
-              )}
-            />
             {name}
           </CommandItem>
         )

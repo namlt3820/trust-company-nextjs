@@ -60,7 +60,7 @@ const Reviews: React.FC = () => {
                     reactions={reactionsData?.find(
                       ({ type, id }) => type === 'review' && id === reviewId
                     )}
-                    reviewId={reviewId}
+                    review={review}
                   />
                 </CardHeader>
                 <CardContent>

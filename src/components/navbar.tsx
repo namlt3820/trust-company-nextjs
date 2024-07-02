@@ -56,7 +56,11 @@ export const NavBar: React.FC = () => {
             >
               My Reviews
             </Link>
-            <Link href="/companies" className={LinkClassname} prefetch={false}>
+            <Link
+              href={`/comments?user=${user.id}&page=1&limit=10`}
+              className={LinkClassname}
+              prefetch={false}
+            >
               My Comments
             </Link>
           </>

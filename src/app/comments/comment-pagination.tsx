@@ -17,8 +17,9 @@ export const CommentPagination: React.FC<CommentPaginationProps> = ({
   response,
 }) => {
   const searchParams = useSearchParams()
-  const review = searchParams.get('review') || undefined
-  const user = searchParams.get('user') || undefined
+  const review = searchParams.get('review')
+  const user = searchParams.get('user')
+  const company = searchParams.get('company')
 
   if (!response) return null
 
@@ -29,6 +30,7 @@ export const CommentPagination: React.FC<CommentPaginationProps> = ({
   let path = `/comments?`
   if (review) path += `review=${review}&`
   if (user) path += `user=${user}&`
+  if (company) path += `company=${company}&`
   path += `limit=${limit}&`
 
   if (prevPage) {

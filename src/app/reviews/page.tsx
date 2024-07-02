@@ -68,7 +68,11 @@ const Reviews: React.FC = () => {
                     <RelevantInformation review={review} />
                     <BasicReview review={review} />
                     <ReviewRichtext review={review} />
-                    <ReviewCommentCount {...commentCountByReview} />
+                    <ReviewCommentCount
+                      commentCount={commentCountByReview.commentCount}
+                      review={commentCountByReview.review}
+                      company={company}
+                    />
                   </div>
                 </CardContent>
               </Card>

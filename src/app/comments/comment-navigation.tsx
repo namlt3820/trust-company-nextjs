@@ -1,5 +1,5 @@
 import { CommentForm } from '@/components/comment-form'
-import { Button } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -9,12 +9,14 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { PencilLine } from 'lucide-react'
+import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import React from 'react'
 
 export const CommentNavigation: React.FC = () => {
   const searchParams = useSearchParams()
   const review = searchParams.get('review')
+  const company = searchParams.get('company')
 
   return (
     <div className="flex justify-between md:mb-10">
@@ -40,6 +42,12 @@ export const CommentNavigation: React.FC = () => {
           <CommentForm />
         </DialogContent>
       </Dialog>
+      <Link
+        className={buttonVariants({ variant: 'outline' })}
+        href={`/reviews?company=${company}&page=1&limit=10`}
+      >
+        Back to reviews
+      </Link>
     </div>
   )
 }

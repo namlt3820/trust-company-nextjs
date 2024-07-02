@@ -1,6 +1,6 @@
 'use client'
 
-import { GetCompaniesCommand } from '@/app/home/get-companies-command'
+import { GetCompaniesCommand } from '@/app/[locale]/home/get-companies-command'
 import { CompanyForm } from '@/components/company-form'
 import { SectionHeader } from '@/components/section-header'
 import { SectionWrapper } from '@/components/section-wrapper'
@@ -13,29 +13,28 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import type { Company } from '@/lib/payloadTypes'
+import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import * as React from 'react'
 
 export const GetCompaniesSubtitle: React.FC = () => {
+  const t = useTranslations('Home')
+
   return (
     <>
-      Start with the company you want to review. If you don&apos;t find its
-      name,
+      {t('start_with_company')} {t('if_dont_find_company')},
       <br />
-      you can create one{' '}
+      {t('you_can_create_one')}{' '}
       <Dialog>
         <DialogTrigger asChild>
           <span className="cursor-pointer underline decoration-1 underline-offset-4">
-            here
+            {t('here')}
           </span>
         </DialogTrigger>
         <DialogContent className="max-h-screen max-w-screen-xl overflow-y-scroll">
           <DialogHeader>
-            <DialogTitle>Create company</DialogTitle>
-            <DialogDescription>
-              Please follow our guide and try to be as descriptive and helpful
-              as you&apos;d like.
-            </DialogDescription>
+            <DialogTitle>{t('create_company')}</DialogTitle>
+            <DialogDescription>{t('follow_guide')}</DialogDescription>
           </DialogHeader>
           <CompanyForm />
         </DialogContent>
@@ -46,6 +45,8 @@ export const GetCompaniesSubtitle: React.FC = () => {
 }
 
 export function GetCompaniesCombobox() {
+  const t = useTranslations('Home')
+
   const [selected, setSelected] = React.useState<Company | undefined>()
   const router = useRouter()
 
@@ -64,7 +65,7 @@ export function GetCompaniesCombobox() {
     <div className="mt-14">
       <SectionWrapper>
         <SectionHeader
-          title="Find Your Company"
+          title={`${t('find_your_company')}`}
           subtitle={<GetCompaniesSubtitle />}
         />
         <div className="mx-auto w-full max-w-md">

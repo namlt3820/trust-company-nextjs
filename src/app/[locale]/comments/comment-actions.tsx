@@ -1,5 +1,5 @@
-import { CommentDelete } from '@/app/comments/comment-delete'
-import { CommentEdit } from '@/app/comments/comment-edit'
+import { CommentDelete } from '@/app/[locale]/comments/comment-delete'
+import { CommentEdit } from '@/app/[locale]/comments/comment-edit'
 import { ReportForm } from '@/components/report-form'
 import { Button } from '@/components/ui/button'
 import {
@@ -19,6 +19,7 @@ import {
 import { Comment } from '@/lib/payloadTypes'
 import { useAuth } from '@/providers/Auth'
 import { Flag, PencilLine, X } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 
 export type CommentActionsProps = {
@@ -26,6 +27,7 @@ export type CommentActionsProps = {
 }
 
 export const CommentActions: React.FC<CommentActionsProps> = ({ comment }) => {
+  const t = useTranslations()
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
   const [isReportDialogOpen, setIsReportDialogOpen] = useState(false)
@@ -49,11 +51,8 @@ export const CommentActions: React.FC<CommentActionsProps> = ({ comment }) => {
           {isEditDialogOpen ? (
             <>
               <DialogHeader>
-                <DialogTitle>Update comment</DialogTitle>
-                <DialogDescription>
-                  Please follow our guide and try to be as descriptive and
-                  helpful as you&apos;d like.
-                </DialogDescription>
+                <DialogTitle>{t('Comment.update_comment')}</DialogTitle>
+                <DialogDescription>{t('Home.follow_guide')}</DialogDescription>
               </DialogHeader>
               <CommentEdit
                 id={commentId}
@@ -65,10 +64,8 @@ export const CommentActions: React.FC<CommentActionsProps> = ({ comment }) => {
           {isDeleteDialogOpen ? (
             <>
               <DialogHeader>
-                <DialogTitle>Delete comment</DialogTitle>
-                <DialogDescription>
-                  Are you sure you want to delete your comment?
-                </DialogDescription>
+                <DialogTitle>{t('Comment.delete_comment')}</DialogTitle>
+                <DialogDescription>{t('Comment.delete_ask')}</DialogDescription>
               </DialogHeader>
               <CommentDelete
                 id={commentId}
@@ -79,11 +76,8 @@ export const CommentActions: React.FC<CommentActionsProps> = ({ comment }) => {
           {isReportDialogOpen ? (
             <>
               <DialogHeader>
-                <DialogTitle>Report comment</DialogTitle>
-                <DialogDescription>
-                  Please follow our guide and try to be as descriptive and
-                  helpful as you&apos;d like.
-                </DialogDescription>
+                <DialogTitle>{t('Comment.report_comment')}</DialogTitle>
+                <DialogDescription>{t('Home.follow_guide')}</DialogDescription>
               </DialogHeader>
               <ReportForm
                 targetType="comments"
@@ -105,12 +99,12 @@ export const CommentActions: React.FC<CommentActionsProps> = ({ comment }) => {
             <>
               <DropdownMenuItem onClick={() => setIsEditDialogOpen(true)}>
                 <PencilLine className="mr-2 h-4 w-4" />
-                <span>Update</span>
+                <span>{t('Home.update')}</span>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={() => setIsDeleteDialogOpen(true)}>
                 <X className="mr-2 h-4 w-4" />
-                <span>Delete</span>
+                <span>{t('Home.delete')}</span>
               </DropdownMenuItem>
             </>
           ) : null}
@@ -118,7 +112,7 @@ export const CommentActions: React.FC<CommentActionsProps> = ({ comment }) => {
             <>
               <DropdownMenuItem onClick={() => setIsReportDialogOpen(true)}>
                 <Flag className="mr-2 h-4 w-4" />
-                <span>Report</span>
+                <span>{t('Home.report')}</span>
               </DropdownMenuItem>
             </>
           ) : null}

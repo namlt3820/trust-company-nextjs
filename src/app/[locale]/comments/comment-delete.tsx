@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button'
 import { useToast } from '@/components/ui/use-toast'
 import { useComments } from '@/hooks/useComments'
 import { useMutation } from '@tanstack/react-query'
+import { useTranslations } from 'next-intl'
 import React from 'react'
 
 export type CommentDeleteProps = {
@@ -14,6 +15,7 @@ export const CommentDelete: React.FC<CommentDeleteProps> = ({
   id,
   setIsDeleteDialogOpen,
 }) => {
+  const t = useTranslations()
   const { toast } = useToast()
   const { refetch: refetchComments } = useComments()
 
@@ -21,16 +23,15 @@ export const CommentDelete: React.FC<CommentDeleteProps> = ({
     mutationFn: (params: DeleteCommentParams) => deleteComment(params),
     onSuccess: async () => {
       toast({
-        title: 'Deleted comment successfully',
+        title: t('Comment.delete_successfully'),
       })
       await setIsDeleteDialogOpen(false)
       refetchComments()
     },
     onError: () => {
       toast({
-        title: 'Deleting comment failed',
-        description:
-          'There was an error with the data provided. Please try again.',
+        title: t('Comment.delete_fail'),
+        description: t('Home.action_fail_suggest'),
       })
     },
   })

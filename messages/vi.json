@@ -1,0 +1,34 @@
+{
+  "Home": {
+    "find_your_company": "Công Ty Của Bạn",
+    "start_with_company": "Bắt đầu với công ty bạn muốn đánh giá.",
+    "if_dont_find_company": "Nếu bạn không tìm thấy",
+    "you_can_create_one": "bạn có thể tạo",
+    "here": "ở đây",
+    "create_company": "Tạo công ty",
+    "follow_guide": "Vui lòng làm theo hướng dẫn. Hãy chi tiết và hỗ trợ nhiều nhất có thể.",
+    "uploading_image": "Đang tải lên",
+    "upload_success": "Tải lên thành công",
+    "upload_error": "Có lỗi khi tải ảnh. Bạn có thể thử với ảnh khác hoặc gửi phản hồi cho chúng tôi.",
+    "create_company_success": "Tạo công ty thành công",
+    "create_company_verify": "Dữ liệu sẽ được kiểm tra bởi quản trị viên và cập nhật sớm nhất có thể. Cảm ơn vì sự đóng góp của bạn.",
+    "create_company_fail": "Tạo công ty thất bại.",
+    "action_fail_suggest": "Có vấn đề với dữ liệu được nhập. Vui lòng thử lại hoặc gửi phản hồi cho chúng tôi.",
+    "upload_company_logo": "Bạn cần tải lên logo công ty trước.",
+    "update": "Tải lên",
+    "delete": "Xóa",
+    "report": "Báo cáo vi phạm"
+  },
+  "Comment": {
+    "update_comment": "Cập nhật bình luận",
+    "delete_comment": "Xóa bình luận",
+    "delete_ask": "Bạn có chắc chắn muốn xóa bình luận của mình?",
+    "report_comment": "Báo cáo vi phạm",
+    "delete_successfully": "Xóa bình luận thành công.",
+    "delete_fail": "Xóa bình luận thất bại."
+  },
+  "LocaleSwitcher": {
+    "label": "Thay đổi ngôn ngữ",
+    "locale": "{locale, select, vi {Tiếng Việt} en {Tiếng Anh} other {Khác}}"
+  }
+}

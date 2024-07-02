@@ -20,6 +20,7 @@ import {
 import { useToast } from '@/components/ui/use-toast'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
+import { useTranslations } from 'next-intl'
 import React, { ChangeEvent, MouseEvent, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -37,17 +38,18 @@ const formSchema = z.object({
   website: z.string().max(100).optional(),
 })
 
-const UploadStatusMessage = {
-  idle: '',
-  pending: 'Uploading',
-  success: 'Uploaded successfully',
-  error:
-    'There was an error with the image provided. Please try again or with different image',
-}
-
 export type CompanyProps = {}
 
 export const CompanyForm: React.FC<CompanyProps> = () => {
+  const t = useTranslations('Home')
+
+  const UploadStatusMessage = {
+    idle: '',
+    pending: t('uploading_image'),
+    success: t('upload_success'),
+    error: t('upload_error'),
+  }
+
   /**
    * Hooks
    */
@@ -73,16 +75,14 @@ export const CompanyForm: React.FC<CompanyProps> = () => {
             location.reload()
           }
         },
-        title: 'Created company successfully',
-        description:
-          'The company form will be verified by an administrator and updated as soon as possible. Thank you for your contribution',
+        title: t('create_company_success'),
+        description: t('create_company_verify'),
       })
     },
     onError: () => {
       toast({
-        title: 'Created company failed',
-        description:
-          'There was an error with the data provided. Please try again.',
+        title: t('create_company_fail'),
+        description: t('action_fail_suggest'),
       })
     },
   })
@@ -97,7 +97,7 @@ export const CompanyForm: React.FC<CompanyProps> = () => {
   const handleCreateCompany = async (data: z.infer<typeof formSchema>) => {
     if (!uploadImageMutation.data?.id) {
       toast({
-        title: 'Please upload an image first.',
+        title: t('upload_company_logo'),
       })
       return
     }
@@ -119,7 +119,7 @@ export const CompanyForm: React.FC<CompanyProps> = () => {
 
     if (!file) {
       toast({
-        title: 'Please select a file first.',
+        title: t('upload_company_logo'),
       })
       return
     }

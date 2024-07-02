@@ -1,6 +1,6 @@
 'use client'
 
-import { GetCompaniesResult } from '@/app/home/get-companies-result'
+import { GetCompaniesResult } from '@/app/[locale]/home/get-companies-result'
 import { Command, CommandInput } from '@/components/ui/command'
 import type { Company } from '@/lib/payloadTypes'
 import * as React from 'react'

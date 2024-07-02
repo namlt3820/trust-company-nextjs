@@ -1,6 +1,6 @@
 import { ReactionCountByType } from '@/api/getReactionCountByType'
-import { ReviewActions } from '@/app/reviews/review-actions'
-import { ReviewReactions } from '@/app/reviews/review-reactions'
+import { ReviewActions } from '@/app/[locale]/reviews/review-actions'
+import { ReviewReactions } from '@/app/[locale]/reviews/review-reactions'
 import { Badge } from '@/components/ui/badge'
 import { formatDate } from '@/lib/formatDate'
 import { Review } from '@/lib/payloadTypes'

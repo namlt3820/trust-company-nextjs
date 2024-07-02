@@ -1,6 +1,7 @@
 'use client'
 
-import { LoginForm } from '@/app/home/login-form'
+import LocaleSwitcher from '@/app/[locale]/home/locale-switcher'
+import { LoginForm } from '@/app/[locale]/home/login-form'
 import { Icons } from '@/components/icons'
 import {
   Popover,
@@ -13,7 +14,8 @@ import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import React, { useRef } from 'react'
 
-const LinkClassname = 'text-sm font-medium underline-offset-4 hover:underline'
+const LinkClassname =
+  'text-sm font-medium underline-offset-4 hover:underline focus:outline-none'
 
 export const NavBar: React.FC = () => {
   const { user, logout } = useAuth()
@@ -47,7 +49,7 @@ export const NavBar: React.FC = () => {
           <Icons.logo className="h-8 w-8 pr-2" />
           <span className="text-sm font-medium">TrustCompany</span>
         </Link>
-        <nav className="ml-auto flex gap-4 sm:gap-6">
+        <nav className="ml-auto flex items-center gap-4 sm:gap-6">
           {user ? (
             <>
               <Link
@@ -80,6 +82,7 @@ export const NavBar: React.FC = () => {
               </PopoverContent>
             </Popover>
           )}
+          <LocaleSwitcher />
           {user ? (
             <button className={LinkClassname} onClick={onLogoutClick}>
               Logout

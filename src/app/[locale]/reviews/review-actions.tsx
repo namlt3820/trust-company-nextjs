@@ -1,5 +1,5 @@
-import { ReviewDelete } from '@/app/reviews/review-delete'
-import { ReviewEdit } from '@/app/reviews/review-edit'
+import { ReviewDelete } from '@/app/[locale]/reviews/review-delete'
+import { ReviewEdit } from '@/app/[locale]/reviews/review-edit'
 import { ReportForm } from '@/components/report-form'
 import { Button } from '@/components/ui/button'
 import {

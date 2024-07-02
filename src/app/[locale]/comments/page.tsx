@@ -1,9 +1,9 @@
 'use client'
 
-import { CommentActions } from '@/app/comments/comment-actions'
-import { CommentNavigation } from '@/app/comments/comment-navigation'
-import { CommentPagination } from '@/app/comments/comment-pagination'
-import { CommentReactions } from '@/app/comments/comment-reactions'
+import { CommentActions } from '@/app/[locale]/comments/comment-actions'
+import { CommentNavigation } from '@/app/[locale]/comments/comment-navigation'
+import { CommentPagination } from '@/app/[locale]/comments/comment-pagination'
+import { CommentReactions } from '@/app/[locale]/comments/comment-reactions'
 import { ResourceStatus } from '@/components/resource-status'
 import { SectionHeader } from '@/components/section-header'
 import { SectionWrapper } from '@/components/section-wrapper'

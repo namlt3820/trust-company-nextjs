@@ -61,17 +61,19 @@ export function GetCompaniesCombobox() {
   )
 
   return (
-    <SectionWrapper>
-      <SectionHeader
-        title="Find Your Company"
-        subtitle={<GetCompaniesSubtitle />}
-      />
-      <div className="mx-auto w-full max-w-md">
-        <GetCompaniesCommand
-          selectedResult={selected}
-          onSelectResult={handleSetActive}
+    <div className="mt-14">
+      <SectionWrapper>
+        <SectionHeader
+          title="Find Your Company"
+          subtitle={<GetCompaniesSubtitle />}
         />
-      </div>
-    </SectionWrapper>
+        <div className="mx-auto w-full max-w-md">
+          <GetCompaniesCommand
+            selectedResult={selected}
+            onSelectResult={handleSetActive}
+          />
+        </div>
+      </SectionWrapper>
+    </div>
   )
 }

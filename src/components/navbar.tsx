@@ -37,54 +37,56 @@ export const NavBar: React.FC = () => {
   }
 
   return (
-    <header className="container flex h-14 items-center px-16 md:px-20">
-      <Link
-        href="/"
-        className="flex items-center justify-center"
-        prefetch={false}
-      >
-        <Icons.logo className="h-8 w-8 pr-2" />
-        <span className="text-sm font-medium">TrustCompany</span>
-      </Link>
-      <nav className="ml-auto flex gap-4 sm:gap-6">
-        {user ? (
-          <>
-            <Link
-              href={`/reviews?user=${user.id}&page=1&limit=10`}
-              className={LinkClassname}
-              prefetch={false}
-            >
-              My Reviews
-            </Link>
-            <Link
-              href={`/comments?user=${user.id}&page=1&limit=10`}
-              className={LinkClassname}
-              prefetch={false}
-            >
-              My Comments
-            </Link>
-          </>
-        ) : null}
-        <Link href="/guide" className={LinkClassname} prefetch={false}>
-          Guide
+    <header className="md:translate-y-0/2 fixed inset-x-0 top-0 z-50 translate-y-0 bg-white shadow-lg dark:bg-gray-950">
+      <div className="container flex h-14 items-center px-16 md:px-20">
+        <Link
+          href="/"
+          className="flex items-center justify-center"
+          prefetch={false}
+        >
+          <Icons.logo className="h-8 w-8 pr-2" />
+          <span className="text-sm font-medium">TrustCompany</span>
         </Link>
-        <a href="#feedback_section" className={LinkClassname}>
-          Feedback
-        </a>
-        {user ? null : (
-          <Popover>
-            <PopoverTrigger className={LinkClassname}>Login</PopoverTrigger>
-            <PopoverContent align="end" className="w-[34rem]">
-              <LoginForm />
-            </PopoverContent>
-          </Popover>
-        )}
-        {user ? (
-          <button className={LinkClassname} onClick={onLogoutClick}>
-            Logout
-          </button>
-        ) : null}
-      </nav>
+        <nav className="ml-auto flex gap-4 sm:gap-6">
+          {user ? (
+            <>
+              <Link
+                href={`/reviews?user=${user.id}&page=1&limit=10`}
+                className={LinkClassname}
+                prefetch={false}
+              >
+                My Reviews
+              </Link>
+              <Link
+                href={`/comments?user=${user.id}&page=1&limit=10`}
+                className={LinkClassname}
+                prefetch={false}
+              >
+                My Comments
+              </Link>
+            </>
+          ) : null}
+          <Link href="/guide" className={LinkClassname} prefetch={false}>
+            Guide
+          </Link>
+          <a href="#feedback_section" className={LinkClassname}>
+            Feedback
+          </a>
+          {user ? null : (
+            <Popover>
+              <PopoverTrigger className={LinkClassname}>Login</PopoverTrigger>
+              <PopoverContent align="end" className="w-[34rem]">
+                <LoginForm />
+              </PopoverContent>
+            </Popover>
+          )}
+          {user ? (
+            <button className={LinkClassname} onClick={onLogoutClick}>
+              Logout
+            </button>
+          ) : null}
+        </nav>
+      </div>
     </header>
   )
 }

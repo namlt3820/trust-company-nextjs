@@ -19,9 +19,7 @@ export const ReviewCommentCount: React.FC<ReviewCommentCountProps> = ({
       >
         Comments: {commentCount}
         &nbsp;&nbsp;
-        {commentCount !== 0 ? (
-          <MoveRight className="inline-block" size={16} />
-        ) : null}
+        <MoveRight className="inline-block" size={16} />
       </Link>
     </div>
   )

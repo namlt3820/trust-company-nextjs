@@ -1,6 +1,6 @@
 import { ReviewDelete } from '@/app/reviews/review-delete'
 import { ReviewEdit } from '@/app/reviews/review-edit'
-import { CommentForm } from '@/components/comment-form'
+import { ReportForm } from '@/components/report-form'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -49,7 +49,7 @@ export const ReviewActions: React.FC<ReviewActionsProps> = ({ review }) => {
           {isEditDialogOpen ? (
             <>
               <DialogHeader>
-                <DialogTitle>Update comment</DialogTitle>
+                <DialogTitle>Update review</DialogTitle>
                 <DialogDescription>
                   Please follow our guide and try to be as descriptive and
                   helpful as you&apos;d like.
@@ -79,13 +79,17 @@ export const ReviewActions: React.FC<ReviewActionsProps> = ({ review }) => {
           {isReportDialogOpen ? (
             <>
               <DialogHeader>
-                <DialogTitle>Report comment</DialogTitle>
+                <DialogTitle>Report review</DialogTitle>
                 <DialogDescription>
                   Please follow our guide and try to be as descriptive and
                   helpful as you&apos;d like.
                 </DialogDescription>
               </DialogHeader>
-              <CommentForm />
+              <ReportForm
+                targetId={reviewId}
+                targetType="reviews"
+                setIsReportDialogOpen={setIsReportDialogOpen}
+              />
             </>
           ) : null}
         </DialogContent>

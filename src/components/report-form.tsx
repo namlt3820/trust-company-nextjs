@@ -1,4 +1,4 @@
-import { UpdateCommentParams, updateComment } from '@/api/updateComment'
+import { CreateReportParams, createReport } from '@/api/createReport'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -7,11 +7,17 @@ import {
   FormItem,
   FormMessage,
 } from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { useToast } from '@/components/ui/use-toast'
-import { useComments } from '@/hooks/useComments'
-import { Report } from '@/lib/payloadTypes'
+import { useAuth } from '@/providers/Auth'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import React from 'react'
@@ -19,42 +25,45 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 const formSchema = z.object({
-  content: z.string().max(5000).min(10),
+  type: z.enum([
+    'defamation',
+    'law_violation',
+    'misinformation',
+    'scam',
+    'spam',
+    'violence',
+  ]),
+  otherType: z.string().optional(),
 })
 
 export type ReportFormProps = {
   targetId: string
   targetType: 'comments' | 'reviews'
-  type: Report['type']
-  otherType: string
   setIsReportDialogOpen: (isOpen: boolean) => void
 }
 
 export const ReportForm: React.FC<ReportFormProps> = ({
   targetId,
   targetType,
-  type,
-  otherType,
   setIsReportDialogOpen,
 }) => {
   const { toast } = useToast()
-  const { refetch: refetchComments } = useComments()
+  const { user } = useAuth()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      content,
+      type: 'spam',
     },
   })
 
   const createReportMutation = useMutation({
-    mutationFn: (params: UpdateCommentParams) => updateComment(params),
+    mutationFn: (params: CreateReportParams) => createReport(params),
     onSuccess: async () => {
       toast({
-        title: 'Updated comment successfully',
+        title: 'Created report successfully',
       })
-      await setIsEditDialogOpen(false)
-      refetchComments()
+      await setIsReportDialogOpen(false)
     },
     onError: () => {
       toast({
@@ -66,9 +75,21 @@ export const ReportForm: React.FC<ReportFormProps> = ({
   })
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    const { type, otherType } = data
+
+    if (!user) {
+      toast({
+        title: 'You need to log in before creating a reaction.',
+      })
+      return
+    }
+
     await createReportMutation.mutate({
-      content: data.content,
-      id,
+      targetId,
+      targetType,
+      user: user.id,
+      type,
+      otherType,
     })
   }
 
@@ -80,17 +101,52 @@ export const ReportForm: React.FC<ReportFormProps> = ({
       >
         <FormField
           control={form.control}
-          name="content"
+          name="type"
+          render={({ field }) => (
+            <FormItem>
+              <div className="grid grid-cols-7 items-center gap-4">
+                <Label htmlFor="type" className="text-right">
+                  Type
+                </Label>
+                <div className="col-span-6">
+                  <Select onValueChange={field.onChange}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Optional. Select type of report" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="defamation">Defamation</SelectItem>
+                      <SelectItem value="law_violation">
+                        Law Violation
+                      </SelectItem>
+                      <SelectItem value="misinformation">
+                        Misinformation
+                      </SelectItem>
+                      <SelectItem value="scam">Scam</SelectItem>
+                      <SelectItem value="spam">Spam</SelectItem>
+                      <SelectItem value="violation">Violation</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="otherType"
           render={({ field }) => (
             <FormItem>
               <FormControl>
                 <div className="grid grid-cols-7 items-center gap-4">
-                  <Label htmlFor="content" className="text-right">
-                    Content
+                  <Label htmlFor="otherType" className="text-right">
+                    Other type
                   </Label>
-                  <Textarea
-                    id="branch"
-                    placeholder="Required. Your comment on the review. Max 5000 characters. "
+                  <Input
+                    id="otherType"
+                    placeholder="Optional. Max 100 characters. You can clarify other types of reports here."
                     className="col-span-6"
                     {...field}
                   />
@@ -100,9 +156,8 @@ export const ReportForm: React.FC<ReportFormProps> = ({
             </FormItem>
           )}
         />
-
         <div className="flex justify-center">
-          <Button type="submit">Update comment</Button>
+          <Button type="submit">Create report</Button>
         </div>
       </form>
     </Form>

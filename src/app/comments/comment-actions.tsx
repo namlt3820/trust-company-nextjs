@@ -1,6 +1,6 @@
 import { CommentDelete } from '@/app/comments/comment-delete'
 import { CommentEdit } from '@/app/comments/comment-edit'
-import { CommentForm } from '@/components/comment-form'
+import { ReportForm } from '@/components/report-form'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -31,8 +31,8 @@ export const CommentActions: React.FC<CommentActionsProps> = ({ comment }) => {
   const [isReportDialogOpen, setIsReportDialogOpen] = useState(false)
 
   const { user } = useAuth()
-  const { id: commentId, populatedUser, content, updatedAt } = comment
-  const { name, id } = populatedUser!
+  const { id: commentId, populatedUser, content } = comment
+  const { id } = populatedUser!
   const isFromLoggedInUser = user?.id === id
 
   return (
@@ -85,7 +85,11 @@ export const CommentActions: React.FC<CommentActionsProps> = ({ comment }) => {
                   helpful as you&apos;d like.
                 </DialogDescription>
               </DialogHeader>
-              <CommentForm />
+              <ReportForm
+                targetType="comments"
+                targetId={commentId}
+                setIsReportDialogOpen={setIsReportDialogOpen}
+              />
             </>
           ) : null}
         </DialogContent>

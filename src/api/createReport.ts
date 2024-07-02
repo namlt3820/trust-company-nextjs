@@ -1,26 +1,43 @@
-import { Comment } from '@/lib/payloadTypes'
+import { Report } from '@/lib/payloadTypes'
+import _ from 'lodash'
 
-export type CreateComment = (params: CreateCommentParams) => Promise<Comment>
+export type CreateReport = (params: CreateReportParams) => Promise<Report>
 
-export type CreateCommentParams = {
-  content: string
+export type CreateReportParams = {
   user: string
-  review: string
+  targetId: string
+  targetType: 'comments' | 'reviews'
+  type: Report['type']
+  otherType: string | undefined
 }
 
-export const createComment: CreateComment = async (
-  params: CreateCommentParams
+export const createReport: CreateReport = async (
+  params: CreateReportParams
 ) => {
   try {
+    const { user, targetId, targetType, type, otherType } = params
+    const data = _.omitBy(
+      {
+        user,
+        type,
+        otherType,
+        target: {
+          value: targetId,
+          relationTo: targetType,
+        },
+      },
+      (value) => !value
+    )
+
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_PAYLOAD_CMS_SERVER_URL}/api/comments`,
+      `${process.env.NEXT_PUBLIC_PAYLOAD_CMS_SERVER_URL}/api/reports`,
       {
         method: 'POST',
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(params),
+        body: JSON.stringify(data),
       }
     )
 
@@ -30,8 +47,8 @@ export const createComment: CreateComment = async (
       return doc
     }
 
-    throw new Error('An error occurred while creating comment.')
+    throw new Error('An error occurred while creating report.')
   } catch (e) {
-    throw new Error('An error occurred while creating comment.')
+    throw new Error('An error occurred while creating report.')
   }
 }

@@ -65,12 +65,12 @@ export const NavBar: React.FC = () => {
             </Link>
           </>
         ) : null}
-        <Link href="/about" className={LinkClassname} prefetch={false}>
+        <Link href="/guide" className={LinkClassname} prefetch={false}>
           Guide
         </Link>
-        <Link href="/feedback" className={LinkClassname} prefetch={false}>
+        <a href="#feedback_section" className={LinkClassname}>
           Feedback
-        </Link>
+        </a>
         {user ? null : (
           <Popover>
             <PopoverTrigger className={LinkClassname}>Login</PopoverTrigger>

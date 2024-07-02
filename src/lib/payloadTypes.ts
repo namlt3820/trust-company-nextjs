@@ -182,13 +182,16 @@ export interface Feedback {
  */
 export interface Report {
   id: string
-  type:
-    | 'defamation'
-    | 'law_violation'
-    | 'misinformation'
-    | 'scam'
-    | 'spam'
-    | 'violence'
+  type?:
+    | (
+        | 'defamation'
+        | 'law_violation'
+        | 'misinformation'
+        | 'scam'
+        | 'spam'
+        | 'violence'
+      )
+    | null
   otherType?: string | null
   target:
     | {

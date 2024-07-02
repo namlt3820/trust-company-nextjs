@@ -13,7 +13,6 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import type { Company } from '@/lib/payloadTypes'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import * as React from 'react'
 
@@ -41,13 +40,6 @@ export const GetCompaniesSubtitle: React.FC = () => {
           <CompanyForm />
         </DialogContent>
       </Dialog>{' '}
-      or{' '}
-      <Link
-        href={'/companies'}
-        className="underline decoration-1 underline-offset-4"
-      >
-        find with more options
-      </Link>
       .
     </>
   )

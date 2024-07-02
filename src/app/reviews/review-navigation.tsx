@@ -21,7 +21,13 @@ import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import React from 'react'
 
-export const ReviewNavigation: React.FC = () => {
+export type ReviewNavigationProps = {
+  reviewCount: number
+}
+
+export const ReviewNavigation: React.FC<ReviewNavigationProps> = ({
+  reviewCount,
+}) => {
   const searchParams = useSearchParams()
   const company = searchParams.get('company')
 
@@ -50,19 +56,21 @@ export const ReviewNavigation: React.FC = () => {
         </DialogContent>
       </Dialog>
       <div className="flex gap-4">
-        <Select>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Sort" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectItem value="newest">Newest</SelectItem>
-              <SelectItem value="oldest">Oldest</SelectItem>
-              <SelectItem value="most_positive">Most positive</SelectItem>
-              <SelectItem value="most_negative">Most negative</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+        {reviewCount ? (
+          <Select>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Sort" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectItem value="newest">Newest</SelectItem>
+                <SelectItem value="oldest">Oldest</SelectItem>
+                <SelectItem value="most_positive">Most positive</SelectItem>
+                <SelectItem value="most_negative">Most negative</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        ) : null}
         {company ? (
           <Link href={'/'} className={buttonVariants({ variant: 'outline' })}>
             Find another company

@@ -20,6 +20,7 @@ export const ReviewCommentCount: React.FC<ReviewCommentCountProps> = ({
       <Link
         href={`/comments?review=${review}&company=${company}&page=1&limit=10`}
         className="font-medium"
+        prefetch={false}
       >
         Comments: {commentCount}
         &nbsp;&nbsp;

@@ -47,14 +47,22 @@ export const NavBar: React.FC = () => {
         <span className="text-sm font-medium">TrustCompany</span>
       </Link>
       <nav className="ml-auto flex gap-4 sm:gap-6">
-        <Link href="/reviews" className={LinkClassname} prefetch={false}>
-          Reviews
-        </Link>
-        <Link href="/companies" className={LinkClassname} prefetch={false}>
-          Companies
-        </Link>
+        {user ? (
+          <>
+            <Link
+              href={`/reviews?user=${user.id}&page=1&limit=10`}
+              className={LinkClassname}
+              prefetch={false}
+            >
+              My Reviews
+            </Link>
+            <Link href="/companies" className={LinkClassname} prefetch={false}>
+              My Comments
+            </Link>
+          </>
+        ) : null}
         <Link href="/about" className={LinkClassname} prefetch={false}>
-          About
+          Guide
         </Link>
         <Link href="/feedback" className={LinkClassname} prefetch={false}>
           Feedback

@@ -31,7 +31,7 @@ const Reviews: React.FC = () => {
         title={company ? 'Company Reviews' : 'User Reviews'}
         subtitle={`You can find reviews of ${company ? 'company' : 'user'} here. Feel free to review, comment, and react as well.`}
       />
-      <ReviewNavigation />
+      <ReviewNavigation reviewCount={reviewsData?.totalDocs || 0} />
       <div className="mx-auto w-full">
         <ResourceStatus
           isLoading={isLoading}

@@ -9,10 +9,12 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover'
 import { useToast } from '@/components/ui/use-toast'
+import { cn } from '@/lib/utils'
 import { useAuth } from '@/providers/Auth'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import React, { useRef } from 'react'
+import { RemoveScroll } from 'react-remove-scroll'
 
 const LinkClassname =
   'text-sm font-medium underline-offset-4 hover:underline focus:outline-none'
@@ -39,7 +41,12 @@ export const NavBar: React.FC = () => {
   }
 
   return (
-    <header className="md:translate-y-0/2 fixed inset-x-0 top-0 z-50 translate-y-0 bg-white shadow-lg dark:bg-gray-950">
+    <header
+      className={cn(
+        RemoveScroll.classNames.zeroRight,
+        'md:translate-y-0/2 fixed inset-x-0 top-0 z-50 translate-y-0 bg-white shadow-lg dark:bg-gray-950'
+      )}
+    >
       <div className="container flex h-14 items-center px-16 md:px-20">
         <Link
           href="/"

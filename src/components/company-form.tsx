@@ -41,7 +41,7 @@ const formSchema = z.object({
 export type CompanyProps = {}
 
 export const CompanyForm: React.FC<CompanyProps> = () => {
-  const t = useTranslations('Home')
+  const t = useTranslations('Company')
 
   const UploadStatusMessage = {
     idle: '',
@@ -75,14 +75,14 @@ export const CompanyForm: React.FC<CompanyProps> = () => {
             location.reload()
           }
         },
-        title: t('create_company_success'),
-        description: t('create_company_verify'),
+        title: t('create_success'),
+        description: t('create_verify'),
       })
     },
     onError: () => {
       toast({
-        title: t('create_company_fail'),
-        description: t('action_fail_suggest'),
+        title: t('create_fail'),
+        description: t('fail_suggest'),
       })
     },
   })
@@ -141,11 +141,11 @@ export const CompanyForm: React.FC<CompanyProps> = () => {
               <FormControl>
                 <div className="grid grid-cols-7 items-center gap-4">
                   <Label htmlFor="name" className="text-right">
-                    Name (*)
+                    {t('name')} (*)
                   </Label>
                   <Input
                     id="name"
-                    placeholder="Required. Max 150 characters. The company name."
+                    placeholder={t('name_placeholder')}
                     className="col-span-6"
                     {...field}
                   />
@@ -164,11 +164,11 @@ export const CompanyForm: React.FC<CompanyProps> = () => {
               <FormControl>
                 <div className="grid grid-cols-7 items-center gap-4">
                   <Label htmlFor="name" className="text-right">
-                    Address (*)
+                    {t('address')} (*)
                   </Label>
                   <Input
                     id="address"
-                    placeholder="Required. Max 200 characters. The company address."
+                    placeholder={t('address_placeholder')}
                     className="col-span-6"
                     {...field}
                   />
@@ -181,17 +181,17 @@ export const CompanyForm: React.FC<CompanyProps> = () => {
 
         <div className="grid grid-cols-7 items-center gap-4">
           <Label htmlFor="name" className="text-right">
-            Logo (*)
+            {t('logo')} (*)
           </Label>
           <Input
             id="address"
-            placeholder="Required. The company logo. "
+            placeholder={t('logo_placeholder')}
             className="col-span-3"
             type="file"
             onChange={handleFileChange}
           />
           <div className="col-span-3 flex items-center justify-start gap-4">
-            <Button onClick={handleUploadImage}>Upload </Button>
+            <Button onClick={handleUploadImage}>{t('upload')} </Button>
             <span>{UploadStatusMessage[uploadImageMutation.status]}</span>
           </div>
         </div>
@@ -203,19 +203,21 @@ export const CompanyForm: React.FC<CompanyProps> = () => {
             <FormItem>
               <div className="grid grid-cols-7 items-center gap-4">
                 <Label htmlFor="companyType" className="text-right">
-                  Company type (*)
+                  {t('company_type')} (*)
                 </Label>
                 <div className="col-span-6">
                   <Select onValueChange={field.onChange}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Required. Select company type" />
+                        <SelectValue
+                          placeholder={t('company_type_placeholder')}
+                        />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
                       <SelectItem value="outsource">Outsource</SelectItem>
                       <SelectItem value="product">Product</SelectItem>
-                      <SelectItem value="both">Both</SelectItem>
+                      <SelectItem value="both">{t('both')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -232,24 +234,30 @@ export const CompanyForm: React.FC<CompanyProps> = () => {
             <FormItem>
               <div className="grid grid-cols-7 items-center gap-4">
                 <Label htmlFor="numberOfEmployees" className="text-right">
-                  Number of employees (*)
+                  {t('number_employees')} (*)
                 </Label>
                 <div className="col-span-6">
                   <Select onValueChange={field.onChange}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Required. Select number of employees" />
+                        <SelectValue
+                          placeholder={t('number_employees_placeholder')}
+                        />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="below_100">Below 100</SelectItem>
+                      <SelectItem value="below_100">
+                        {t('below_100')}
+                      </SelectItem>
                       <SelectItem value="between_100_and_500">
-                        Between 100 and 500
+                        {t('between_100_and_500')}
                       </SelectItem>
                       <SelectItem value="between_500_and_1000">
-                        Between 500 and 1000
+                        {t('between_500_and_1000')}
                       </SelectItem>
-                      <SelectItem value="above_1000">Above 1000</SelectItem>
+                      <SelectItem value="above_1000">
+                        {t('above_1000')}
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -271,7 +279,7 @@ export const CompanyForm: React.FC<CompanyProps> = () => {
                   </Label>
                   <Input
                     id="name"
-                    placeholder="Optional. Max 150 characters. The company website."
+                    placeholder={t('website_placeholder')}
                     className="col-span-6"
                     {...field}
                   />
@@ -283,7 +291,7 @@ export const CompanyForm: React.FC<CompanyProps> = () => {
         />
 
         <div className="flex justify-center">
-          <Button type="submit">Create company</Button>
+          <Button type="submit">{t('create')}</Button>
         </div>
       </form>
     </Form>

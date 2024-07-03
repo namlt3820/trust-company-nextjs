@@ -1,5 +1,5 @@
 import { ReviewForm } from '@/components/review-form'
-import { Button, buttonVariants } from '@/components/ui/button'
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -17,7 +17,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { PencilLine } from 'lucide-react'
-import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 import { useSearchParams } from 'next/navigation'
 import React from 'react'
 
@@ -28,6 +28,8 @@ export type ReviewNavigationProps = {
 export const ReviewNavigation: React.FC<ReviewNavigationProps> = ({
   reviewCount,
 }) => {
+  const t = useTranslations('Review')
+  const t_general = useTranslations('General')
   const searchParams = useSearchParams()
   const company = searchParams.get('company')
 
@@ -38,7 +40,7 @@ export const ReviewNavigation: React.FC<ReviewNavigationProps> = ({
           {company ? (
             <Button className="flex gap-1">
               <PencilLine className="h-4 w-4" />
-              Create review
+              {t('create')}
             </Button>
           ) : (
             <div></div>
@@ -46,11 +48,8 @@ export const ReviewNavigation: React.FC<ReviewNavigationProps> = ({
         </DialogTrigger>
         <DialogContent className="max-h-screen max-w-screen-xl overflow-y-scroll">
           <DialogHeader>
-            <DialogTitle>Create review</DialogTitle>
-            <DialogDescription>
-              Please follow our guide and try to be as descriptive and helpful
-              as you&apos;d like.
-            </DialogDescription>
+            <DialogTitle>{t('create')}</DialogTitle>
+            <DialogDescription>{t_general('follow_guide')}</DialogDescription>
           </DialogHeader>
           <ReviewForm />
         </DialogContent>
@@ -59,22 +58,21 @@ export const ReviewNavigation: React.FC<ReviewNavigationProps> = ({
         {reviewCount ? (
           <Select>
             <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Sort" />
+              <SelectValue placeholder={t('sort')} />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectItem value="newest">Newest</SelectItem>
-                <SelectItem value="oldest">Oldest</SelectItem>
-                <SelectItem value="most_positive">Most positive</SelectItem>
-                <SelectItem value="most_negative">Most negative</SelectItem>
+                <SelectItem value="newest">{t('newest')}</SelectItem>
+                <SelectItem value="oldest">{t('oldest')}</SelectItem>
+                <SelectItem value="most_positive">
+                  {t('most_positive')}
+                </SelectItem>
+                <SelectItem value="most_negative">
+                  {t('most_negative')}
+                </SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
-        ) : null}
-        {company ? (
-          <Link href={'/'} className={buttonVariants({ variant: 'outline' })}>
-            Find another company
-          </Link>
         ) : null}
       </div>
     </div>

@@ -13,6 +13,7 @@ import { useToast } from '@/components/ui/use-toast'
 import { useComments } from '@/hooks/useComments'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
+import { useTranslations } from 'next-intl'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -32,6 +33,7 @@ export const CommentEdit: React.FC<CommentEditProps> = ({
   content,
   setIsEditDialogOpen,
 }) => {
+  const t = useTranslations()
   const { toast } = useToast()
   const { refetch: refetchComments } = useComments()
 
@@ -46,16 +48,15 @@ export const CommentEdit: React.FC<CommentEditProps> = ({
     mutationFn: (params: UpdateCommentParams) => updateComment(params),
     onSuccess: async () => {
       toast({
-        title: 'Updated comment successfully',
+        title: t('Comment.update_success'),
       })
       await setIsEditDialogOpen(false)
       refetchComments()
     },
     onError: () => {
       toast({
-        title: 'Updating comment failed',
-        description:
-          'There was an error with the data provided. Please try again.',
+        title: t('Comment.update_fail'),
+        description: t('General.fail_suggest'),
       })
     },
   })
@@ -81,11 +82,11 @@ export const CommentEdit: React.FC<CommentEditProps> = ({
               <FormControl>
                 <div className="grid grid-cols-7 items-center gap-4">
                   <Label htmlFor="content" className="text-right">
-                    Content
+                    {t('Comment.content')}
                   </Label>
                   <Textarea
                     id="branch"
-                    placeholder="Required. Your comment on the review. Max 5000 characters. "
+                    placeholder={t('Comment.content_placeholder')}
                     className="col-span-6"
                     {...field}
                   />
@@ -97,7 +98,7 @@ export const CommentEdit: React.FC<CommentEditProps> = ({
         />
 
         <div className="flex justify-center">
-          <Button type="submit">Update comment</Button>
+          <Button type="submit">{t('Comment.update')}</Button>
         </div>
       </form>
     </Form>

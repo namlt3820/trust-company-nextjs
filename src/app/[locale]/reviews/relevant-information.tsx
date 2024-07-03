@@ -1,6 +1,6 @@
 import { Separator } from '@/components/ui/separator'
 import { Review } from '@/lib/payloadTypes'
-import _ from 'lodash'
+import { useTranslations } from 'next-intl'
 import React from 'react'
 
 export type RelevantInformationProps = {
@@ -10,6 +10,7 @@ export type RelevantInformationProps = {
 export const RelevantInformation: React.FC<RelevantInformationProps> = ({
   review,
 }) => {
+  const t = useTranslations('Review')
   const { relevantInformation, id } = review
   if (!relevantInformation) return null
   const items = []
@@ -17,9 +18,8 @@ export const RelevantInformation: React.FC<RelevantInformationProps> = ({
   for (const key in relevantInformation) {
     items.push(
       <div className="text-gray-500 dark:text-gray-400" key={`${id}_${key}`}>
-        <span className="font-medium">{_.capitalize(key)}: </span>{' '}
+        <span className="font-medium">{t(key)}: </span>{' '}
         {relevantInformation[key as keyof Review['relevantInformation']]}
-        {key === 'duration' ? ' months' : ''}
       </div>
     )
   }

@@ -14,6 +14,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { useCommentCountByReview } from '@/hooks/useCommentCountByReview'
 import { useReactions } from '@/hooks/useReactions'
 import { useReviews } from '@/hooks/useReviews'
+import { useTranslations } from 'next-intl'
 import { useSearchParams } from 'next/navigation'
 import React from 'react'
 
@@ -21,15 +22,15 @@ const Reviews: React.FC = () => {
   const { isError, isLoading, data: reviewsData } = useReviews()
   const { data: reactionsData } = useReactions({ reviews: reviewsData })
   const { data: commentsData } = useCommentCountByReview(reviewsData)
-
   const searchParams = useSearchParams()
   const company = searchParams.get('company')
+  const t = useTranslations('Review')
 
   return (
     <SectionWrapper backgroundColor="bg-white">
       <SectionHeader
-        title={company ? 'Company Reviews' : 'User Reviews'}
-        subtitle={`You can find reviews of ${company ? 'company' : 'user'} here. Feel free to review, comment, and react as well.`}
+        title={company ? t('company_reviews') : t('user_reviews')}
+        subtitle={company ? t('company_intro') : t('user_intro')}
       />
       <ReviewNavigation reviewCount={reviewsData?.totalDocs || 0} />
       <div className="mx-auto w-full">
@@ -37,7 +38,7 @@ const Reviews: React.FC = () => {
           isLoading={isLoading}
           isNotFound={!isError && !isLoading && !reviewsData?.docs.length}
           isError={isError}
-          notFoundMessage="No reviews found"
+          notFoundMessage={t('not_found')}
         />
         <div className="grid gap-4">
           {reviewsData?.docs.map((review) => {

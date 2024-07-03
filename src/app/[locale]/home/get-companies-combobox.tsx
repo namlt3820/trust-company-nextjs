@@ -18,13 +18,14 @@ import { useRouter } from 'next/navigation'
 import * as React from 'react'
 
 export const GetCompaniesSubtitle: React.FC = () => {
-  const t = useTranslations('Home')
+  const t = useTranslations('Company')
+  const t_general = useTranslations('General')
 
   return (
     <>
-      {t('start_with_company')} {t('if_dont_find_company')},
+      {t('start_with')} {t('if_not_find')},
       <br />
-      {t('you_can_create_one')}{' '}
+      {t('create_one')}{' '}
       <Dialog>
         <DialogTrigger asChild>
           <span className="cursor-pointer underline decoration-1 underline-offset-4">
@@ -33,8 +34,8 @@ export const GetCompaniesSubtitle: React.FC = () => {
         </DialogTrigger>
         <DialogContent className="max-h-screen max-w-screen-xl overflow-y-scroll">
           <DialogHeader>
-            <DialogTitle>{t('create_company')}</DialogTitle>
-            <DialogDescription>{t('follow_guide')}</DialogDescription>
+            <DialogTitle>{t('create')}</DialogTitle>
+            <DialogDescription>{t_general('follow_guide')}</DialogDescription>
           </DialogHeader>
           <CompanyForm />
         </DialogContent>
@@ -45,7 +46,7 @@ export const GetCompaniesSubtitle: React.FC = () => {
 }
 
 export function GetCompaniesCombobox() {
-  const t = useTranslations('Home')
+  const t = useTranslations('Company')
 
   const [selected, setSelected] = React.useState<Company | undefined>()
   const router = useRouter()
@@ -65,7 +66,7 @@ export function GetCompaniesCombobox() {
     <div className="mt-14">
       <SectionWrapper>
         <SectionHeader
-          title={`${t('find_your_company')}`}
+          title={`${t('find_your')}`}
           subtitle={<GetCompaniesSubtitle />}
         />
         <div className="mx-auto w-full max-w-md">

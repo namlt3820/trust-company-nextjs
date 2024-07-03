@@ -1,6 +1,6 @@
 'use client'
 
-import LocaleSwitcher from '@/app/[locale]/home/locale-switcher'
+import { LocaleSwitcher } from '@/app/[locale]/home/locale-switcher'
 import { LoginForm } from '@/app/[locale]/home/login-form'
 import { Icons } from '@/components/icons'
 import {
@@ -11,9 +11,11 @@ import {
 import { useToast } from '@/components/ui/use-toast'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/providers/Auth'
-import Link from 'next/link'
-import { useRouter, useSearchParams } from 'next/navigation'
-import React, { useRef } from 'react'
+import { useTranslations } from 'next-intl'
+// import Link from 'next/link'
+import { Link } from '@/navigation'
+import { useRouter } from 'next/navigation'
+import React from 'react'
 import { RemoveScroll } from 'react-remove-scroll'
 
 const LinkClassname =
@@ -23,19 +25,20 @@ export const NavBar: React.FC = () => {
   const { user, logout } = useAuth()
   const { toast } = useToast()
   const router = useRouter()
-  const searchParams = useSearchParams()
-  const redirect = useRef(searchParams.get('redirect'))
+  const t_logout = useTranslations('Logout')
+  const t_navbar = useTranslations('Navbar')
+  const t_login = useTranslations('Login')
 
   const onLogoutClick = async () => {
     try {
       await logout()
       toast({
-        title: 'Logged out successfully',
+        title: t_logout('success'),
       })
       router.push('/')
     } catch (_) {
       toast({
-        title: 'Logged out failed',
+        title: t_logout('fail'),
       })
     }
   }
@@ -64,26 +67,28 @@ export const NavBar: React.FC = () => {
                 className={LinkClassname}
                 prefetch={false}
               >
-                My Reviews
+                {t_navbar('my_reviews')}
               </Link>
               <Link
                 href={`/comments?user=${user.id}&page=1&limit=10`}
                 className={LinkClassname}
                 prefetch={false}
               >
-                My Comments
+                {t_navbar('my_comments')}
               </Link>
             </>
           ) : null}
           <Link href="/guide" className={LinkClassname} prefetch={false}>
-            Guide
+            {t_navbar('guide')}
           </Link>
           <a href="#feedback_section" className={LinkClassname}>
-            Feedback
+            {t_navbar('feedback')}
           </a>
           {user ? null : (
             <Popover>
-              <PopoverTrigger className={LinkClassname}>Login</PopoverTrigger>
+              <PopoverTrigger className={LinkClassname}>
+                {t_login('action')}
+              </PopoverTrigger>
               <PopoverContent align="end" className="w-[34rem]">
                 <LoginForm />
               </PopoverContent>
@@ -92,7 +97,7 @@ export const NavBar: React.FC = () => {
           <LocaleSwitcher />
           {user ? (
             <button className={LinkClassname} onClick={onLogoutClick}>
-              Logout
+              {t_logout('action')}
             </button>
           ) : null}
         </nav>

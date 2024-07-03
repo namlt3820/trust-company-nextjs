@@ -13,6 +13,7 @@ import { useToast } from '@/components/ui/use-toast'
 import { useAuth } from '@/providers/Auth'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
+import { useTranslations } from 'next-intl'
 import { useRouter, useSearchParams } from 'next/navigation'
 import React from 'react'
 import { useForm } from 'react-hook-form'
@@ -30,6 +31,8 @@ export const CommentForm: React.FC<CommentFormProps> = () => {
   const searchParams = useSearchParams()
   const router = useRouter()
   const review = searchParams.get('review')
+  const t = useTranslations('Comment')
+  const t_general = useTranslations('General')
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -42,16 +45,15 @@ export const CommentForm: React.FC<CommentFormProps> = () => {
     mutationFn: (params: CreateCommentParams) => createComment(params),
     onSuccess: async () => {
       toast({
-        title: 'Created comment successfully',
+        title: t('create_success'),
       })
 
       location.reload()
     },
     onError: () => {
       toast({
-        title: 'Created comment failed',
-        description:
-          'There was an error with the data provided. Please try again.',
+        title: t('create_fail'),
+        description: t_general('fail_suggest'),
       })
     },
   })
@@ -59,13 +61,13 @@ export const CommentForm: React.FC<CommentFormProps> = () => {
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     if (!user) {
       return toast({
-        title: 'Please log in to create a comment',
+        title: t_general('login_first'),
       })
     }
 
     if (!review) {
       toast({
-        title: 'Please select a review to create a comment',
+        title: t('review_first'),
       })
       router.push('/')
     }
@@ -91,11 +93,11 @@ export const CommentForm: React.FC<CommentFormProps> = () => {
               <FormControl>
                 <div className="grid grid-cols-7 items-center gap-4">
                   <Label htmlFor="content" className="text-right">
-                    Content
+                    {t('content')}
                   </Label>
                   <Textarea
                     id="branch"
-                    placeholder="Required. Your comment on the review. Max 5000 characters. "
+                    placeholder={t('content_placeholder')}
                     className="col-span-6"
                     {...field}
                   />
@@ -107,7 +109,7 @@ export const CommentForm: React.FC<CommentFormProps> = () => {
         />
 
         <div className="flex justify-center">
-          <Button type="submit">Create comment</Button>
+          <Button type="submit">{t('create')}</Button>
         </div>
       </form>
     </Form>

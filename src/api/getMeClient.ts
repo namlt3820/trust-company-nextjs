@@ -23,7 +23,6 @@ export const getMeClient: GetMe = async () => {
 
     throw new Error('An error occurred while fetching your account.')
   } catch (e) {
-    console.log(e)
     throw new Error('An error occurred while fetching your account.')
   }
 }

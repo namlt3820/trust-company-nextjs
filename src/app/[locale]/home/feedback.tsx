@@ -17,6 +17,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { useToast } from '@/components/ui/use-toast'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
+import { useTranslations } from 'next-intl'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -28,6 +29,7 @@ const formSchema = z.object({
 })
 
 export const Feedback: React.FC = () => {
+  const t = useTranslations()
   const { toast } = useToast()
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -43,14 +45,13 @@ export const Feedback: React.FC = () => {
     mutationFn: (params: CreateFeedbackParams) => createFeedback(params),
     onSuccess: async () => {
       toast({
-        title: 'Created feedback successfully',
+        title: t('Feedback.create_success'),
       })
     },
     onError: () => {
       toast({
-        title: 'Creating feedback failed',
-        description:
-          'There was an error with the data provided. Please try again.',
+        title: t('Feedback.create_fail'),
+        description: t('General.fail_suggest'),
       })
     },
   })
@@ -63,8 +64,8 @@ export const Feedback: React.FC = () => {
   return (
     <SectionWrapper>
       <SectionHeader
-        title="Share Your Feedback"
-        subtitle="Your feedback is a crucial factor in helping the website develop and serve users better. Please be as specific and detailed as possible. Rest assured that your opinions are always listened to and responded to promptly."
+        title={t('Feedback.share')}
+        subtitle={t('Feedback.share_reason')}
       />
       <div className="mx-auto w-full max-w-lg space-y-2" id="feedback_section">
         <Form {...form}>
@@ -79,8 +80,12 @@ export const Feedback: React.FC = () => {
                 <FormItem>
                   <FormControl>
                     <div className="flex flex-col gap-2">
-                      <Label htmlFor="name">Name</Label>
-                      <Input id="branch" placeholder="Optional." {...field} />
+                      <Label htmlFor="name">{t('Feedback.name')}</Label>
+                      <Input
+                        id="branch"
+                        placeholder={t('Feedback.name_placeholder')}
+                        {...field}
+                      />
                       <FormMessage />
                     </div>
                   </FormControl>
@@ -95,10 +100,10 @@ export const Feedback: React.FC = () => {
                 <FormItem>
                   <FormControl>
                     <div className="flex flex-col gap-2">
-                      <Label htmlFor="email">Email</Label>
+                      <Label htmlFor="email">{t('Feedback.email')}</Label>
                       <Input
                         id="branch"
-                        placeholder="Optional. Only needed if you require a response from us. "
+                        placeholder={t('Feedback.email_placeholder')}
                         {...field}
                       />
                       <FormMessage />
@@ -114,10 +119,12 @@ export const Feedback: React.FC = () => {
                 <FormItem>
                   <FormControl>
                     <div className="flex flex-col gap-2">
-                      <Label htmlFor="content">Feedback (*)</Label>
+                      <Label htmlFor="content">
+                        {t('Feedback.content')} (*)
+                      </Label>
                       <Textarea
                         id="branch"
-                        placeholder="Required. Max 5000 characters. Your feedback on any areas that need improvement on the website."
+                        placeholder={t('Feedback.content_placeholder')}
                         {...field}
                       />
                       <FormMessage />
@@ -128,7 +135,7 @@ export const Feedback: React.FC = () => {
             />
 
             <div className="flex justify-center">
-              <Button type="submit">Create feedback</Button>
+              <Button type="submit">{t('Feedback.create')}</Button>
             </div>
           </form>
         </Form>

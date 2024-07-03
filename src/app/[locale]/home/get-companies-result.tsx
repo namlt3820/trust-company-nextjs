@@ -4,6 +4,7 @@ import { getCompanies } from '@/api/getCompanies'
 import { CommandItem, CommandList } from '@/components/ui/command'
 import type { Company, Media } from '@/lib/payloadTypes'
 import { useQuery } from '@tanstack/react-query'
+import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import React from 'react'
 import { useDebounce } from 'use-debounce'
@@ -19,8 +20,8 @@ export const GetCompaniesResult: React.FC<GetCompaniesResultProps> = ({
   selectedResult,
   onSelectResult,
 }) => {
+  const t = useTranslations()
   const [debouncedSearchQuery] = useDebounce(query, 500)
-
   const enabled = !!debouncedSearchQuery
 
   const {
@@ -41,11 +42,13 @@ export const GetCompaniesResult: React.FC<GetCompaniesResultProps> = ({
 
   return (
     <CommandList>
-      {isLoading && <div className="p-4 text-sm">Searching...</div>}
+      {isLoading && <div className="p-4 text-sm">{t('General.searching')}</div>}
       {!isError && !isLoading && !data?.length && (
-        <div className="p-4 text-sm">No companies found</div>
+        <div className="p-4 text-sm">{t('Company.not_found')}</div>
       )}
-      {isError && <div className="p-4 text-sm">Something went wrong</div>}
+      {isError && (
+        <div className="p-4 text-sm">{t('General.something_wrong')}</div>
+      )}
 
       {data?.map((company) => {
         const { id, name, media } = company
@@ -57,7 +60,7 @@ export const GetCompaniesResult: React.FC<GetCompaniesResultProps> = ({
             onSelect={() => onSelectResult(company)}
             value={name}
           >
-            <Image src={url} width={100} height={100} alt="Company logo" />
+            <Image src={url} width={100} height={100} alt="company_logo" />
             {name}
           </CommandItem>
         )

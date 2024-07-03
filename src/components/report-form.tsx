@@ -20,6 +20,7 @@ import { useToast } from '@/components/ui/use-toast'
 import { useAuth } from '@/providers/Auth'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
+import { useTranslations } from 'next-intl'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -49,6 +50,8 @@ export const ReportForm: React.FC<ReportFormProps> = ({
 }) => {
   const { toast } = useToast()
   const { user } = useAuth()
+  const t = useTranslations('Report')
+  const t_general = useTranslations('General')
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -61,15 +64,14 @@ export const ReportForm: React.FC<ReportFormProps> = ({
     mutationFn: (params: CreateReportParams) => createReport(params),
     onSuccess: async () => {
       toast({
-        title: 'Created report successfully',
+        title: t('creat_success'),
       })
       await setIsReportDialogOpen(false)
     },
     onError: () => {
       toast({
-        title: 'Updating comment failed',
-        description:
-          'There was an error with the data provided. Please try again.',
+        title: t('create_fail'),
+        description: t_general('fail_suggest'),
       })
     },
   })
@@ -79,7 +81,7 @@ export const ReportForm: React.FC<ReportFormProps> = ({
 
     if (!user) {
       toast({
-        title: 'You need to log in before creating a reaction.',
+        title: t_general('login_first'),
       })
       return
     }
@@ -106,26 +108,30 @@ export const ReportForm: React.FC<ReportFormProps> = ({
             <FormItem>
               <div className="grid grid-cols-7 items-center gap-4">
                 <Label htmlFor="type" className="text-right">
-                  Type
+                  {t('type')}
                 </Label>
                 <div className="col-span-6">
                   <Select onValueChange={field.onChange}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Optional. Select type of report" />
+                        <SelectValue placeholder={t('type_placeholder')} />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="defamation">Defamation</SelectItem>
+                      <SelectItem value="defamation">
+                        {t('defamation')}
+                      </SelectItem>
                       <SelectItem value="law_violation">
-                        Law Violation
+                        {t('law_violation')}
                       </SelectItem>
                       <SelectItem value="misinformation">
-                        Misinformation
+                        {t('misinformation')}
                       </SelectItem>
-                      <SelectItem value="scam">Scam</SelectItem>
+                      <SelectItem value="scam">{t('scam')}</SelectItem>
                       <SelectItem value="spam">Spam</SelectItem>
-                      <SelectItem value="violation">Violation</SelectItem>
+                      <SelectItem value="violation">
+                        {t('violation')}
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -142,11 +148,11 @@ export const ReportForm: React.FC<ReportFormProps> = ({
               <FormControl>
                 <div className="grid grid-cols-7 items-center gap-4">
                   <Label htmlFor="otherType" className="text-right">
-                    Other type
+                    {t('other_type')}
                   </Label>
                   <Input
                     id="otherType"
-                    placeholder="Optional. Max 100 characters. You can clarify other types of reports here."
+                    placeholder={t('other_type_placeholder')}
                     className="col-span-6"
                     {...field}
                   />
@@ -157,7 +163,7 @@ export const ReportForm: React.FC<ReportFormProps> = ({
           )}
         />
         <div className="flex justify-center">
-          <Button type="submit">Create report</Button>
+          <Button type="submit">{t('create')}</Button>
         </div>
       </form>
     </Form>

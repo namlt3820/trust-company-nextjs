@@ -51,8 +51,10 @@ export const CommentActions: React.FC<CommentActionsProps> = ({ comment }) => {
           {isEditDialogOpen ? (
             <>
               <DialogHeader>
-                <DialogTitle>{t('Comment.update_comment')}</DialogTitle>
-                <DialogDescription>{t('Home.follow_guide')}</DialogDescription>
+                <DialogTitle>{t('Comment.update')}</DialogTitle>
+                <DialogDescription>
+                  {t('General.follow_guide')}
+                </DialogDescription>
               </DialogHeader>
               <CommentEdit
                 id={commentId}
@@ -64,7 +66,7 @@ export const CommentActions: React.FC<CommentActionsProps> = ({ comment }) => {
           {isDeleteDialogOpen ? (
             <>
               <DialogHeader>
-                <DialogTitle>{t('Comment.delete_comment')}</DialogTitle>
+                <DialogTitle>{t('Comment.delete')}</DialogTitle>
                 <DialogDescription>{t('Comment.delete_ask')}</DialogDescription>
               </DialogHeader>
               <CommentDelete
@@ -76,8 +78,10 @@ export const CommentActions: React.FC<CommentActionsProps> = ({ comment }) => {
           {isReportDialogOpen ? (
             <>
               <DialogHeader>
-                <DialogTitle>{t('Comment.report_comment')}</DialogTitle>
-                <DialogDescription>{t('Home.follow_guide')}</DialogDescription>
+                <DialogTitle>{t('Comment.report')}</DialogTitle>
+                <DialogDescription>
+                  {t('General.follow_guide')}
+                </DialogDescription>
               </DialogHeader>
               <ReportForm
                 targetType="comments"
@@ -99,12 +103,12 @@ export const CommentActions: React.FC<CommentActionsProps> = ({ comment }) => {
             <>
               <DropdownMenuItem onClick={() => setIsEditDialogOpen(true)}>
                 <PencilLine className="mr-2 h-4 w-4" />
-                <span>{t('Home.update')}</span>
+                <span>{t('General.update')}</span>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={() => setIsDeleteDialogOpen(true)}>
                 <X className="mr-2 h-4 w-4" />
-                <span>{t('Home.delete')}</span>
+                <span>{t('General.delete')}</span>
               </DropdownMenuItem>
             </>
           ) : null}
@@ -112,7 +116,7 @@ export const CommentActions: React.FC<CommentActionsProps> = ({ comment }) => {
             <>
               <DropdownMenuItem onClick={() => setIsReportDialogOpen(true)}>
                 <Flag className="mr-2 h-4 w-4" />
-                <span>{t('Home.report')}</span>
+                <span>{t('General.report')}</span>
               </DropdownMenuItem>
             </>
           ) : null}

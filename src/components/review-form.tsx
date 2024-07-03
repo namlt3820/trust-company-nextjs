@@ -22,6 +22,7 @@ import { useToast } from '@/components/ui/use-toast'
 import { useAuth } from '@/providers/Auth'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
+import { useTranslations } from 'next-intl'
 import { useRouter, useSearchParams } from 'next/navigation'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -55,6 +56,8 @@ export const ReviewForm: React.FC<ReviewFormProps> = () => {
   const searchParams = useSearchParams()
   const router = useRouter()
   const company = searchParams.get('company')
+  const t = useTranslations('Review')
+  const t_general = useTranslations('General')
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -74,16 +77,15 @@ export const ReviewForm: React.FC<ReviewFormProps> = () => {
     mutationFn: (params: CreateReviewParams) => createReview(params),
     onSuccess: async () => {
       toast({
-        title: 'Created review successfully',
+        title: t('create_success'),
       })
 
       location.reload()
     },
     onError: () => {
       toast({
-        title: 'Created review failed',
-        description:
-          'There was an error with the data provided. Please try again.',
+        title: t('create_fail'),
+        description: t_general('fail_suggest'),
       })
     },
   })
@@ -91,13 +93,13 @@ export const ReviewForm: React.FC<ReviewFormProps> = () => {
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     if (!user) {
       return toast({
-        title: 'Please log in to create a review',
+        title: t_general('login_first'),
       })
     }
 
     if (!company) {
       toast({
-        title: 'Please select a company to create a review',
+        title: t('company_first'),
       })
       router.push('/')
     }
@@ -141,21 +143,23 @@ export const ReviewForm: React.FC<ReviewFormProps> = () => {
             <FormItem>
               <div className="grid grid-cols-7 items-center gap-4">
                 <Label htmlFor="rate" className="text-right">
-                  Rate (*)
+                  {t('rate')} (*)
                 </Label>
                 <div className="col-span-6">
                   <Select onValueChange={field.onChange}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Required. Select a rating for your company" />
+                        <SelectValue placeholder={t('rate_placeholder')} />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="excellent">excellent</SelectItem>
-                      <SelectItem value="good">good</SelectItem>
-                      <SelectItem value="normal">normal</SelectItem>
-                      <SelectItem value="bad">bad</SelectItem>
-                      <SelectItem value="terrible">terrible</SelectItem>
+                      <SelectItem value="excellent">
+                        {t('excellent')}
+                      </SelectItem>
+                      <SelectItem value="good">{t('good')}</SelectItem>
+                      <SelectItem value="normal">{t('normal')}</SelectItem>
+                      <SelectItem value="bad">{t('bad')}</SelectItem>
+                      <SelectItem value="terrible">{t('terrible')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -166,7 +170,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = () => {
 
         <div className="grid grid-cols-7 items-center gap-4">
           <Label htmlFor="detailed_review" className="text-right">
-            Detailed review (*)
+            {t('detailed_review')} (*)
           </Label>
           <RichTextEditor className="col-span-6" onChange={setEditorData} />
           <FormMessage className="col-span-6 col-start-2" />
@@ -180,11 +184,11 @@ export const ReviewForm: React.FC<ReviewFormProps> = () => {
               <FormControl>
                 <div className="grid grid-cols-7 items-center gap-4">
                   <Label htmlFor="branch" className="text-right">
-                    Branch
+                    {t('branch')}
                   </Label>
                   <Input
                     id="branch"
-                    placeholder="Optional. Max 100 characters. A large company can have many branches. Specify the geographical location or the name of the branch where you work. "
+                    placeholder={t('branch_placeholder')}
                     className="col-span-6"
                     {...field}
                   />
@@ -203,11 +207,11 @@ export const ReviewForm: React.FC<ReviewFormProps> = () => {
               <FormControl>
                 <div className="grid grid-cols-7 items-center gap-4">
                   <Label htmlFor="duration" className="text-right">
-                    Duration (months)
+                    {t('duration')}
                   </Label>
                   <Input
                     id="duration"
-                    placeholder="Optional. Specify how many months you have worked at the company. Must be at least one month."
+                    placeholder={t('duration_placeholder')}
                     className="col-span-6"
                     type="number"
                     min={1}
@@ -228,11 +232,11 @@ export const ReviewForm: React.FC<ReviewFormProps> = () => {
               <FormControl>
                 <div className="grid grid-cols-7 items-center gap-4">
                   <Label htmlFor="title" className="text-right">
-                    Title
+                    {t('title')}
                   </Label>
                   <Input
                     id="title"
-                    placeholder="Optional. Max 100 characters. List all the titles you have held while working at the company."
+                    placeholder={t('title_placeholder')}
                     className="col-span-6"
                     {...field}
                   />
@@ -251,11 +255,11 @@ export const ReviewForm: React.FC<ReviewFormProps> = () => {
               <FormControl>
                 <div className="grid grid-cols-7 items-center gap-4">
                   <Label htmlFor="facilities" className="text-right">
-                    Facilities
+                    {t('facilities')}
                   </Label>
                   <Textarea
                     id="facilities"
-                    placeholder="Optional. Max 500 characters. Provide a brief description of the company's infrastructure or office working conditions, focusing on factors that support or hinder your work. "
+                    placeholder={t('facilities_placeholder')}
                     className="col-span-6"
                     {...field}
                   />
@@ -275,11 +279,11 @@ export const ReviewForm: React.FC<ReviewFormProps> = () => {
               <FormControl>
                 <div className="grid grid-cols-7 items-center gap-4">
                   <Label htmlFor="team" className="text-right">
-                    Team
+                    {t('team')}
                   </Label>
                   <Textarea
                     id="team"
-                    placeholder="Optional. Max 500 characters. Provide a brief description of your work team. Include the number, quality, and teamwork capabilities. Focus on general experiences—positive or negative—working with them, without going into specific individuals.  "
+                    placeholder={t('team_placeholder')}
                     className="col-span-6"
                     {...field}
                   />
@@ -298,11 +302,11 @@ export const ReviewForm: React.FC<ReviewFormProps> = () => {
               <FormControl>
                 <div className="grid grid-cols-7 items-center gap-4">
                   <Label htmlFor="process" className="text-right">
-                    Process
+                    {t('process')}
                   </Label>
                   <Textarea
                     id="process"
-                    placeholder="Optional. Max 500 characters. Provide a brief description of the company's workflow and how it has either supported or hindered your job functions.  "
+                    placeholder={t('process_placeholder')}
                     className="col-span-6"
                     {...field}
                   />
@@ -321,11 +325,11 @@ export const ReviewForm: React.FC<ReviewFormProps> = () => {
               <FormControl>
                 <div className="grid grid-cols-7 items-center gap-4">
                   <Label htmlFor="benefits" className="text-right">
-                    Benefits
+                    {t('benefits')}
                   </Label>
                   <Textarea
                     id="benefits"
-                    placeholder="Optional. Max 500 characters. Provide a brief description of the benefits you receive while working at the company. Have they met your expectations? Are there any benefits you feel are lacking? "
+                    placeholder={t('benefits_placeholder')}
                     className="col-span-6"
                     {...field}
                   />
@@ -337,7 +341,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = () => {
         />
 
         <div className="flex justify-center">
-          <Button type="submit">Create review</Button>
+          <Button type="submit">{t('create')}</Button>
         </div>
       </form>
     </Form>

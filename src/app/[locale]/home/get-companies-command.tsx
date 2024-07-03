@@ -3,6 +3,7 @@
 import { GetCompaniesResult } from '@/app/[locale]/home/get-companies-result'
 import { Command, CommandInput } from '@/components/ui/command'
 import type { Company } from '@/lib/payloadTypes'
+import { useTranslations } from 'next-intl'
 import * as React from 'react'
 
 export type GetCompaniesCommandProps = {
@@ -14,6 +15,7 @@ export const GetCompaniesCommand: React.FC<GetCompaniesCommandProps> = ({
   selectedResult,
   onSelectResult,
 }) => {
+  const t = useTranslations('Company')
   const [searchQuery, setSearchQuery] = React.useState('')
 
   const handleSelectResult = (company: Company) => {
@@ -31,7 +33,7 @@ export const GetCompaniesCommand: React.FC<GetCompaniesCommandProps> = ({
       <CommandInput
         value={searchQuery}
         onValueChange={setSearchQuery}
-        placeholder="Your company name"
+        placeholder={t('enter_name')}
       />
 
       <GetCompaniesResult

@@ -29,8 +29,6 @@ export const getMeServer = async (args?: {
     user: User
   } = await meUserReq.json()
 
-  console.log({ user, token })
-
   if (validUserRedirect && meUserReq.ok && user) {
     redirect(validUserRedirect)
   }

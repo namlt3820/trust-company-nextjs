@@ -19,6 +19,7 @@ import {
 import { Review } from '@/lib/payloadTypes'
 import { useAuth } from '@/providers/Auth'
 import { Flag, PencilLine, X } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 
 export type ReviewActionsProps = {
@@ -29,6 +30,8 @@ export const ReviewActions: React.FC<ReviewActionsProps> = ({ review }) => {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
   const [isReportDialogOpen, setIsReportDialogOpen] = useState(false)
+  const t = useTranslations('Review')
+  const t_general = useTranslations('General')
 
   const { user } = useAuth()
   const { id: reviewId, populatedUser, updatedAt } = review
@@ -49,10 +52,9 @@ export const ReviewActions: React.FC<ReviewActionsProps> = ({ review }) => {
           {isEditDialogOpen ? (
             <>
               <DialogHeader>
-                <DialogTitle>Update review</DialogTitle>
+                <DialogTitle>{t('update')}</DialogTitle>
                 <DialogDescription>
-                  Please follow our guide and try to be as descriptive and
-                  helpful as you&apos;d like.
+                  {t_general('follow_guide')}
                 </DialogDescription>
               </DialogHeader>
               <ReviewEdit
@@ -65,10 +67,8 @@ export const ReviewActions: React.FC<ReviewActionsProps> = ({ review }) => {
           {isDeleteDialogOpen ? (
             <>
               <DialogHeader>
-                <DialogTitle>Delete review</DialogTitle>
-                <DialogDescription>
-                  Are you sure you want to delete your review?
-                </DialogDescription>
+                <DialogTitle>{t('delete')}</DialogTitle>
+                <DialogDescription>{t('delete_ask')}</DialogDescription>
               </DialogHeader>
               <ReviewDelete
                 id={reviewId}
@@ -79,10 +79,9 @@ export const ReviewActions: React.FC<ReviewActionsProps> = ({ review }) => {
           {isReportDialogOpen ? (
             <>
               <DialogHeader>
-                <DialogTitle>Report review</DialogTitle>
+                <DialogTitle>{t('report')}</DialogTitle>
                 <DialogDescription>
-                  Please follow our guide and try to be as descriptive and
-                  helpful as you&apos;d like.
+                  {t_general('follow_guide')}
                 </DialogDescription>
               </DialogHeader>
               <ReportForm
@@ -105,12 +104,12 @@ export const ReviewActions: React.FC<ReviewActionsProps> = ({ review }) => {
             <>
               <DropdownMenuItem onClick={() => setIsEditDialogOpen(true)}>
                 <PencilLine className="mr-2 h-4 w-4" />
-                <span>Update</span>
+                <span>{t_general('update')}</span>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={() => setIsDeleteDialogOpen(true)}>
                 <X className="mr-2 h-4 w-4" />
-                <span>Delete</span>
+                <span>{t_general('delete')}</span>
               </DropdownMenuItem>
             </>
           ) : null}
@@ -118,7 +117,7 @@ export const ReviewActions: React.FC<ReviewActionsProps> = ({ review }) => {
             <>
               <DropdownMenuItem onClick={() => setIsReportDialogOpen(true)}>
                 <Flag className="mr-2 h-4 w-4" />
-                <span>Report</span>
+                <span>{t_general('report')}</span>
               </DropdownMenuItem>
             </>
           ) : null}

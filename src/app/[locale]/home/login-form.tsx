@@ -14,21 +14,24 @@ import { Separator } from '@/components/ui/separator'
 import { useToast } from '@/components/ui/use-toast'
 import { useAuth } from '@/providers/Auth'
 import { zodResolver } from '@hookform/resolvers/zod'
-import Link from 'next/link'
+import { useTranslations } from 'next-intl'
+// import Link from 'next/link'
+import { Link } from '@/navigation'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-const formSchema = z.object({
-  email: z.string().email({
-    message: 'Please enter valid email',
-  }),
-  password: z.string(),
-})
-
 export const LoginForm: React.FC = () => {
   const { toast } = useToast()
   const { login } = useAuth()
+  const t = useTranslations()
+
+  const formSchema = z.object({
+    email: z.string().email({
+      message: t('Login.email_valid'),
+    }),
+    password: z.string(),
+  })
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -42,14 +45,13 @@ export const LoginForm: React.FC = () => {
     try {
       await login(data)
       toast({
-        title: 'Logged in successfully',
+        title: t('Login.success'),
       })
       location.reload()
     } catch (_) {
       toast({
-        title: 'Logged in failed',
-        description:
-          'There was an error with the credentials provided. Please try again.',
+        title: t('Login.fail'),
+        description: t('General.fail_suggest'),
       })
     }
   }
@@ -65,9 +67,9 @@ export const LoginForm: React.FC = () => {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>{t('Login.email')}</FormLabel>
               <FormControl>
-                <Input placeholder="your_email@gmail.com" {...field} />
+                <Input placeholder="user@gmail.com" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -79,7 +81,7 @@ export const LoginForm: React.FC = () => {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>{t('Login.password')}</FormLabel>
               <FormControl>
                 <Input
                   type="password"
@@ -93,26 +95,27 @@ export const LoginForm: React.FC = () => {
         />
 
         <Button type="submit" className="col-span-2">
-          Login
+          {t('Login.action')}
         </Button>
 
         <Separator className="col-span-2" />
 
-        <p className="col-span-2 text-center text-sm leading-none">
-          If you can&apos;t login, please
+        <p className="col-span-2 text-center text-sm">
+          {t('Login.you_cant')}
+          <br />
           <Link
             href={'/account/create'}
             className="underline decoration-1 underline-offset-4"
           >
             {' '}
-            create an account
+            {t('Login.create_account')}
           </Link>{' '}
-          or check{' '}
+          {t('Login.check')}{' '}
           <Link
             href={'/account/forgot-password'}
             className="underline decoration-1 underline-offset-4"
           >
-            forgot password
+            {t('Login.forgot_password')}
           </Link>
         </p>
       </form>

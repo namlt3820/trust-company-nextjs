@@ -9,6 +9,7 @@ import { Reaction, User } from '@/lib/payloadTypes'
 import { useAuth } from '@/providers/Auth'
 import { useMutation } from '@tanstack/react-query'
 import { Smile } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 
 export type ReviewReactionsProps = {
@@ -20,6 +21,7 @@ export const ReviewReactions: React.FC<ReviewReactionsProps> = ({
   reactions,
   reviewId,
 }) => {
+  const t = useTranslations('General')
   const { user } = useAuth()
   const { toast } = useToast()
   const { data: reviewsData } = useReviews()
@@ -48,7 +50,7 @@ export const ReviewReactions: React.FC<ReviewReactionsProps> = ({
   ) => {
     if (!user) {
       toast({
-        title: 'You need to log in before creating a reaction.',
+        title: t('login_first'),
       })
       return
     }
@@ -63,7 +65,7 @@ export const ReviewReactions: React.FC<ReviewReactionsProps> = ({
   const handleDeleteReaction = (id: string, user: User | null | undefined) => {
     if (!user) {
       toast({
-        title: 'You need to log in before deleting a reaction.',
+        title: t('login_first'),
       })
       return
     }

@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button'
 import { useToast } from '@/components/ui/use-toast'
 import { useReviews } from '@/hooks/useReviews'
 import { useMutation } from '@tanstack/react-query'
+import { useTranslations } from 'next-intl'
 import React from 'react'
 
 export type ReviewDeleteProps = {
@@ -16,21 +17,22 @@ export const ReviewDelete: React.FC<ReviewDeleteProps> = ({
 }) => {
   const { toast } = useToast()
   const { refetch: refetchReviews } = useReviews()
+  const t = useTranslations('Review')
+  const t_general = useTranslations('General')
 
   const deleteReviewMutation = useMutation({
     mutationFn: (params: DeleteReviewParams) => deleteReview(params),
     onSuccess: async () => {
       toast({
-        title: 'Deleted review successfully',
+        title: t('delete_success'),
       })
       await setIsDeleteDialogOpen(false)
       refetchReviews()
     },
     onError: () => {
       toast({
-        title: 'Deleting review failed',
-        description:
-          'There was an error with the data provided. Please try again.',
+        title: t('delete_fail'),
+        description: t_general('fail_suggest'),
       })
     },
   })
@@ -38,10 +40,10 @@ export const ReviewDelete: React.FC<ReviewDeleteProps> = ({
   return (
     <div className="flex justify-between md:px-80">
       <Button variant={'outline'} onClick={() => setIsDeleteDialogOpen(false)}>
-        No, I want to keep it
+        {t_general('no_delete')}
       </Button>
       <Button onClick={() => deleteReviewMutation.mutate({ id })}>
-        Yes, delete it
+        {t_general('yes_delete')}
       </Button>
     </div>
   )

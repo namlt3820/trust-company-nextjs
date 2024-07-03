@@ -12,22 +12,24 @@ import { useComments } from '@/hooks/useComments'
 import { useReactions } from '@/hooks/useReactions'
 import { formatDate } from '@/lib/formatDate'
 import { useAuth } from '@/providers/Auth'
+import { useTranslations } from 'next-intl'
 
 export default function Comments() {
+  const t = useTranslations()
   const { data: commentsData, isLoading, isError } = useComments()
   const { data: reactionsData } = useReactions({ comments: commentsData })
   const { user } = useAuth()
 
   return (
     <SectionWrapper backgroundColor="bg-white">
-      <SectionHeader title="Comments" />
+      <SectionHeader title={t('Comment.title')} />
       <CommentNavigation />
       <div className="mx-auto w-full">
         <ResourceStatus
           isLoading={isLoading}
           isNotFound={!isError && !isLoading && !commentsData?.docs.length}
           isError={isError}
-          notFoundMessage="No comments found"
+          notFoundMessage={t('Comment.not_found')}
         />
 
         <div className="grid gap-4">

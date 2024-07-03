@@ -23,7 +23,7 @@ export const CommentDelete: React.FC<CommentDeleteProps> = ({
     mutationFn: (params: DeleteCommentParams) => deleteComment(params),
     onSuccess: async () => {
       toast({
-        title: t('Comment.delete_successfully'),
+        title: t('Comment.delete_success'),
       })
       await setIsDeleteDialogOpen(false)
       refetchComments()
@@ -31,7 +31,7 @@ export const CommentDelete: React.FC<CommentDeleteProps> = ({
     onError: () => {
       toast({
         title: t('Comment.delete_fail'),
-        description: t('Home.action_fail_suggest'),
+        description: t('General.fail_suggest'),
       })
     },
   })
@@ -39,10 +39,10 @@ export const CommentDelete: React.FC<CommentDeleteProps> = ({
   return (
     <div className="flex justify-between md:px-80">
       <Button variant={'outline'} onClick={() => setIsDeleteDialogOpen(false)}>
-        No, I want to keep it
+        {t('General.no_delete')}
       </Button>
       <Button onClick={() => deleteCommentMutation.mutate({ id })}>
-        Yes, delete it
+        {t('General.yes_delete')}
       </Button>
     </div>
   )

@@ -23,13 +23,9 @@ import { useTranslations } from 'next-intl'
 import { useSearchParams } from 'next/navigation'
 import React from 'react'
 
-export type ReviewNavigationProps = {
-  reviewCount: number
-}
+export type ReviewNavigationProps = {}
 
-export const ReviewNavigation: React.FC<ReviewNavigationProps> = ({
-  reviewCount,
-}) => {
+export const ReviewNavigation: React.FC<ReviewNavigationProps> = () => {
   const t = useTranslations('Review')
   const t_general = useTranslations('General')
   const searchParams = useSearchParams()
@@ -76,25 +72,22 @@ export const ReviewNavigation: React.FC<ReviewNavigationProps> = ({
         </DialogContent>
       </Dialog>
       <div className="flex gap-4">
-        {reviewCount ? (
-          <Select onValueChange={onSelectChange} defaultValue={sort}>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder={t('sort')} />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectItem value="newest">{t('newest')}</SelectItem>
-                <SelectItem value="oldest">{t('oldest')}</SelectItem>
-                <SelectItem value="most_positive">
-                  {t('most_positive')}
-                </SelectItem>
-                <SelectItem value="most_negative">
-                  {t('most_negative')}
-                </SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-        ) : null}
+        <Select onValueChange={onSelectChange} defaultValue={sort}>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder={t('sort')} />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectItem value="newest">{t('newest')}</SelectItem>
+              <SelectItem value="oldest">{t('oldest')}</SelectItem>
+              <SelectItem value="excellent">{t('excellent')}</SelectItem>
+              <SelectItem value="good">{t('good')}</SelectItem>
+              <SelectItem value="normal">{t('normal')}</SelectItem>
+              <SelectItem value="bad">{t('bad')}</SelectItem>
+              <SelectItem value="terrible">{t('terrible')}</SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
       </div>
     </div>
   )

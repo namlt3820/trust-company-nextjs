@@ -141,8 +141,6 @@
     "create": "Tạo đánh giá",
     "newest": "Mới nhất",
     "oldest": "Cũ nhất",
-    "most_positive": "Tích cực nhất",
-    "most_negative": "Tiêu cực nhất",
     "sort": "Phân loại",
     "create_success": "Tạo đánh giá thành công.",
     "create_fail": "Tạo đánh giá thất bại.",

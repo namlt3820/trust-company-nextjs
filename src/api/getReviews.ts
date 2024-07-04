@@ -18,6 +18,9 @@ export const getReviews: GetReviews = async (params: GetReviewsParams) => {
   const { company, page = 1, limit = 10, user, sort } = params
 
   const queryWhere: {
+    rate?: {
+      equals: string
+    }
     company?: {
       equals: string
     }
@@ -29,10 +32,28 @@ export const getReviews: GetReviews = async (params: GetReviewsParams) => {
     depth: 1,
   }
 
+  const sorts = {
+    newest: '-updatedAt',
+    oldest: 'updatedAt',
+  }
   let querySort: string = ''
 
-  if (sort) {
-    querySort = sort === 'newest' ? '-updatedAt' : 'updatedAt'
+  switch (sort) {
+    case 'newest':
+    case 'oldest':
+      querySort = sorts[sort]
+      break
+
+    case 'excellent':
+    case 'good':
+    case 'normal':
+    case 'bad':
+    case 'terrible':
+      queryWhere.rate = { equals: sort }
+      break
+
+    default:
+      break
   }
 
   if (company) {

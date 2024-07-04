@@ -141,8 +141,6 @@
     "create": "Create review",
     "newest": "Newest",
     "oldest": "Oldest",
-    "most_positive": "Most positive",
-    "most_negative": "Most negative",
     "sort": "Sort",
     "create_success": "Review created successfully.",
     "create_fail": "Review creation failed.",

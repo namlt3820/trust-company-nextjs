@@ -101,16 +101,16 @@ const Element = ({ attributes, children, element }: RenderElementProps) => {
   switch (element.type) {
     case 'ol':
       return (
-        <ul {...attributes} className="list-inside list-disc">
+        <ol {...attributes} className="list-inside list-decimal">
           {children}
-        </ul>
+        </ol>
       )
 
     case 'ul':
       return (
-        <ol {...attributes} className="list-inside list-decimal">
+        <ul {...attributes} className="list-inside list-disc">
           {children}
-        </ol>
+        </ul>
       )
 
     case 'li':
@@ -223,7 +223,7 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
     <div className={className}>
       <Slate
         editor={editor}
-        initialValue={editValue ? editValue : initialValue}
+        initialValue={editValue && editValue.length ? editValue : initialValue}
         onChange={(value) => {
           const isAstChange = editor.operations.some(
             (op) => 'set_selection' !== op.type

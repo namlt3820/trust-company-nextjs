@@ -16,6 +16,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { useReviews } from '@/hooks/useReviews'
+import { usePathname, useRouter } from '@/navigation'
 import { PencilLine } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useSearchParams } from 'next/navigation'
@@ -32,6 +34,25 @@ export const ReviewNavigation: React.FC<ReviewNavigationProps> = ({
   const t_general = useTranslations('General')
   const searchParams = useSearchParams()
   const company = searchParams.get('company')
+  const router = useRouter()
+  const params = useSearchParams()
+  const pathname = usePathname()
+  const { refetch: refetchReviews } = useReviews()
+  const sort = searchParams.get('sort') || undefined
+
+  const onSelectChange = (sortType: string) => {
+    let queryString = `?sort=${sortType}`
+
+    for (const [key, value] of params.entries()) {
+      if (key === 'sort') {
+        continue
+      }
+      queryString += `&${key}=${value}`
+    }
+
+    router.push(`${pathname}/${queryString}`)
+    refetchReviews()
+  }
 
   return (
     <div className="flex justify-between md:mb-10">
@@ -56,7 +77,7 @@ export const ReviewNavigation: React.FC<ReviewNavigationProps> = ({
       </Dialog>
       <div className="flex gap-4">
         {reviewCount ? (
-          <Select>
+          <Select onValueChange={onSelectChange} defaultValue={sort}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder={t('sort')} />
             </SelectTrigger>

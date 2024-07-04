@@ -11,12 +11,13 @@ export type GetReviewsParams = {
   limit?: number
   company?: string
   user?: string
+  sort?: string
 }
 
 export const getReviews: GetReviews = async (params: GetReviewsParams) => {
-  const { company, page = 1, limit = 10, user } = params
+  const { company, page = 1, limit = 10, user, sort } = params
 
-  const query: {
+  const queryWhere: {
     company?: {
       equals: string
     }
@@ -28,23 +29,30 @@ export const getReviews: GetReviews = async (params: GetReviewsParams) => {
     depth: 1,
   }
 
+  let querySort: string = ''
+
+  if (sort) {
+    querySort = sort === 'newest' ? '-updatedAt' : 'updatedAt'
+  }
+
   if (company) {
-    query.company = {
+    queryWhere.company = {
       equals: company,
     }
   }
 
   if (user) {
-    query.user = {
+    queryWhere.user = {
       equals: user,
     }
   }
 
   const stringifiedQuery = qs.stringify(
     {
-      where: query,
+      where: queryWhere,
       limit,
       page,
+      sort: querySort,
     },
     {
       addQueryPrefix: true,

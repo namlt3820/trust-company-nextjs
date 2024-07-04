@@ -11,7 +11,8 @@ export const useReviews = () => {
   const user = searchParams.get('user') 
   const page = Number(searchParams.get('page')) || 1
   const limit = Number(searchParams.get('limit')) || 10
-  const getReviewsParams = _.omitBy({ company, user, page, limit }, _.isNil)
+  const sort = searchParams.get('sort') || undefined
+  const getReviewsParams = _.omitBy({ company, user, page, limit, sort }, _.isNil)
 
   const { data, isLoading, isError, refetch } = useQuery<
     GetPaginationResponse<Review>

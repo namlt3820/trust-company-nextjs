@@ -35,7 +35,7 @@ export const CommentNavigation: React.FC = () => {
         </DialogTrigger>
         <DialogContent className="max-h-screen max-w-screen-xl overflow-y-scroll">
           <DialogHeader>
-            <DialogTitle>Create comment</DialogTitle>
+            <DialogTitle> {t('Comment.create')}</DialogTitle>
             <DialogDescription>{t('General.follow_guide')}</DialogDescription>
           </DialogHeader>
           <CommentForm />

@@ -1,6 +1,7 @@
 'use client'
 
 import { SectionWrapper } from '@/components/section-wrapper'
+import Image from 'next/image'
 import React from 'react'
 
 export const WhyChoose: React.FC = () => {
@@ -34,10 +35,12 @@ export const WhyChoose: React.FC = () => {
             </li>
           </ul>
         </div>
-        <img
-          src="/placeholder.svg"
-          alt="Highlights"
-          className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last"
+        <Image
+          src={`${process.env.NEXT_PUBLIC_PAYLOAD_CMS_SERVER_URL}/media/homepage_2.jpg`}
+          alt="Hero"
+          width={700}
+          height={700}
+          className="rounded-xl"
         />
       </div>
     </SectionWrapper>

@@ -2,12 +2,13 @@
 
 import { SectionWrapper } from '@/components/section-wrapper'
 import { Link } from '@/navigation'
+import Image from 'next/image'
 import React from 'react'
 
 export const Hero: React.FC = () => {
   return (
     <SectionWrapper backgroundColor="bg-white">
-      <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
+      <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_700px]">
         <div className="flex flex-col justify-center space-y-4">
           <div className="space-y-2">
             <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
@@ -28,10 +29,12 @@ export const Hero: React.FC = () => {
             </Link>
           </div>
         </div>
-        <img
-          src="/placeholder.svg"
+        <Image
+          src={`${process.env.NEXT_PUBLIC_PAYLOAD_CMS_SERVER_URL}/media/homepage_1.jpg`}
           alt="Hero"
-          className="mx-auto aspect-square overflow-hidden rounded-xl object-cover sm:w-full lg:order-last"
+          width={700}
+          height={700}
+          className="rounded-xl"
         />
       </div>
     </SectionWrapper>

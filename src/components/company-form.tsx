@@ -42,6 +42,7 @@ export type CompanyProps = {}
 
 export const CompanyForm: React.FC<CompanyProps> = () => {
   const t = useTranslations('Company')
+  const t_general = useTranslations('General')
 
   const UploadStatusMessage = {
     idle: '',
@@ -82,7 +83,7 @@ export const CompanyForm: React.FC<CompanyProps> = () => {
     onError: () => {
       toast({
         title: t('create_fail'),
-        description: t('fail_suggest'),
+        description: t_general('fail_suggest'),
       })
     },
   })

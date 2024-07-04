@@ -2,9 +2,10 @@ import { ReactionCountByType } from '@/api/getReactionCountByType'
 import { ReviewActions } from '@/app/[locale]/reviews/review-actions'
 import { ReviewReactions } from '@/app/[locale]/reviews/review-reactions'
 import { Badge } from '@/components/ui/badge'
+import { LocaleType } from '@/config'
 import { formatDate } from '@/lib/formatDate'
 import { Review } from '@/lib/payloadTypes'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import React from 'react'
 
 type RatingColors = {
@@ -35,6 +36,8 @@ export const ReviewHeader: React.FC<ReviewHeaderProps> = ({
   review,
 }) => {
   const t = useTranslations('Review')
+  const locale = useLocale()
+
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center space-x-3">
@@ -46,7 +49,7 @@ export const ReviewHeader: React.FC<ReviewHeaderProps> = ({
         <ReviewActions review={review} />
       </div>
       <span className="font-medium text-gray-500">
-        {formatDate(new Date(updatedAt))}
+        {formatDate(new Date(updatedAt), locale as LocaleType)}
       </span>
     </div>
   )

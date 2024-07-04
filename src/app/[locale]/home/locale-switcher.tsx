@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { locales } from '@/config'
+import { LocaleType, locales } from '@/config'
 import { usePathname, useRouter } from '@/navigation'
 import clsx from 'clsx'
 import { useLocale, useTranslations } from 'next-intl'
@@ -30,7 +30,7 @@ export const LocaleSwitcher = () => {
   const onSelectChange = (nextLocale: string) => {
     startTransition(() => {
       router.push(`${pathname}/${queryString}`, {
-        locale: nextLocale as 'en' | 'vi' | undefined,
+        locale: nextLocale as LocaleType | undefined,
       })
     })
   }

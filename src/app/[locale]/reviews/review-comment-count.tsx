@@ -1,8 +1,7 @@
 import { Separator } from '@/components/ui/separator'
+import { Link } from '@/navigation'
 import { MoveRight } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-// import Link from 'next/link'
-import { Link } from '@/navigation'
 import React from 'react'
 
 export type ReviewCommentCountProps = {

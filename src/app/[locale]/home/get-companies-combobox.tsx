@@ -13,8 +13,8 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import type { Company } from '@/lib/payloadTypes'
+import { useRouter } from '@/navigation'
 import { useTranslations } from 'next-intl'
-import { useRouter } from 'next/navigation'
 import * as React from 'react'
 
 export const GetCompaniesSubtitle: React.FC = () => {

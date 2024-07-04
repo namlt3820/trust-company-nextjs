@@ -8,10 +8,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
+import { Link } from '@/navigation'
 import { PencilLine } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-// import Link from 'next/link'
-import { Link } from '@/navigation'
 import { useSearchParams } from 'next/navigation'
 import React from 'react'
 

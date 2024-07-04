@@ -1,6 +1,5 @@
-import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react'
-// import Link from 'next/link'
 import { Link } from '@/navigation'
+import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react'
 import * as React from 'react'
 
 import { ButtonProps, buttonVariants } from '@/components/ui/button'

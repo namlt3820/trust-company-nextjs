@@ -10,11 +10,9 @@ import {
 } from '@/components/ui/popover'
 import { useToast } from '@/components/ui/use-toast'
 import { cn } from '@/lib/utils'
+import { Link, useRouter } from '@/navigation'
 import { useAuth } from '@/providers/Auth'
 import { useTranslations } from 'next-intl'
-// import Link from 'next/link'
-import { Link } from '@/navigation'
-import { useRouter } from 'next/navigation'
 import React from 'react'
 import { RemoveScroll } from 'react-remove-scroll'
 
@@ -81,9 +79,9 @@ export const NavBar: React.FC = () => {
           <Link href="/guide" className={LinkClassname} prefetch={false}>
             {t_navbar('guide')}
           </Link>
-          <a href="#feedback_section" className={LinkClassname}>
+          <Link href="/#feedback_section" className={LinkClassname}>
             {t_navbar('feedback')}
-          </a>
+          </Link>
           {user ? null : (
             <Popover>
               <PopoverTrigger className={LinkClassname}>

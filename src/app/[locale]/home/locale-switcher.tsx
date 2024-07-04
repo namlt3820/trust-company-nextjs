@@ -11,6 +11,7 @@ import { locales } from '@/config'
 import { usePathname, useRouter } from '@/navigation'
 import clsx from 'clsx'
 import { useLocale, useTranslations } from 'next-intl'
+import { useSearchParams } from 'next/navigation'
 import { useTransition } from 'react'
 
 export const LocaleSwitcher = () => {
@@ -19,9 +20,18 @@ export const LocaleSwitcher = () => {
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
   const pathname = usePathname()
-  function onSelectChange(nextLocale: string) {
+  const params = useSearchParams()
+
+  let queryString = '?'
+  for (const [key, value] of params.entries()) {
+    queryString += `&${key}=${value}`
+  }
+
+  const onSelectChange = (nextLocale: string) => {
     startTransition(() => {
-      router.push(`${nextLocale}/${pathname}`)
+      router.push(`${pathname}/${queryString}`, {
+        locale: nextLocale as 'en' | 'vi' | undefined,
+      })
     })
   }
 

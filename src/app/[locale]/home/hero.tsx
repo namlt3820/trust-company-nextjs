@@ -1,7 +1,6 @@
 'use client'
 
 import { SectionWrapper } from '@/components/section-wrapper'
-// import Link from 'next/link'
 import { Link } from '@/navigation'
 import React from 'react'
 

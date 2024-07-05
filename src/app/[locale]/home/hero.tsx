@@ -21,7 +21,7 @@ export const Hero: React.FC = () => {
               insights to help you choose the perfect company with confidence.
             </p>
             <Link href="#" className={buttonVariants({ variant: 'default' })}>
-              Our guide
+              Our Guide
             </Link>
           </div>
         </div>

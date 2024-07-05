@@ -82,7 +82,7 @@ export const NavBar: React.FC = () => {
           <Icons.logo className="h-8 w-8 pr-2" />
           <span className="text-sm font-medium">TrustCompany</span>
         </Link>
-        <div className="w-2/4">
+        <div className={cn('self-start', { 'w-96': pathName !== '/' })}>
           {pathName !== '/' ? <GetCompaniesCombobox /> : null}
         </div>
         <nav className="flex items-center gap-4 sm:gap-6">

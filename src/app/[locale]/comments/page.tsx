@@ -8,17 +8,17 @@ import { ResourceStatus } from '@/components/resource-status'
 import { SectionHeader } from '@/components/section-header'
 import { SectionWrapper } from '@/components/section-wrapper'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { LocaleType } from '@/config'
 import { useComments } from '@/hooks/useComments'
 import { useReactions } from '@/hooks/useReactions'
 import { formatDate } from '@/lib/formatDate'
-import { useAuth } from '@/providers/Auth'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 
 export default function Comments() {
   const t = useTranslations()
   const { data: commentsData, isLoading, isError } = useComments()
   const { data: reactionsData } = useReactions({ comments: commentsData })
-  const { user } = useAuth()
+  const locale = useLocale()
 
   return (
     <SectionWrapper backgroundColor="bg-white">
@@ -53,7 +53,7 @@ export default function Comments() {
                       <CommentActions comment={comment} />
                     </div>
                     <span className="font-medium text-gray-500 dark:text-gray-400">
-                      {formatDate(new Date(updatedAt))}
+                      {formatDate(new Date(updatedAt), locale as LocaleType)}
                     </span>
                   </div>
                 </CardHeader>

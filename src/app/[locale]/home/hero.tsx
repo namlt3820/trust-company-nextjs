@@ -3,25 +3,30 @@
 import { SectionWrapper } from '@/components/section-wrapper'
 import { buttonVariants } from '@/components/ui/button'
 import { Link } from '@/navigation'
+import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import React from 'react'
 
 export const Hero: React.FC = () => {
+  const t = useTranslations('Hero')
+  const t_navbar = useTranslations('Navbar')
+
   return (
     <SectionWrapper backgroundColor="bg-white">
       <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_700px]">
         <div className="flex flex-col justify-center space-y-4">
           <div className="space-y-10">
-            <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
-              Trusted Reviews, Reliable Insights
+            <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+              {t('title')}
             </h1>
             <p className="max-w-[600px] text-gray-500 dark:text-gray-400 md:text-xl">
-              Fed up with subjective company reviews and unhelpful negative
-              rants? Discover our website, where you’ll find objective, valuable
-              insights to help you choose the perfect company with confidence.
+              {t('description')}
             </p>
-            <Link href="#" className={buttonVariants({ variant: 'default' })}>
-              Our Guide
+            <Link
+              href="/guide"
+              className={buttonVariants({ variant: 'default' })}
+            >
+              {t_navbar('guide')}
             </Link>
           </div>
         </div>

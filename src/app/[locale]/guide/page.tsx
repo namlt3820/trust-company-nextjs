@@ -1,79 +1,87 @@
 'use client'
 
-import { renderGuide } from '@/app/[locale]/guide/guide'
+import { GuideItem } from '@/app/[locale]/guide/guide'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 
 export default function Guide() {
-  const [selected, setSelected] = useState('Company')
+  const t = useTranslations('Guide')
+  const user = t('user')
+  const company = t('company')
+  const review = t('review')
+  const comment = t('comment')
+  const reaction = t('reaction')
+  const report = t('report')
+  const feedback = t('feedback')
+
+  const [selected, setSelected] = useState(company)
 
   return (
     <div className="container mb-24 mt-28 flex flex-1 overflow-hidden px-16 md:px-20">
       <div className="flex h-full flex-col gap-6 border-r-2 border-gray-200">
         <Button
           variant={'link'}
-          onClick={() => setSelected('User')}
-          className={cn({ underline: selected === 'User' })}
+          onClick={() => setSelected(user)}
+          className={cn({ underline: selected === user })}
         >
-          User
+          {user}
         </Button>
         <Button
           variant={'link'}
-          onClick={() => setSelected('Company')}
-          className={cn({ underline: selected === 'Company' })}
+          onClick={() => setSelected(company)}
+          className={cn({ underline: selected === company })}
         >
-          Company
+          {company}
         </Button>
         <Button
           variant={'link'}
-          onClick={() => setSelected('Review')}
-          className={cn({ underline: selected === 'Review' })}
+          onClick={() => setSelected(review)}
+          className={cn({ underline: selected === review })}
         >
-          Review
+          {review}
         </Button>
         <Button
           variant={'link'}
-          onClick={() => setSelected('Comment')}
-          className={cn({ underline: selected === 'Comment' })}
+          onClick={() => setSelected(comment)}
+          className={cn({ underline: selected === comment })}
         >
-          Comment
+          {comment}
         </Button>
         <Button
           variant={'link'}
-          onClick={() => setSelected('Reaction')}
-          className={cn({ underline: selected === 'Reaction' })}
+          onClick={() => setSelected(reaction)}
+          className={cn({ underline: selected === reaction })}
         >
-          Reaction
+          {reaction}
         </Button>
         <Button
           variant={'link'}
-          onClick={() => setSelected('Report')}
-          className={cn({ underline: selected === 'Report' })}
+          onClick={() => setSelected(report)}
+          className={cn({ underline: selected === report })}
         >
-          Report
+          {report}
         </Button>
         <Button
           variant={'link'}
-          onClick={() => setSelected('Feedback')}
-          className={cn({ underline: selected === 'Feedback' })}
+          onClick={() => setSelected(feedback)}
+          className={cn({ underline: selected === feedback })}
         >
-          Feedback
+          {feedback}
         </Button>
       </div>
 
       <div className="flex-1 overflow-y-auto pl-8">
         <div className="flex flex-col items-center justify-center space-y-2 text-center md:mb-10">
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-            Guide
+          <h2 className="text-3xl font-bold leading-10 tracking-tighter sm:text-4xl/snug">
+            {t('guide')}
           </h2>
           <p className="max-w-[900px] text-gray-500 dark:text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-            This is a complete guide to the features you can use on the website.
-            If there is any incorrect or missing information, please send us
-            your feedback.
+            {t('description')}
           </p>
         </div>
-        {renderGuide(selected)}
+        <GuideItem selected={selected} />
       </div>
     </div>
   )

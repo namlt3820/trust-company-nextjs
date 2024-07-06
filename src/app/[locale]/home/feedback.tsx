@@ -62,7 +62,7 @@ export const Feedback: React.FC = () => {
   }
 
   return (
-    <SectionWrapper>
+    <SectionWrapper backgroundColor="bg-white">
       <SectionHeader
         title={t('Feedback.share')}
         subtitle={t('Feedback.share_reason')}

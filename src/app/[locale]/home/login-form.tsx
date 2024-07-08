@@ -20,7 +20,11 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-export const LoginForm: React.FC = () => {
+export type LoginFormProps = {
+  setLoginFormOpen: (state: boolean) => void
+}
+
+export const LoginForm: React.FC<LoginFormProps> = ({ setLoginFormOpen }) => {
   const { toast } = useToast()
   const { login } = useAuth()
   const t = useTranslations()
@@ -106,19 +110,23 @@ export const LoginForm: React.FC = () => {
         <p className="col-span-2 text-center text-sm">
           {t('Login.you_cant')}
           <br />
-          <Link
-            href={'/account/create'}
-            className="underline decoration-1 underline-offset-4"
-          >
+          <Link href={'/account/create'}>
             {' '}
-            {t('Login.create_account')}
+            <span
+              className="underline decoration-1 underline-offset-4"
+              onClick={() => setLoginFormOpen(false)}
+            >
+              {t('Login.create_account')}
+            </span>
           </Link>{' '}
           {t('Login.check')}{' '}
-          <Link
-            href={'/account/forgot-password'}
-            className="underline decoration-1 underline-offset-4"
-          >
-            {t('Login.forgot_password')}
+          <Link href={'/account/forgot-password'}>
+            <span
+              className="underline decoration-1 underline-offset-4"
+              onClick={() => setLoginFormOpen(false)}
+            >
+              {t('Login.forgot_password')}
+            </span>
           </Link>
         </p>
       </form>

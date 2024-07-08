@@ -15,7 +15,7 @@ import { cn } from '@/lib/utils'
 import { Link, usePathname, useRouter } from '@/navigation'
 import { useAuth } from '@/providers/Auth'
 import { useTranslations } from 'next-intl'
-import React from 'react'
+import React, { useState } from 'react'
 import { RemoveScroll } from 'react-remove-scroll'
 
 const LinkClassname =
@@ -51,6 +51,7 @@ export const NavBar: React.FC = () => {
   const t_navbar = useTranslations('Navbar')
   const t_login = useTranslations('Login')
   const pathName = usePathname()
+  const [loginFormOpen, setLoginFormOpen] = useState(false)
 
   const onLogoutClick = async () => {
     try {
@@ -111,12 +112,12 @@ export const NavBar: React.FC = () => {
             {t_navbar('feedback')}
           </Link>
           {user ? null : (
-            <Popover>
+            <Popover open={loginFormOpen} onOpenChange={setLoginFormOpen}>
               <PopoverTrigger className={LinkClassname}>
                 {t_login('action')}
               </PopoverTrigger>
               <PopoverContent align="end" className="w-[34rem]">
-                <LoginForm />
+                <LoginForm setLoginFormOpen={setLoginFormOpen}/>
               </PopoverContent>
             </Popover>
           )}

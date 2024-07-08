@@ -272,6 +272,10 @@
     "password_placeholder": "Bắt buộc.",
     "create": "Tạo tài khoản",
     "create_success": "Tạo tài khoản thành công. Vui lòng kiểm tra hòm thư của bạn để làm theo hướng dẫn.",
-    "create_fail": "Tạo tài khoản thất bại."
+    "create_fail": "Tạo tài khoản thất bại.",
+    "verify_success": "Xác thực email thành công. Bạn vui lòng đăng nhập để sử dụng trang web.",
+    "verify_fail": "Có lỗi xảy ra. Vui lòng kiểm tra lại đường dẫn hoặc gửi phản hồi cho chúng tôi.",
+    "verify_title": "XÁC THỰC EMAIL",
+    "verifying": "Đang xác thực, vui lòng đợi trong giây lát."
   }
 }

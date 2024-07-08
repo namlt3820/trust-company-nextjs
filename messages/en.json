@@ -272,6 +272,10 @@
     "password_placeholder": "Required.",
     "create": "Create Account",
     "create_success": "Account created successfully. Please check your email inbox to follow the instructions.",
-    "create_fail": "Account creation failed."
+    "create_fail": "Account creation failed.",
+    "verify_success": "Email verification successful. Please log in to use the website.",
+    "verify_fail": "An error occurred. Please check the link or send us feedback.",
+    "verify_title": "Email Verification",
+    "verifying": "Verifying, please wait a moment."
   }
 }

@@ -277,5 +277,17 @@
     "verify_fail": "Có lỗi xảy ra. Vui lòng kiểm tra lại đường dẫn hoặc gửi phản hồi cho chúng tôi.",
     "verify_title": "XÁC THỰC EMAIL",
     "verifying": "Đang xác thực, vui lòng đợi trong giây lát."
+  },
+  "ForgotPassword": {
+    "reset_fail": "Thiết lập lại mật khẩu thất bại.",
+    "email": "Email",
+    "email_placeholder": "Bắt buộc",
+    "request": "Đặt mật khẩu mới",
+    "request_success": "Yêu cầu đặt mật khẩu mới thành công. Vui lòng kiểm tra hòm thư của bạn để làm theo hướng dẫn.",
+    "title": "QUÊN MẬT KHẨU",
+    "reset_title": "THIẾT LẬP MẬT KHẨU",
+    "reset_success": "Yêu cầu đặt mật khẩu mới thành công.",
+    "password": "Mật khẩu",
+    "password_placeholder": "Bắt buộc."
   }
 }

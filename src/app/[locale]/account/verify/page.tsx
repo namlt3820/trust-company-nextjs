@@ -43,7 +43,6 @@ export default function EmailVerification() {
     }
   }
 
-  console.log(verifyEmailMutation.status)
   return (
     <SectionWrapper backgroundColor="bg-white">
       <SectionHeader title={t('verify_title')} />

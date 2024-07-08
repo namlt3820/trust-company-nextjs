@@ -130,7 +130,7 @@ export default function CreateAccount() {
               <Button type="submit">{t('create')}</Button>
             </div>
             {createAccountMutation.status === 'success' ? (
-              <p>{t('create_success')}</p>
+              <p className="text-center">{t('create_success')}</p>
             ) : null}
           </form>
         </Form>

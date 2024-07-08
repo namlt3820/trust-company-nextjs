@@ -14,6 +14,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { useCommentCountByReview } from '@/hooks/useCommentCountByReview'
 import { useReactions } from '@/hooks/useReactions'
 import { useReviews } from '@/hooks/useReviews'
+import { User } from '@/lib/payloadTypes'
 import { useTranslations } from 'next-intl'
 import { useSearchParams } from 'next/navigation'
 import React from 'react'
@@ -42,8 +43,8 @@ const Reviews: React.FC = () => {
         />
         <div className="grid gap-4">
           {reviewsData?.docs.map((review) => {
-            const { id: reviewId, rate, populatedUser, updatedAt } = review
-            const { name } = populatedUser!
+            const { id: reviewId, rate, user, updatedAt } = review
+            const { name } = user as User
             const commentCountByReview = commentsData?.find(
               ({ review }) => review === reviewId
             ) || {

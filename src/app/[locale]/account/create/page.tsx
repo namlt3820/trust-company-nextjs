@@ -1,6 +1,6 @@
 'use client'
 
-import { CreateFeedbackParams, createFeedback } from '@/api/createFeedback'
+import { createUser, CreateUserParams } from '@/api/createUser'
 import { SectionHeader } from '@/components/section-header'
 import { SectionWrapper } from '@/components/section-wrapper'
 import { Button } from '@/components/ui/button'
@@ -13,23 +13,22 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
 import { useToast } from '@/components/ui/use-toast'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
-import React from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 const formSchema = z.object({
-  content: z.string().max(5000).min(10),
-  name: z.string().max(100).optional(),
-  email: z.string().optional(),
+  name: z.string().max(50).min(1),
+  password: z.string().min(8),
+  email: z.string().email(),
 })
 
-export const Feedback: React.FC = () => {
-  const t = useTranslations()
+export default function CreateAccount() {
+  const t = useTranslations('CreateAccount')
+  const t_general = useTranslations('General')
   const { toast } = useToast()
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -37,37 +36,29 @@ export const Feedback: React.FC = () => {
     defaultValues: {
       name: '',
       email: '',
-      content: '',
+      password: '',
     },
   })
 
-  const createFeedbackMutation = useMutation({
-    mutationFn: (params: CreateFeedbackParams) => createFeedback(params),
-    onSuccess: async () => {
-      toast({
-        title: t('Feedback.create_success'),
-      })
-    },
+  const createAccountMutation = useMutation({
+    mutationFn: (params: CreateUserParams) => createUser(params),
     onError: () => {
       toast({
-        title: t('Feedback.create_fail'),
-        description: t('General.fail_suggest'),
+        title: t('create_fail'),
+        description: t_general('fail_suggest'),
       })
     },
   })
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    await createFeedbackMutation.mutate(data)
+    await createAccountMutation.mutate(data)
     form.reset()
   }
 
   return (
     <SectionWrapper backgroundColor="bg-white">
-      <SectionHeader
-        title={t('Feedback.share')}
-        subtitle={t('Feedback.share_reason')}
-      />
-      <div className="mx-auto w-full max-w-lg space-y-2" id="feedback_section">
+      <SectionHeader title={t('title')} />
+      <div className="mx-auto w-full max-w-lg space-y-2">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
@@ -80,10 +71,10 @@ export const Feedback: React.FC = () => {
                 <FormItem>
                   <FormControl>
                     <div className="flex flex-col gap-2">
-                      <Label htmlFor="name">{t('Feedback.name')}</Label>
+                      <Label htmlFor="name">{t('name')} (*)</Label>
                       <Input
                         id="name"
-                        placeholder={t('Feedback.name_placeholder')}
+                        placeholder={t('name_placeholder')}
                         {...field}
                         autoComplete="name"
                       />
@@ -101,10 +92,10 @@ export const Feedback: React.FC = () => {
                 <FormItem>
                   <FormControl>
                     <div className="flex flex-col gap-2">
-                      <Label htmlFor="email">{t('Feedback.email')}</Label>
+                      <Label htmlFor="email">{t('email')} (*)</Label>
                       <Input
                         id="email"
-                        placeholder={t('Feedback.email_placeholder')}
+                        placeholder={t('email_placeholder')}
                         {...field}
                         autoComplete="email"
                       />
@@ -114,19 +105,18 @@ export const Feedback: React.FC = () => {
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
-              name="content"
+              name="password"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
                     <div className="flex flex-col gap-2">
-                      <Label htmlFor="content">
-                        {t('Feedback.content')} (*)
-                      </Label>
-                      <Textarea
-                        id="content"
-                        placeholder={t('Feedback.content_placeholder')}
+                      <Label htmlFor="password">{t('password')} (*)</Label>
+                      <Input
+                        id="password"
+                        placeholder={t('password_placeholder')}
                         {...field}
                       />
                       <FormMessage />
@@ -137,8 +127,11 @@ export const Feedback: React.FC = () => {
             />
 
             <div className="flex justify-center">
-              <Button type="submit">{t('Feedback.create')}</Button>
+              <Button type="submit">{t('create')}</Button>
             </div>
+            {createAccountMutation.status === 'success' ? (
+              <p>{t('create_success')}</p>
+            ) : null}
           </form>
         </Form>
       </div>

@@ -261,5 +261,17 @@
   "Pagination": {
     "next": "Sau",
     "previous": "Trước"
+  },
+  "CreateAccount": {
+    "title": "TẠO TÀI KHOẢN MỚI",
+    "name": "Tên",
+    "name_placeholder": "Bắt buộc. Tối đa 50 ký tự.",
+    "email": "Email",
+    "email_placeholder": "Bắt buộc",
+    "password": "Mật khẩu",
+    "password_placeholder": "Bắt buộc.",
+    "create": "Tạo tài khoản",
+    "create_success": "Tạo tài khoản thành công. Vui lòng kiểm tra hòm thư của bạn để làm theo hướng dẫn.",
+    "create_fail": "Tạo tài khoản thất bại."
   }
 }

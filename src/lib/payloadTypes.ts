@@ -36,6 +36,8 @@ export interface User {
   resetPasswordExpiration?: string | null
   salt?: string | null
   hash?: string | null
+  _verified?: boolean | null
+  _verificationToken?: string | null
   loginAttempts?: number | null
   lockUntil?: string | null
   password: string | null
@@ -118,10 +120,6 @@ export interface Review {
   user: string | User
   company: string | Company
   summary?: string | null
-  populatedUser?: {
-    id?: string | null
-    name?: string | null
-  }
   updatedAt: string
   createdAt: string
 }
@@ -135,10 +133,6 @@ export interface Comment {
   user: string | User
   review: string | Review
   summary?: string | null
-  populatedUser?: {
-    id?: string | null
-    name?: string | null
-  }
   updatedAt: string
   createdAt: string
 }

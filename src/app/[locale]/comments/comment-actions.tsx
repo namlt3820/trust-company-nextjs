@@ -16,7 +16,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Comment } from '@/lib/payloadTypes'
+import { Comment, User } from '@/lib/payloadTypes'
 import { useAuth } from '@/providers/Auth'
 import { Flag, PencilLine, X } from 'lucide-react'
 import { useTranslations } from 'next-intl'
@@ -33,8 +33,8 @@ export const CommentActions: React.FC<CommentActionsProps> = ({ comment }) => {
   const [isReportDialogOpen, setIsReportDialogOpen] = useState(false)
 
   const { user } = useAuth()
-  const { id: commentId, populatedUser, content } = comment
-  const { id } = populatedUser!
+  const { id: commentId, user: author, content } = comment
+  const { id } = author as User
   const isFromLoggedInUser = user?.id === id
 
   return (

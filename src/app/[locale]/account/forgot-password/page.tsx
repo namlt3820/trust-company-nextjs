@@ -18,7 +18,6 @@ import { useToast } from '@/components/ui/use-toast'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
-import React from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -28,7 +27,7 @@ const formSchema = z.object({
   email: z.string().optional(),
 })
 
-export const Feedback: React.FC = () => {
+export default function ForgotPassword() {
   const t = useTranslations()
   const { toast } = useToast()
 
@@ -82,10 +81,9 @@ export const Feedback: React.FC = () => {
                     <div className="flex flex-col gap-2">
                       <Label htmlFor="name">{t('Feedback.name')}</Label>
                       <Input
-                        id="name"
+                        id="branch"
                         placeholder={t('Feedback.name_placeholder')}
                         {...field}
-                        autoComplete="name"
                       />
                       <FormMessage />
                     </div>
@@ -103,10 +101,9 @@ export const Feedback: React.FC = () => {
                     <div className="flex flex-col gap-2">
                       <Label htmlFor="email">{t('Feedback.email')}</Label>
                       <Input
-                        id="email"
+                        id="branch"
                         placeholder={t('Feedback.email_placeholder')}
                         {...field}
-                        autoComplete="email"
                       />
                       <FormMessage />
                     </div>
@@ -125,7 +122,7 @@ export const Feedback: React.FC = () => {
                         {t('Feedback.content')} (*)
                       </Label>
                       <Textarea
-                        id="content"
+                        id="branch"
                         placeholder={t('Feedback.content_placeholder')}
                         {...field}
                       />

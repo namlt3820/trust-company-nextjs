@@ -68,7 +68,11 @@ export const LoginForm: React.FC = () => {
             <FormItem>
               <FormLabel>{t('Login.email')}</FormLabel>
               <FormControl>
-                <Input placeholder="user@gmail.com" {...field} />
+                <Input
+                  placeholder="user@gmail.com"
+                  {...field}
+                  autoComplete="email"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

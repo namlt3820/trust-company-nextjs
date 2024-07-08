@@ -261,5 +261,17 @@
   "Pagination": {
     "next": "Next",
     "previous": "Previous"
+  },
+  "CreateAccount": {
+    "title": "Create A New Account",
+    "name": "Name",
+    "name_placeholder": "Required. Max 50 characters.",
+    "email": "Email",
+    "email_placeholder": "Required.",
+    "password": "Password",
+    "password_placeholder": "Required.",
+    "create": "Create Account",
+    "create_success": "Account created successfully. Please check your email inbox to follow the instructions.",
+    "create_fail": "Account creation failed."
   }
 }

@@ -16,7 +16,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Review } from '@/lib/payloadTypes'
+import { Review, User } from '@/lib/payloadTypes'
 import { useAuth } from '@/providers/Auth'
 import { Flag, PencilLine, X } from 'lucide-react'
 import { useTranslations } from 'next-intl'
@@ -34,8 +34,8 @@ export const ReviewActions: React.FC<ReviewActionsProps> = ({ review }) => {
   const t_general = useTranslations('General')
 
   const { user } = useAuth()
-  const { id: reviewId, populatedUser, updatedAt } = review
-  const { name, id } = populatedUser!
+  const { id: reviewId, user: author } = review
+  const { id } = author as User
   const isFromLoggedInUser = user?.id === id
 
   return (

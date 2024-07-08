@@ -12,6 +12,7 @@ import { LocaleType } from '@/config'
 import { useComments } from '@/hooks/useComments'
 import { useReactions } from '@/hooks/useReactions'
 import { formatDate } from '@/lib/formatDate'
+import { User } from '@/lib/payloadTypes'
 import { useLocale, useTranslations } from 'next-intl'
 
 export default function Comments() {
@@ -34,8 +35,8 @@ export default function Comments() {
 
         <div className="grid gap-4">
           {commentsData?.docs.map((comment) => {
-            const { id: commentId, populatedUser, content, updatedAt } = comment
-            const { name, id } = populatedUser!
+            const { id: commentId, user, content, updatedAt } = comment
+            const { name } = user as User
 
             return (
               <Card key={commentId}>

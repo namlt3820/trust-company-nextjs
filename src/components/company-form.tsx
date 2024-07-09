@@ -141,13 +141,16 @@ export const CompanyForm: React.FC<CompanyProps> = () => {
             <FormItem>
               <FormControl>
                 <div className="grid grid-cols-7 items-center gap-4">
-                  <Label htmlFor="name" className="text-right">
+                  <Label
+                    htmlFor="name"
+                    className="col-span-7 text-left md:col-span-1 md:text-right"
+                  >
                     {t('name')} (*)
                   </Label>
                   <Input
                     id="name"
                     placeholder={t('name_placeholder')}
-                    className="col-span-6"
+                    className="col-span-7 md:col-span-6"
                     {...field}
                   />
                   <FormMessage className="col-span-6 col-start-2" />
@@ -164,13 +167,16 @@ export const CompanyForm: React.FC<CompanyProps> = () => {
             <FormItem>
               <FormControl>
                 <div className="grid grid-cols-7 items-center gap-4">
-                  <Label htmlFor="name" className="text-right">
+                  <Label
+                    htmlFor="name"
+                    className="col-span-7 text-left md:col-span-1 md:text-right"
+                  >
                     {t('address')} (*)
                   </Label>
                   <Input
                     id="address"
                     placeholder={t('address_placeholder')}
-                    className="col-span-6"
+                    className="col-span-7 md:col-span-6"
                     {...field}
                   />
                   <FormMessage className="col-span-6 col-start-2" />
@@ -181,17 +187,20 @@ export const CompanyForm: React.FC<CompanyProps> = () => {
         />
 
         <div className="grid grid-cols-7 items-center gap-4">
-          <Label htmlFor="name" className="text-right">
+          <Label
+            htmlFor="name"
+            className="col-span-7 text-left md:col-span-1 md:text-right"
+          >
             {t('logo')} (*)
           </Label>
           <Input
             id="address"
             placeholder={t('logo_placeholder')}
-            className="col-span-3"
+            className="col-span-7 md:col-span-3"
             type="file"
             onChange={handleFileChange}
           />
-          <div className="col-span-3 flex items-center justify-start gap-4">
+          <div className="col-span-7 flex items-center justify-start gap-4 md:col-span-3">
             <Button onClick={handleUploadImage}>{t('upload')} </Button>
             <span>{UploadStatusMessage[uploadImageMutation.status]}</span>
           </div>
@@ -203,10 +212,13 @@ export const CompanyForm: React.FC<CompanyProps> = () => {
           render={({ field }) => (
             <FormItem>
               <div className="grid grid-cols-7 items-center gap-4">
-                <Label htmlFor="companyType" className="text-right">
+                <Label
+                  htmlFor="companyType"
+                  className="col-span-7 text-left md:col-span-1 md:text-right"
+                >
                   {t('company_type')} (*)
                 </Label>
-                <div className="col-span-6">
+                <div className="col-span-7 md:col-span-6">
                   <Select onValueChange={field.onChange}>
                     <FormControl>
                       <SelectTrigger>
@@ -234,10 +246,13 @@ export const CompanyForm: React.FC<CompanyProps> = () => {
           render={({ field }) => (
             <FormItem>
               <div className="grid grid-cols-7 items-center gap-4">
-                <Label htmlFor="numberOfEmployees" className="text-right">
+                <Label
+                  htmlFor="numberOfEmployees"
+                  className="col-span-7 text-left md:col-span-1 md:text-right"
+                >
                   {t('number_employees')} (*)
                 </Label>
-                <div className="col-span-6">
+                <div className="col-span-7 md:col-span-6">
                   <Select onValueChange={field.onChange}>
                     <FormControl>
                       <SelectTrigger>
@@ -275,13 +290,16 @@ export const CompanyForm: React.FC<CompanyProps> = () => {
             <FormItem>
               <FormControl>
                 <div className="grid grid-cols-7 items-center gap-4">
-                  <Label htmlFor="name" className="text-right">
+                  <Label
+                    htmlFor="name"
+                    className="col-span-7 text-left md:col-span-1 md:text-right"
+                  >
                     Website
                   </Label>
                   <Input
                     id="name"
                     placeholder={t('website_placeholder')}
-                    className="col-span-6"
+                    className="col-span-7 md:col-span-6"
                     {...field}
                   />
                   <FormMessage className="col-span-6 col-start-2" />

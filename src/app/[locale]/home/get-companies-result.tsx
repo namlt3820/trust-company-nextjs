@@ -59,6 +59,7 @@ export const GetCompaniesResult: React.FC<GetCompaniesResultProps> = ({
             key={id}
             onSelect={() => onSelectResult(company)}
             value={name}
+            className="flex gap-2"
           >
             <Image src={url} width={100} height={100} alt="company_logo" />
             {name}

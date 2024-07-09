@@ -130,11 +130,15 @@ export const NavbarMobile: React.FC = () => {
                 <span onClick={setNavbarClose}>{t_navbar('feedback')}</span>
               </Link>
               {user ? null : (
-                <Popover open={loginFormOpen} onOpenChange={setLoginFormOpen}>
+                <Popover
+                  open={loginFormOpen}
+                  onOpenChange={setLoginFormOpen}
+                  modal={true}
+                >
                   <PopoverTrigger className={LinkClassname}>
                     {t_login('action')}
                   </PopoverTrigger>
-                  <PopoverContent align="end" className="w-[34rem]">
+                  <PopoverContent align="end" className="w-screen">
                     <LoginForm setLoginFormOpen={setLoginFormOpen} />
                   </PopoverContent>
                 </Popover>

@@ -3,10 +3,24 @@ import { Navbar } from '@/components/navbar'
 import { Toaster } from '@/components/ui/toaster'
 import { constructMetadata } from '@/lib/metadata'
 import { Providers } from '@/providers'
+import { Viewport } from 'next'
 import { getMessages } from 'next-intl/server'
-// import { Arimo, IBM_Plex_Sans, Roboto } from 'next/font/google'
 import { Inter } from 'next/font/google'
+import { headers } from 'next/headers'
 import './globals.css'
+// import { Arimo, IBM_Plex_Sans, Roboto } from 'next/font/google'
+
+export async function generateViewport(): Promise<Viewport> {
+  const userAgent = headers().get('user-agent')
+  const isiPhone = /iphone/i.test(userAgent ?? '')
+  return isiPhone
+    ? {
+        width: 'device-width',
+        initialScale: 1,
+        maximumScale: 1, // disables auto-zoom on ios safari
+      }
+    : {}
+}
 
 /**
  * Used to have multiple fonts, but now using one font to make multiple languages look good
@@ -22,14 +36,6 @@ import './globals.css'
 //   display: 'swap',
 //   variable: '--font-ibm_plex_sans',
 //   weight: ['100', '200', '300', '400', '500', '600', '700'],
-// })
-
-// const roboto = Roboto({
-//   weight: ['100', '300', '400', '500', '700', '900'],
-//   style: ['normal', 'italic'],
-//   subsets: ['latin'],
-//   display: 'swap',
-//   variable: '--font-roboto',
 // })
 
 const inter = Inter({ subsets: ['latin'] })

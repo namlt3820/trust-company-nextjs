@@ -12,6 +12,8 @@ import {
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import { useToast } from '@/components/ui/use-toast'
+import { useMediaQuery } from '@/hooks/useMediaQuery'
+import { cn } from '@/lib/utils'
 import { Link } from '@/navigation'
 import { useAuth } from '@/providers/Auth'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -28,6 +30,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ setLoginFormOpen }) => {
   const { toast } = useToast()
   const { login } = useAuth()
   const t = useTranslations()
+  const isDesktop = useMediaQuery('(min-width: 768px)')
 
   const formSchema = z.object({
     email: z.string().email({
@@ -63,7 +66,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ setLoginFormOpen }) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="mx-auto grid gap-6 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[1fr_1fr]"
+        className="mx-auto grid grid-cols-1 gap-6 p-4 md:w-[400px] md:grid-cols-2 lg:w-[500px] lg:grid-cols-[1fr_1fr]"
       >
         <FormField
           control={form.control}
@@ -101,13 +104,13 @@ export const LoginForm: React.FC<LoginFormProps> = ({ setLoginFormOpen }) => {
           )}
         />
 
-        <Button type="submit" className="col-span-2">
+        <Button type="submit" className={cn({ 'col-span-2': isDesktop })}>
           {t('Login.action')}
         </Button>
 
-        <Separator className="col-span-2" />
+        <Separator className={cn({ 'col-span-2': isDesktop })} />
 
-        <p className="col-span-2 text-center text-sm">
+        <p className={cn({ 'col-span-2': isDesktop }, 'text-center text-sm')}>
           {t('Login.you_cant')}
           <br />
           <Link href={'/account/create'}>

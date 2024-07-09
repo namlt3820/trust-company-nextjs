@@ -100,7 +100,7 @@ export const NavbarMobile: React.FC = () => {
             <MenuIcon />
           </SheetTrigger>
           <SheetContent>
-            <nav className="flex flex-col items-center gap-6">
+            <nav className="flex flex-col items-start gap-6">
               {user ? (
                 <>
                   <Link

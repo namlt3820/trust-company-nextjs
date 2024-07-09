@@ -4,12 +4,14 @@ import { GetCompaniesCommand } from '@/app/[locale]/home/get-companies-command'
 import { LocaleSwitcher } from '@/app/[locale]/home/locale-switcher'
 import { LoginForm } from '@/app/[locale]/home/login-form'
 import { Icons } from '@/components/icons'
+import { NavbarMobile } from '@/components/navbar-mobile'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
 import { useToast } from '@/components/ui/use-toast'
+import { useMediaQuery } from '@/hooks/useMediaQuery'
 import { Company } from '@/lib/payloadTypes'
 import { cn } from '@/lib/utils'
 import { Link, usePathname, useRouter } from '@/navigation'
@@ -43,7 +45,7 @@ export function GetCompaniesCombobox() {
   )
 }
 
-export const NavBar: React.FC = () => {
+export const Navbar: React.FC = () => {
   const { user, logout } = useAuth()
   const { toast } = useToast()
   const router = useRouter()
@@ -52,6 +54,7 @@ export const NavBar: React.FC = () => {
   const t_login = useTranslations('Login')
   const pathName = usePathname()
   const [loginFormOpen, setLoginFormOpen] = useState(false)
+  const isDesktop = useMediaQuery('(min-width: 768px)')
 
   const onLogoutClick = async () => {
     try {
@@ -74,7 +77,7 @@ export const NavBar: React.FC = () => {
         'md:translate-y-0/2 fixed inset-x-0 top-0 z-50 translate-y-0 bg-white shadow-lg dark:bg-gray-950'
       )}
     >
-      <div className="container flex h-14 items-center justify-between px-16 md:px-20">
+      <div className="container flex h-14 items-center justify-between px-10 md:px-20">
         <Link
           href="/"
           className="flex items-center justify-center"
@@ -86,48 +89,52 @@ export const NavBar: React.FC = () => {
         <div className={cn('self-start', { 'w-96': pathName !== '/' })}>
           {pathName !== '/' ? <GetCompaniesCombobox /> : null}
         </div>
-        <nav className="flex items-center gap-4 sm:gap-6">
-          {user ? (
-            <>
-              <Link
-                href={`/reviews?user=${user.id}&page=1&limit=10`}
-                className={LinkClassname}
-                prefetch={false}
-              >
-                {t_navbar('my_reviews')}
-              </Link>
-              <Link
-                href={`/comments?user=${user.id}&page=1&limit=10`}
-                className={LinkClassname}
-                prefetch={false}
-              >
-                {t_navbar('my_comments')}
-              </Link>
-            </>
-          ) : null}
-          <Link href="/guide" className={LinkClassname} prefetch={false}>
-            {t_navbar('guide')}
-          </Link>
-          <Link href="/#feedback_section" className={LinkClassname}>
-            {t_navbar('feedback')}
-          </Link>
-          {user ? null : (
-            <Popover open={loginFormOpen} onOpenChange={setLoginFormOpen}>
-              <PopoverTrigger className={LinkClassname}>
-                {t_login('action')}
-              </PopoverTrigger>
-              <PopoverContent align="end" className="w-[34rem]">
-                <LoginForm setLoginFormOpen={setLoginFormOpen}/>
-              </PopoverContent>
-            </Popover>
-          )}
-          <LocaleSwitcher />
-          {user ? (
-            <button className={LinkClassname} onClick={onLogoutClick}>
-              {t_logout('action')}
-            </button>
-          ) : null}
-        </nav>
+        {isDesktop ? (
+          <nav className="flex items-center gap-4 sm:gap-6">
+            {user ? (
+              <>
+                <Link
+                  href={`/reviews?user=${user.id}&page=1&limit=10`}
+                  className={LinkClassname}
+                  prefetch={false}
+                >
+                  {t_navbar('my_reviews')}
+                </Link>
+                <Link
+                  href={`/comments?user=${user.id}&page=1&limit=10`}
+                  className={LinkClassname}
+                  prefetch={false}
+                >
+                  {t_navbar('my_comments')}
+                </Link>
+              </>
+            ) : null}
+            <Link href="/guide" className={LinkClassname} prefetch={false}>
+              {t_navbar('guide')}
+            </Link>
+            <Link href="/#feedback_section" className={LinkClassname}>
+              {t_navbar('feedback')}
+            </Link>
+            {user ? null : (
+              <Popover open={loginFormOpen} onOpenChange={setLoginFormOpen}>
+                <PopoverTrigger className={LinkClassname}>
+                  {t_login('action')}
+                </PopoverTrigger>
+                <PopoverContent align="end" className="w-[34rem]">
+                  <LoginForm setLoginFormOpen={setLoginFormOpen} />
+                </PopoverContent>
+              </Popover>
+            )}
+            <LocaleSwitcher />
+            {user ? (
+              <button className={LinkClassname} onClick={onLogoutClick}>
+                {t_logout('action')}
+              </button>
+            ) : null}
+          </nav>
+        ) : (
+          <NavbarMobile />
+        )}
       </div>
     </header>
   )

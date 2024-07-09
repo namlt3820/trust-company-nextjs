@@ -1,5 +1,5 @@
 import Footer from '@/components/footer'
-import { NavBar } from '@/components/navbar'
+import { Navbar } from '@/components/navbar'
 import { Toaster } from '@/components/ui/toaster'
 import { constructMetadata } from '@/lib/metadata'
 import { Providers } from '@/providers'
@@ -52,7 +52,7 @@ export default async function RootLayout({
       <body className={inter.className}>
         <Providers messages={messages} locale={locale}>
           <div className="flex min-h-[100dvh] flex-col">
-            <NavBar />
+            <Navbar />
             <main className="flex-1">{children}</main>
             <Footer />
           </div>

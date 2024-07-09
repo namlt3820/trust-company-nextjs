@@ -12,8 +12,10 @@ import { useEffect, useRef } from 'react'
 export default function EmailVerification() {
   const searchParams = useSearchParams()
   const token = searchParams.get('token') || ''
+
   const t = useTranslations('CreateAccount')
   const router = useRouter()
+
   const verifyEmailMutation = useMutation({
     mutationFn: (params: VerifyEmailParams) => verifyEmail(params),
     onSuccess: () => {
@@ -22,8 +24,8 @@ export default function EmailVerification() {
       }, 3000)
     },
   })
-  const hasFired = useRef(false)
 
+  const hasFired = useRef(false)
   useEffect(() => {
     if (!hasFired.current) {
       hasFired.current = true

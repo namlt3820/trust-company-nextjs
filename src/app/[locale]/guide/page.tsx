@@ -19,7 +19,7 @@ export default function Guide() {
   const [selected, setSelected] = useState(company)
 
   return (
-    <div className="container mb-24 mt-28 flex flex-1 overflow-hidden px-16 md:px-20">
+    <div className="container mb-24 mt-28 flex flex-1 overflow-hidden px-10 md:px-20">
       <div className="flex h-full flex-col gap-6 border-r-2 border-gray-200">
         <Button
           variant={'link'}

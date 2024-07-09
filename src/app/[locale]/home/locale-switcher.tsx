@@ -48,7 +48,7 @@ export const LocaleSwitcher = () => {
         disabled={isPending}
         onValueChange={onSelectChange}
       >
-        <SelectTrigger className="border-none px-0 text-sm font-medium underline-offset-4 hover:underline focus:outline-none">
+        <SelectTrigger className="h-5 border-none px-0 py-0 text-sm font-medium underline-offset-4 hover:underline focus:outline-none">
           <SelectValue></SelectValue>
         </SelectTrigger>
         <SelectContent>

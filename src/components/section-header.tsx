@@ -10,7 +10,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
   subtitle,
 }) => {
   return (
-    <div className="flex flex-col items-center justify-center space-y-2 text-center md:mb-10">
+    <div className="mb-4 flex flex-col items-center justify-center space-y-2 text-center md:mb-10">
       <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
         {title}
       </h2>

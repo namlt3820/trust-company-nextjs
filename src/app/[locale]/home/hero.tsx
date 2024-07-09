@@ -13,7 +13,7 @@ export const Hero: React.FC = () => {
 
   return (
     <SectionWrapper backgroundColor="bg-white">
-      <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_700px]">
+      <div className="grid gap-12 lg:grid-cols-[1fr_400px] xl:grid-cols-[1fr_700px]">
         <div className="flex flex-col justify-center space-y-4">
           <div className="space-y-10">
             <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl">

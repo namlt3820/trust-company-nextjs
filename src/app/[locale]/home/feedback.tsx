@@ -15,6 +15,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { useToast } from '@/components/ui/use-toast'
+import { useMediaQuery } from '@/hooks/useMediaQuery'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
@@ -31,6 +32,7 @@ const formSchema = z.object({
 export const Feedback: React.FC = () => {
   const t = useTranslations()
   const { toast } = useToast()
+  const isDesktop = useMediaQuery('(min-width: 768px)')
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -102,12 +104,21 @@ export const Feedback: React.FC = () => {
                   <FormControl>
                     <div className="flex flex-col gap-2">
                       <Label htmlFor="email">{t('Feedback.email')}</Label>
-                      <Input
-                        id="email"
-                        placeholder={t('Feedback.email_placeholder')}
-                        {...field}
-                        autoComplete="email"
-                      />
+                      {isDesktop ? (
+                        <Input
+                          id="email"
+                          placeholder={t('Feedback.email_placeholder')}
+                          {...field}
+                          autoComplete="email"
+                        />
+                      ) : (
+                        <Textarea
+                          id="email"
+                          placeholder={t('Feedback.email_placeholder')}
+                          {...field}
+                          autoComplete="email"
+                        />
+                      )}
                       <FormMessage />
                     </div>
                   </FormControl>

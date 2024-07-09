@@ -39,6 +39,7 @@ export const GetCompaniesCommand: React.FC<GetCompaniesCommandProps> = ({
         value={searchQuery}
         onValueChange={setSearchQuery}
         placeholder={t('enter_name')}
+        className={cn({ 'px-3': pathName === '/' })}
       />
 
       <GetCompaniesResult

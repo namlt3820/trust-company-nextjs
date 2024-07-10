@@ -112,6 +112,9 @@ export const NavbarMobile: React.FC = () => {
           </SheetTrigger>
           <SheetContent>
             <nav className="flex flex-col items-start gap-6">
+              <Link href={'/'} className={LinkClassname} prefetch={false}>
+                <span onClick={setNavbarClose}>{t_navbar('homepage')}</span>
+              </Link>
               {user ? (
                 <>
                   <Link

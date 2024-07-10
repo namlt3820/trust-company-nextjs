@@ -91,6 +91,9 @@ export const Navbar: React.FC = () => {
         </div>
         {isDesktop ? (
           <nav className="flex items-center gap-4 sm:gap-6">
+            <Link href={'/'} className={LinkClassname} prefetch={false}>
+              {t_navbar('homepage')}
+            </Link>
             {user ? (
               <>
                 <Link

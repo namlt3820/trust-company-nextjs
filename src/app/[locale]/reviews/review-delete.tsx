@@ -38,7 +38,7 @@ export const ReviewDelete: React.FC<ReviewDeleteProps> = ({
   })
 
   return (
-    <div className="flex justify-between md:px-80">
+    <div className="flex flex-col justify-between gap-4 md:flex-row md:gap-0 md:px-80">
       <Button variant={'outline'} onClick={() => setIsDeleteDialogOpen(false)}>
         {t_general('no_delete')}
       </Button>

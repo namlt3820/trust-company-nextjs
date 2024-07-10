@@ -159,7 +159,13 @@ export const NavbarMobile: React.FC = () => {
               )}
               <LocaleSwitcher />
               {user ? (
-                <button className={LinkClassname} onClick={onLogoutClick}>
+                <button
+                  className={LinkClassname}
+                  onClick={() => {
+                    onLogoutClick()
+                    setNavbarClose()
+                  }}
+                >
                   {t_logout('action')}
                 </button>
               ) : null}

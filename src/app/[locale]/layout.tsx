@@ -1,5 +1,6 @@
 import Footer from '@/components/footer'
 import { Navbar } from '@/components/navbar'
+import { ScrollToTop } from '@/components/scroll-to-top'
 import { Toaster } from '@/components/ui/toaster'
 import { constructMetadata } from '@/lib/metadata'
 import { Providers } from '@/providers'
@@ -60,6 +61,7 @@ export default async function RootLayout({
           <div className="flex min-h-[100dvh] flex-col">
             <Navbar />
             <main className="flex-1">{children}</main>
+            <ScrollToTop />
             <Footer />
           </div>
         </Providers>

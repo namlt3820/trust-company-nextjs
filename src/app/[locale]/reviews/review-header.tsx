@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge'
 import { LocaleType } from '@/config'
 import { formatDate } from '@/lib/formatDate'
 import { Review } from '@/lib/payloadTypes'
+import { cn } from '@/lib/utils'
 import { useLocale, useTranslations } from 'next-intl'
 import React from 'react'
 
@@ -39,16 +40,25 @@ export const ReviewHeader: React.FC<ReviewHeaderProps> = ({
   const locale = useLocale()
 
   return (
-    <div className="flex items-center justify-between">
-      <div className="flex items-center space-x-3">
-        <span className="text-lg font-semibold">{name}</span>
-        <Badge variant={'outline'} className={`${ratingColors[rate]}`}>
+    <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
+      <div className="grid w-full grid-cols-2 items-center gap-y-4 md:w-auto md:grid-cols-[auto,auto,auto,auto] md:gap-x-2 md:gap-y-0">
+        <span className="col-span-1 justify-self-start text-lg font-semibold">
+          {name}
+        </span>
+        <Badge
+          variant={'outline'}
+          className={cn(ratingColors[rate], 'col-span-1 justify-self-end')}
+        >
           {t(rate)}
         </Badge>
-        <ReviewReactions reactions={reactions} reviewId={review.id} />
-        <ReviewActions review={review} />
+        <div className="col-span-1 justify-self-start">
+          <ReviewReactions reactions={reactions} reviewId={review.id} />
+        </div>
+        <div className="col-span-1 justify-self-end md:justify-self-start">
+          <ReviewActions review={review} />
+        </div>
       </div>
-      <span className="font-medium text-gray-500">
+      <span className="text-sm font-medium text-gray-500 md:text-base">
         {formatDate(new Date(updatedAt), locale as LocaleType)}
       </span>
     </div>

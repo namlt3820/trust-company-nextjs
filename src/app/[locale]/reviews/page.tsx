@@ -28,63 +28,65 @@ const Reviews: React.FC = () => {
   const t = useTranslations('Review')
 
   return (
-    <SectionWrapper backgroundColor="bg-white">
-      <SectionHeader
-        title={company ? t('company_reviews') : t('user_reviews')}
-        subtitle={company ? t('company_intro') : t('user_intro')}
-      />
-      <ReviewNavigation />
-      <div className="mx-auto w-full">
-        <ResourceStatus
-          isLoading={isLoading}
-          isNotFound={!isError && !isLoading && !reviewsData?.docs.length}
-          isError={isError}
-          notFoundMessage={t('not_found')}
+    <div className="mt-24 md:mt-0">
+      <SectionWrapper backgroundColor="bg-white">
+        <SectionHeader
+          title={company ? t('company_reviews') : t('user_reviews')}
+          subtitle={company ? t('company_intro') : t('user_intro')}
         />
-        <div className="grid gap-4">
-          {reviewsData?.docs.map((review) => {
-            const { id: reviewId, rate, user, updatedAt } = review
-            const { name } = user as User
-            const commentCountByReview = commentsData?.find(
-              ({ review }) => review === reviewId
-            ) || {
-              review: reviewId,
-              commentCount: 0,
-            }
+        <ReviewNavigation />
+        <div className="mx-auto w-full">
+          <ResourceStatus
+            isLoading={isLoading}
+            isNotFound={!isError && !isLoading && !reviewsData?.docs.length}
+            isError={isError}
+            notFoundMessage={t('not_found')}
+          />
+          <div className="grid gap-4">
+            {reviewsData?.docs.map((review) => {
+              const { id: reviewId, rate, user, updatedAt } = review
+              const { name } = user as User
+              const commentCountByReview = commentsData?.find(
+                ({ review }) => review === reviewId
+              ) || {
+                review: reviewId,
+                commentCount: 0,
+              }
 
-            return (
-              <Card key={reviewId}>
-                <CardHeader>
-                  <ReviewHeader
-                    name={name}
-                    rate={rate}
-                    updatedAt={updatedAt}
-                    reactions={reactionsData?.find(
-                      ({ type, id }) => type === 'review' && id === reviewId
-                    )}
-                    review={review}
-                  />
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <RelevantInformation review={review} />
-                    <BasicReview review={review} />
-                    <ReviewRichtext review={review} />
-                    <ReviewCommentCount
-                      commentCount={commentCountByReview.commentCount}
-                      review={commentCountByReview.review}
-                      company={company}
+              return (
+                <Card key={reviewId}>
+                  <CardHeader>
+                    <ReviewHeader
+                      name={name}
+                      rate={rate}
+                      updatedAt={updatedAt}
+                      reactions={reactionsData?.find(
+                        ({ type, id }) => type === 'review' && id === reviewId
+                      )}
+                      review={review}
                     />
-                  </div>
-                </CardContent>
-              </Card>
-            )
-          })}
-        </div>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <RelevantInformation review={review} />
+                      <BasicReview review={review} />
+                      <ReviewRichtext review={review} />
+                      <ReviewCommentCount
+                        commentCount={commentCountByReview.commentCount}
+                        review={commentCountByReview.review}
+                        company={company}
+                      />
+                    </div>
+                  </CardContent>
+                </Card>
+              )
+            })}
+          </div>
 
-        <ReviewPagination response={reviewsData} />
-      </div>
-    </SectionWrapper>
+          <ReviewPagination response={reviewsData} />
+        </div>
+      </SectionWrapper>
+    </div>
   )
 }
 

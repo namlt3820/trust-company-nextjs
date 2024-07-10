@@ -16,6 +16,6 @@ export const SectionWrapper: React.FC<SectionWrapperProps> = ({
       backgroundColor
     )}
   >
-    <div className="container px-10 md:px-20">{children}</div>
+    <div className="container px-5 md:px-20">{children}</div>
   </section>
 )

@@ -51,7 +51,7 @@ export const ReviewNavigation: React.FC<ReviewNavigationProps> = () => {
   }
 
   return (
-    <div className="flex justify-between md:mb-10">
+    <div className="mb-8 flex justify-between">
       <Dialog>
         <DialogTrigger asChild>
           {company ? (

@@ -88,7 +88,7 @@ export const NavbarMobile: React.FC = () => {
     >
       <div
         className={cn(
-          'container flex items-center justify-between px-10 md:px-20',
+          'container flex items-center justify-between px-10 xl:px-20',
           { 'h-14': pathName === '/' },
           { 'mt-4': pathName !== '/' }
         )}

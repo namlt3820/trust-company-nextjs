@@ -23,9 +23,8 @@ export const GetCompaniesSubtitle: React.FC = () => {
 
   return (
     <>
-      {t('start_with')} {t('if_not_find')},
-      <br />
-      {t('create_one')}{' '}
+      {t('start_with')} <br />
+      {t('if_not_find')},{t('create_one')}{' '}
       <Dialog>
         <DialogTrigger asChild>
           <span className="cursor-pointer underline decoration-1 underline-offset-4">

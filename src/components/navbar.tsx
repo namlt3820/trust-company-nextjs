@@ -54,7 +54,7 @@ export const Navbar: React.FC = () => {
   const t_login = useTranslations('Login')
   const pathName = usePathname()
   const [loginFormOpen, setLoginFormOpen] = useState(false)
-  const isDesktop = useMediaQuery('(min-width: 768px)')
+  const isDesktop = useMediaQuery('(min-width: 1280px)')
 
   const onLogoutClick = async () => {
     try {

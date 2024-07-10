@@ -13,9 +13,9 @@ export const Hero: React.FC = () => {
 
   return (
     <SectionWrapper backgroundColor="bg-white">
-      <div className="grid gap-12 lg:grid-cols-[1fr_400px] xl:grid-cols-[1fr_700px]">
-        <div className="flex flex-col justify-center space-y-4">
-          <div className="space-y-10">
+      <div className="grid gap-12 xl:grid-cols-[1fr_1fr]">
+        <div className="flex flex-col">
+          <div className="space-y-8">
             <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl">
               {t('title')}
             </h1>

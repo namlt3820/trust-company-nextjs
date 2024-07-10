@@ -32,6 +32,18 @@ const Footer = () => {
             >
               Discord <ExternalLink width={16} height={16} />
             </a>
+            <a
+              href="#"
+              className="flex items-center gap-1 text-sm text-gray-400 hover:text-white md:text-base"
+            >
+              Facebook <ExternalLink width={16} height={16} />
+            </a>
+            <a
+              href="#"
+              className="flex items-center gap-1 text-sm text-gray-400 hover:text-white md:text-base"
+            >
+              X <ExternalLink width={16} height={16} />
+            </a>
           </div>
         </div>
       </div>

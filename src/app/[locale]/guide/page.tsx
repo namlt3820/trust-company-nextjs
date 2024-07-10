@@ -89,7 +89,7 @@ export default function Guide() {
           <h2 className="text-3xl font-bold leading-10 tracking-tighter sm:text-4xl/snug">
             {t('guide')}
           </h2>
-          <p className="max-w-[900px] text-gray-500 dark:text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+          <p className="max-w-[900px] text-gray-500 dark:text-gray-400 md:text-xl">
             {t('description')}
           </p>
         </div>

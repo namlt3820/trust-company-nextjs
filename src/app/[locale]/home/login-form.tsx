@@ -24,7 +24,7 @@ import { z } from 'zod'
 
 export type LoginFormProps = {
   setLoginFormOpen: (state: boolean) => void
-  setNavbarClose: () => void
+  setNavbarClose?: () => void
 }
 
 export const LoginForm: React.FC<LoginFormProps> = ({
@@ -67,7 +67,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({
   }
 
   const onCloseModal = () => {
-    setNavbarClose()
+    setNavbarClose && setNavbarClose()
     setLoginFormOpen(false)
   }
 

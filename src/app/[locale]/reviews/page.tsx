@@ -25,6 +25,7 @@ const Reviews: React.FC = () => {
   const { data: commentsData } = useCommentCountByReview(reviewsData)
   const searchParams = useSearchParams()
   const company = searchParams.get('company')
+  const userSearchParam = searchParams.get('user')
   const t = useTranslations('Review')
 
   return (
@@ -75,6 +76,7 @@ const Reviews: React.FC = () => {
                         commentCount={commentCountByReview.commentCount}
                         review={commentCountByReview.review}
                         company={company}
+                        user={userSearchParam}
                       />
                     </div>
                   </CardContent>

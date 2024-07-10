@@ -86,7 +86,7 @@ export const Navbar: React.FC = () => {
           <Icons.logo className="h-8 w-8 pr-2" />
           <span className="text-sm font-medium">TrustCompany</span>
         </Link>
-        <div className={cn('self-start', { 'w-96': pathName !== '/' })}>
+        <div className={cn('self-start', { 'w-80': pathName !== '/' })}>
           {pathName !== '/' ? <GetCompaniesCombobox /> : null}
         </div>
         {isDesktop ? (

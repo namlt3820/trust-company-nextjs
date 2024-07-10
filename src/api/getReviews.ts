@@ -56,13 +56,13 @@ export const getReviews: GetReviews = async (params: GetReviewsParams) => {
       break
   }
 
-  if (company) {
+  if (company && company !== 'null') {
     queryWhere.company = {
       equals: company,
     }
   }
 
-  if (user) {
+  if (user && user !== 'null') {
     queryWhere.user = {
       equals: user,
     }

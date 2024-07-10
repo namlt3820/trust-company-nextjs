@@ -18,10 +18,11 @@ export const CommentNavigation: React.FC = () => {
   const searchParams = useSearchParams()
   const review = searchParams.get('review')
   const company = searchParams.get('company')
+  const user = searchParams.get('user')
   const t = useTranslations()
 
   return (
-    <div className="flex justify-between md:mb-10">
+    <div className="mb-6 flex justify-between md:mb-10">
       <Dialog>
         <DialogTrigger asChild>
           {review ? (
@@ -44,7 +45,7 @@ export const CommentNavigation: React.FC = () => {
       {review ? (
         <Link
           className={buttonVariants({ variant: 'outline' })}
-          href={`/reviews?company=${company}&page=1&limit=10`}
+          href={`/reviews?company=${company}&user=${user}&page=1&limit=10`}
           prefetch={false}
         >
           {t('Comment.back_reviews')}

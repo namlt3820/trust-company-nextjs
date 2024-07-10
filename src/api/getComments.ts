@@ -28,13 +28,13 @@ export const getComments: GetComments = async (params: GetCommentsParams) => {
     depth: 1,
   }
 
-  if (review) {
+  if (review && review !== 'null') {
     query.review = {
       equals: review,
     }
   }
 
-  if (user) {
+  if (user && user !== 'null') {
     query.user = {
       equals: user,
     }

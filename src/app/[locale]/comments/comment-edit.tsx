@@ -81,16 +81,19 @@ export const CommentEdit: React.FC<CommentEditProps> = ({
             <FormItem>
               <FormControl>
                 <div className="grid grid-cols-7 items-center gap-4">
-                  <Label htmlFor="content" className="text-right">
+                  <Label
+                    htmlFor="content"
+                    className="col-span-7 text-left md:col-span-1 md:text-right"
+                  >
                     {t('Comment.content')}
                   </Label>
                   <Textarea
                     id="branch"
                     placeholder={t('Comment.content_placeholder')}
-                    className="col-span-6"
+                    className="col-span-7 md:col-span-6"
                     {...field}
                   />
-                  <FormMessage className="col-span-6 col-start-2" />
+                  <FormMessage className="col-span-7 md:col-span-6 md:col-start-2" />
                 </div>
               </FormControl>
             </FormItem>

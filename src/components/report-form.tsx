@@ -16,7 +16,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { Textarea } from '@/components/ui/textarea'
 import { useToast } from '@/components/ui/use-toast'
+import { useMediaQuery } from '@/hooks/useMediaQuery'
 import { useAuth } from '@/providers/Auth'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
@@ -52,6 +54,7 @@ export const ReportForm: React.FC<ReportFormProps> = ({
   const { user } = useAuth()
   const t = useTranslations('Report')
   const t_general = useTranslations('General')
+  const isDesktop = useMediaQuery('(min-width: 768px)')
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -107,10 +110,13 @@ export const ReportForm: React.FC<ReportFormProps> = ({
           render={({ field }) => (
             <FormItem>
               <div className="grid grid-cols-7 items-center gap-4">
-                <Label htmlFor="type" className="text-right">
+                <Label
+                  htmlFor="type"
+                  className="col-span-7 text-left md:col-span-1 md:text-right"
+                >
                   {t('type')}
                 </Label>
-                <div className="col-span-6">
+                <div className="col-span-7 md:col-span-6">
                   <Select onValueChange={field.onChange}>
                     <FormControl>
                       <SelectTrigger>
@@ -147,16 +153,28 @@ export const ReportForm: React.FC<ReportFormProps> = ({
             <FormItem>
               <FormControl>
                 <div className="grid grid-cols-7 items-center gap-4">
-                  <Label htmlFor="otherType" className="text-right">
+                  <Label
+                    htmlFor="otherType"
+                    className="col-span-7 text-left md:col-span-1 md:text-right"
+                  >
                     {t('other_type')}
                   </Label>
-                  <Input
-                    id="otherType"
-                    placeholder={t('other_type_placeholder')}
-                    className="col-span-6"
-                    {...field}
-                  />
-                  <FormMessage className="col-span-6 col-start-2" />
+                  {isDesktop ? (
+                    <Input
+                      id="otherType"
+                      placeholder={t('other_type_placeholder')}
+                      className="col-span-7 md:col-span-6"
+                      {...field}
+                    />
+                  ) : (
+                    <Textarea
+                      id="otherType"
+                      placeholder={t('other_type_placeholder')}
+                      className="col-span-7 md:col-span-6"
+                      {...field}
+                    />
+                  )}
+                  <FormMessage className="col-span-7 md:col-span-6 md:col-start-2" />
                 </div>
               </FormControl>
             </FormItem>

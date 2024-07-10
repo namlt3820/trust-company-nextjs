@@ -64,7 +64,7 @@ export const ReportForm: React.FC<ReportFormProps> = ({
     mutationFn: (params: CreateReportParams) => createReport(params),
     onSuccess: async () => {
       toast({
-        title: t('creat_success'),
+        title: t('create_success'),
       })
       await setIsReportDialogOpen(false)
     },

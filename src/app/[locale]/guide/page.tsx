@@ -2,6 +2,15 @@
 
 import { GuideItem } from '@/app/[locale]/guide/guide'
 import { Button } from '@/components/ui/button'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { useMediaQuery } from '@/hooks/useMediaQuery'
 import { cn } from '@/lib/utils'
 import { useTranslations } from 'next-intl'
 import { useState } from 'react'
@@ -15,64 +24,67 @@ export default function Guide() {
   const reaction = t('reaction')
   const report = t('report')
   const feedback = t('feedback')
+  const isDesktop = useMediaQuery('(min-width: 768px)')
 
   const [selected, setSelected] = useState(company)
 
   return (
-    <div className="container mb-24 mt-28 flex flex-1 overflow-hidden px-10 md:px-20">
-      <div className="flex h-full flex-col gap-6 border-r-2 border-gray-200">
-        <Button
-          variant={'link'}
-          onClick={() => setSelected(user)}
-          className={cn({ underline: selected === user })}
-        >
-          {user}
-        </Button>
-        <Button
-          variant={'link'}
-          onClick={() => setSelected(company)}
-          className={cn({ underline: selected === company })}
-        >
-          {company}
-        </Button>
-        <Button
-          variant={'link'}
-          onClick={() => setSelected(review)}
-          className={cn({ underline: selected === review })}
-        >
-          {review}
-        </Button>
-        <Button
-          variant={'link'}
-          onClick={() => setSelected(comment)}
-          className={cn({ underline: selected === comment })}
-        >
-          {comment}
-        </Button>
-        <Button
-          variant={'link'}
-          onClick={() => setSelected(reaction)}
-          className={cn({ underline: selected === reaction })}
-        >
-          {reaction}
-        </Button>
-        <Button
-          variant={'link'}
-          onClick={() => setSelected(report)}
-          className={cn({ underline: selected === report })}
-        >
-          {report}
-        </Button>
-        <Button
-          variant={'link'}
-          onClick={() => setSelected(feedback)}
-          className={cn({ underline: selected === feedback })}
-        >
-          {feedback}
-        </Button>
-      </div>
+    <div className="container mb-24 mt-28 flex flex-1 flex-col overflow-hidden px-10 md:flex-row md:px-20">
+      {isDesktop ? (
+        <div className="flex h-full flex-col gap-6 border-r-2 border-gray-200">
+          <Button
+            variant={'link'}
+            onClick={() => setSelected(user)}
+            className={cn({ underline: selected === user })}
+          >
+            {user}
+          </Button>
+          <Button
+            variant={'link'}
+            onClick={() => setSelected(company)}
+            className={cn({ underline: selected === company })}
+          >
+            {company}
+          </Button>
+          <Button
+            variant={'link'}
+            onClick={() => setSelected(review)}
+            className={cn({ underline: selected === review })}
+          >
+            {review}
+          </Button>
+          <Button
+            variant={'link'}
+            onClick={() => setSelected(comment)}
+            className={cn({ underline: selected === comment })}
+          >
+            {comment}
+          </Button>
+          <Button
+            variant={'link'}
+            onClick={() => setSelected(reaction)}
+            className={cn({ underline: selected === reaction })}
+          >
+            {reaction}
+          </Button>
+          <Button
+            variant={'link'}
+            onClick={() => setSelected(report)}
+            className={cn({ underline: selected === report })}
+          >
+            {report}
+          </Button>
+          <Button
+            variant={'link'}
+            onClick={() => setSelected(feedback)}
+            className={cn({ underline: selected === feedback })}
+          >
+            {feedback}
+          </Button>
+        </div>
+      ) : null}
 
-      <div className="flex-1 overflow-y-auto pl-8">
+      <div className="flex-1 space-y-6 overflow-y-auto md:space-y-0 md:pl-8">
         <div className="flex flex-col items-center justify-center space-y-2 text-center md:mb-10">
           <h2 className="text-3xl font-bold leading-10 tracking-tighter sm:text-4xl/snug">
             {t('guide')}
@@ -81,6 +93,27 @@ export default function Guide() {
             {t('description')}
           </p>
         </div>
+        {isDesktop ? null : (
+          <Select
+            onValueChange={(value) => setSelected(value)}
+            value={selected}
+          >
+            <SelectTrigger className="mx-auto w-[180px]">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectItem value={user}>{user}</SelectItem>
+                <SelectItem value={company}>{company}</SelectItem>
+                <SelectItem value={review}>{review}</SelectItem>
+                <SelectItem value={comment}>{comment}</SelectItem>
+                <SelectItem value={reaction}>{reaction}</SelectItem>
+                <SelectItem value={report}>{report}</SelectItem>
+                <SelectItem value={feedback}>{feedback}</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        )}
         <GuideItem selected={selected} />
       </div>
     </div>

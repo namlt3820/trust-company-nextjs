@@ -66,7 +66,7 @@
     "review_first": "Vui lòng chọn bài đánh giá trước khi tạo bình luận."
   },
   "Feedback": {
-    "creat_success": "Phản hồi thành công.",
+    "create_success": "Phản hồi thành công.",
     "create_fail": "Gửi phản hồi bị lỗi.",
     "share": "PHẢN HỒI CỦA BẠN",
     "share_reason": "Phản hồi của bạn là yếu tố rất quan trọng giúp website phát triển và phục vụ tốt hơn. Vui lòng trình bày chi tiết và cụ thể nhất có thể. Yên tâm rằng ý kiến của bạn luôn được lắng nghe và phản hồi nhanh chóng.",
@@ -152,7 +152,7 @@
     "locale": "{locale, select, vi {Tiếng Việt} en {Tiếng Anh} other {Khác}}"
   },
   "Report": {
-    "creat_success": "Báo cáo vi phạm thành công.",
+    "create_success": "Báo cáo vi phạm thành công.",
     "create_fail": "Báo cáo vi phạm thất bại.",
     "type": "Loại vi phạm",
     "type_placeholder": "Không bắt buộc. Chọn loại vi phạm phù hợp.",

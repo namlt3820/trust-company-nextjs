@@ -66,7 +66,7 @@
     "review_first": "Please select a review to create a comment."
   },
   "Feedback": {
-    "creat_success": "Feedback created successfully.",
+    "create_success": "Feedback created successfully.",
     "create_fail": "Feedback creation failed.",
     "share": "Share Your Feedback",
     "share_reason": "Your feedback is a crucial factor in helping the website develop and serve users better. Please be as specific and detailed as possible. Rest assured that your opinions are always listened to and responded to promptly.",
@@ -152,7 +152,7 @@
     "locale": "{locale, select, vi {Vietnamese} en {English} other {Other}}"
   },
   "Report": {
-    "creat_success": "Report created successfully.",
+    "create_success": "Report created successfully.",
     "create_fail": "Report creation failed.",
     "type": "Type",
     "type_placeholder": "Optional. Select type of report.",

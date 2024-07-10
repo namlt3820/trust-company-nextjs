@@ -17,7 +17,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { Textarea } from '@/components/ui/textarea'
 import { useToast } from '@/components/ui/use-toast'
+import { useMediaQuery } from '@/hooks/useMediaQuery'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
@@ -41,6 +43,7 @@ const formSchema = z.object({
 export type CompanyProps = {}
 
 export const CompanyForm: React.FC<CompanyProps> = () => {
+  const isDesktop = useMediaQuery('(min-width: 768px)')
   const t = useTranslations('Company')
   const t_general = useTranslations('General')
 
@@ -153,7 +156,7 @@ export const CompanyForm: React.FC<CompanyProps> = () => {
                     className="col-span-7 md:col-span-6"
                     {...field}
                   />
-                  <FormMessage className="col-span-6 col-start-2" />
+                  <FormMessage className="col-span-7 md:col-span-6 md:col-start-2" />
                 </div>
               </FormControl>
             </FormItem>
@@ -179,7 +182,7 @@ export const CompanyForm: React.FC<CompanyProps> = () => {
                     className="col-span-7 md:col-span-6"
                     {...field}
                   />
-                  <FormMessage className="col-span-6 col-start-2" />
+                  <FormMessage className="col-span-7 md:col-span-6 md:col-start-2" />
                 </div>
               </FormControl>
             </FormItem>
@@ -234,7 +237,7 @@ export const CompanyForm: React.FC<CompanyProps> = () => {
                     </SelectContent>
                   </Select>
                 </div>
-                <FormMessage className="col-span-6 col-start-2" />
+                <FormMessage className="col-span-7 md:col-span-6 md:col-start-2" />
               </div>
             </FormItem>
           )}
@@ -277,7 +280,7 @@ export const CompanyForm: React.FC<CompanyProps> = () => {
                     </SelectContent>
                   </Select>
                 </div>
-                <FormMessage className="col-span-6 col-start-2" />
+                <FormMessage className="col-span-7 md:col-span-6 md:col-start-2" />
               </div>
             </FormItem>
           )}
@@ -296,13 +299,22 @@ export const CompanyForm: React.FC<CompanyProps> = () => {
                   >
                     Website
                   </Label>
-                  <Input
-                    id="name"
-                    placeholder={t('website_placeholder')}
-                    className="col-span-7 md:col-span-6"
-                    {...field}
-                  />
-                  <FormMessage className="col-span-6 col-start-2" />
+                  {isDesktop ? (
+                    <Input
+                      id="name"
+                      placeholder={t('website_placeholder')}
+                      className="col-span-7 md:col-span-6"
+                      {...field}
+                    />
+                  ) : (
+                    <Textarea
+                      id="name"
+                      placeholder={t('website_placeholder')}
+                      className="col-span-7 md:col-span-6"
+                      {...field}
+                    />
+                  )}
+                  <FormMessage className="col-span-7 md:col-span-6 md:col-start-2" />
                 </div>
               </FormControl>
             </FormItem>

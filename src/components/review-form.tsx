@@ -19,6 +19,7 @@ import {
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { useToast } from '@/components/ui/use-toast'
+import { useMediaQuery } from '@/hooks/useMediaQuery'
 import { useRouter } from '@/navigation'
 import { useAuth } from '@/providers/Auth'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -59,6 +60,7 @@ export const ReviewForm: React.FC<ReviewFormProps> = () => {
   const company = searchParams.get('company')
   const t = useTranslations('Review')
   const t_general = useTranslations('General')
+  const isDesktop = useMediaQuery('(min-width: 768px)')
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -143,10 +145,13 @@ export const ReviewForm: React.FC<ReviewFormProps> = () => {
           render={({ field }) => (
             <FormItem>
               <div className="grid grid-cols-7 items-center gap-4">
-                <Label htmlFor="rate" className="text-right">
+                <Label
+                  htmlFor="rate"
+                  className="col-span-7 text-left md:col-span-1 md:text-right"
+                >
                   {t('rate')} (*)
                 </Label>
-                <div className="col-span-6">
+                <div className="col-span-7 md:col-span-6">
                   <Select onValueChange={field.onChange}>
                     <FormControl>
                       <SelectTrigger>
@@ -170,11 +175,17 @@ export const ReviewForm: React.FC<ReviewFormProps> = () => {
         />
 
         <div className="grid grid-cols-7 items-center gap-4">
-          <Label htmlFor="detailed_review" className="text-right">
+          <Label
+            htmlFor="detailed_review"
+            className="col-span-7 text-left md:col-span-1 md:text-right"
+          >
             {t('detailed_review')} (*)
           </Label>
-          <RichTextEditor className="col-span-6" onChange={setEditorData} />
-          <FormMessage className="col-span-6 col-start-2" />
+          <RichTextEditor
+            className="col-span-7 md:col-span-6"
+            onChange={setEditorData}
+          />
+          <FormMessage className="col-span-7 md:col-span-6 md:col-start-2" />
         </div>
 
         <FormField
@@ -184,16 +195,28 @@ export const ReviewForm: React.FC<ReviewFormProps> = () => {
             <FormItem>
               <FormControl>
                 <div className="grid grid-cols-7 items-center gap-4">
-                  <Label htmlFor="branch" className="text-right">
+                  <Label
+                    htmlFor="branch"
+                    className="col-span-7 text-left md:col-span-1 md:text-right"
+                  >
                     {t('branch')}
                   </Label>
-                  <Input
-                    id="branch"
-                    placeholder={t('branch_placeholder')}
-                    className="col-span-6"
-                    {...field}
-                  />
-                  <FormMessage className="col-span-6 col-start-2" />
+                  {isDesktop ? (
+                    <Input
+                      id="branch"
+                      placeholder={t('branch_placeholder')}
+                      className="col-span-7 md:col-span-6"
+                      {...field}
+                    />
+                  ) : (
+                    <Textarea
+                      id="branch"
+                      placeholder={t('branch_placeholder')}
+                      className="col-span-7 md:col-span-6"
+                      {...field}
+                    />
+                  )}
+                  <FormMessage className="col-span-7 md:col-span-6 md:col-start-2" />
                 </div>
               </FormControl>
             </FormItem>
@@ -207,18 +230,21 @@ export const ReviewForm: React.FC<ReviewFormProps> = () => {
             <FormItem>
               <FormControl>
                 <div className="grid grid-cols-7 items-center gap-4">
-                  <Label htmlFor="duration" className="text-right">
+                  <Label
+                    htmlFor="duration"
+                    className="col-span-7 text-left md:col-span-1 md:text-right"
+                  >
                     {t('duration')}
                   </Label>
                   <Input
                     id="duration"
                     placeholder={t('duration_placeholder')}
-                    className="col-span-6"
+                    className="col-span-7 md:col-span-6"
                     type="number"
                     min={1}
                     {...field}
                   />
-                  <FormMessage className="col-span-6 col-start-2" />
+                  <FormMessage className="col-span-7 md:col-span-6 md:col-start-2" />
                 </div>
               </FormControl>
             </FormItem>
@@ -232,16 +258,28 @@ export const ReviewForm: React.FC<ReviewFormProps> = () => {
             <FormItem>
               <FormControl>
                 <div className="grid grid-cols-7 items-center gap-4">
-                  <Label htmlFor="title" className="text-right">
+                  <Label
+                    htmlFor="title"
+                    className="col-span-7 text-left md:col-span-1 md:text-right"
+                  >
                     {t('title')}
                   </Label>
-                  <Input
-                    id="title"
-                    placeholder={t('title_placeholder')}
-                    className="col-span-6"
-                    {...field}
-                  />
-                  <FormMessage className="col-span-6 col-start-2" />
+                  {isDesktop ? (
+                    <Input
+                      id="title"
+                      placeholder={t('title_placeholder')}
+                      className="col-span-7 md:col-span-6"
+                      {...field}
+                    />
+                  ) : (
+                    <Textarea
+                      id="title"
+                      placeholder={t('title_placeholder')}
+                      className="col-span-7 md:col-span-6"
+                      {...field}
+                    />
+                  )}
+                  <FormMessage className="col-span-7 md:col-span-6 md:col-start-2" />
                 </div>
               </FormControl>
             </FormItem>
@@ -255,17 +293,20 @@ export const ReviewForm: React.FC<ReviewFormProps> = () => {
             <FormItem>
               <FormControl>
                 <div className="grid grid-cols-7 items-center gap-4">
-                  <Label htmlFor="facilities" className="text-right">
+                  <Label
+                    htmlFor="facilities"
+                    className="col-span-7 text-left md:col-span-1 md:text-right"
+                  >
                     {t('facilities')}
                   </Label>
                   <Textarea
                     id="facilities"
                     placeholder={t('facilities_placeholder')}
-                    className="col-span-6"
+                    className="col-span-7 md:col-span-6"
                     {...field}
                   />
 
-                  <FormMessage className="col-span-6 col-start-2" />
+                  <FormMessage className="col-span-7 md:col-span-6 md:col-start-2" />
                 </div>
               </FormControl>
             </FormItem>
@@ -279,16 +320,19 @@ export const ReviewForm: React.FC<ReviewFormProps> = () => {
             <FormItem>
               <FormControl>
                 <div className="grid grid-cols-7 items-center gap-4">
-                  <Label htmlFor="team" className="text-right">
+                  <Label
+                    htmlFor="team"
+                    className="col-span-7 text-left md:col-span-1 md:text-right"
+                  >
                     {t('team')}
                   </Label>
                   <Textarea
                     id="team"
                     placeholder={t('team_placeholder')}
-                    className="col-span-6"
+                    className="col-span-7 md:col-span-6"
                     {...field}
                   />
-                  <FormMessage className="col-span-6 col-start-2" />
+                  <FormMessage className="col-span-7 md:col-span-6 md:col-start-2" />
                 </div>
               </FormControl>
             </FormItem>
@@ -302,16 +346,19 @@ export const ReviewForm: React.FC<ReviewFormProps> = () => {
             <FormItem>
               <FormControl>
                 <div className="grid grid-cols-7 items-center gap-4">
-                  <Label htmlFor="process" className="text-right">
+                  <Label
+                    htmlFor="process"
+                    className="col-span-7 text-left md:col-span-1 md:text-right"
+                  >
                     {t('process')}
                   </Label>
                   <Textarea
                     id="process"
                     placeholder={t('process_placeholder')}
-                    className="col-span-6"
+                    className="col-span-7 md:col-span-6"
                     {...field}
                   />
-                  <FormMessage className="col-span-6 col-start-2" />
+                  <FormMessage className="col-span-7 md:col-span-6 md:col-start-2" />
                 </div>
               </FormControl>
             </FormItem>
@@ -325,16 +372,19 @@ export const ReviewForm: React.FC<ReviewFormProps> = () => {
             <FormItem>
               <FormControl>
                 <div className="grid grid-cols-7 items-center gap-4">
-                  <Label htmlFor="benefits" className="text-right">
+                  <Label
+                    htmlFor="benefits"
+                    className="col-span-7 text-left md:col-span-1 md:text-right"
+                  >
                     {t('benefits')}
                   </Label>
                   <Textarea
                     id="benefits"
                     placeholder={t('benefits_placeholder')}
-                    className="col-span-6"
+                    className="col-span-7 md:col-span-6"
                     {...field}
                   />
-                  <FormMessage className="col-span-6 col-start-2" />
+                  <FormMessage className="col-span-7 md:col-span-6 md:col-start-2" />
                 </div>
               </FormControl>
             </FormItem>

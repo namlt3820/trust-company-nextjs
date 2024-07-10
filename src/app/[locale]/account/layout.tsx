@@ -1,3 +1,3 @@
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return <div className="mt-8">{children}</div>
+  return <div className="mt-16">{children}</div>
 }

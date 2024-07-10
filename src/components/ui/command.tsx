@@ -45,10 +45,7 @@ const CommandInput = React.forwardRef<
   const isDesktop = useMediaQuery('(min-width: 768px)')
 
   return (
-    <div
-      className={cn('flex items-center border-b', className)}
-      cmdk-input-wrapper=""
-    >
+    <div className={cn('flex items-center', className)} cmdk-input-wrapper="">
       <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
       <CommandPrimitive.Input
         ref={ref}

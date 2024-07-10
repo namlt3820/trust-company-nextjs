@@ -153,7 +153,10 @@ export const NavbarMobile: React.FC = () => {
                     {t_login('action')}
                   </PopoverTrigger>
                   <PopoverContent align="end" className="w-screen">
-                    <LoginForm setLoginFormOpen={setLoginFormOpen} />
+                    <LoginForm
+                      setLoginFormOpen={setLoginFormOpen}
+                      setNavbarClose={setNavbarClose}
+                    />
                   </PopoverContent>
                 </Popover>
               )}

@@ -24,9 +24,13 @@ import { z } from 'zod'
 
 export type LoginFormProps = {
   setLoginFormOpen: (state: boolean) => void
+  setNavbarClose: () => void
 }
 
-export const LoginForm: React.FC<LoginFormProps> = ({ setLoginFormOpen }) => {
+export const LoginForm: React.FC<LoginFormProps> = ({
+  setLoginFormOpen,
+  setNavbarClose,
+}) => {
   const { toast } = useToast()
   const { login } = useAuth()
   const t = useTranslations()
@@ -60,6 +64,11 @@ export const LoginForm: React.FC<LoginFormProps> = ({ setLoginFormOpen }) => {
         description: t('General.fail_suggest'),
       })
     }
+  }
+
+  const onCloseModal = () => {
+    setNavbarClose()
+    setLoginFormOpen(false)
   }
 
   return (
@@ -117,7 +126,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ setLoginFormOpen }) => {
             {' '}
             <span
               className="underline decoration-1 underline-offset-4"
-              onClick={() => setLoginFormOpen(false)}
+              onClick={onCloseModal}
             >
               {t('Login.create_account')}
             </span>
@@ -126,7 +135,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ setLoginFormOpen }) => {
           <Link href={'/account/forgot-password'}>
             <span
               className="underline decoration-1 underline-offset-4"
-              onClick={() => setLoginFormOpen(false)}
+              onClick={onCloseModal}
             >
               {t('Login.forgot_password')}
             </span>

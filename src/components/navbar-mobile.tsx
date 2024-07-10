@@ -9,7 +9,14 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet'
 import { useToast } from '@/components/ui/use-toast'
 import { Company } from '@/lib/payloadTypes'
 import { cn } from '@/lib/utils'
@@ -96,6 +103,10 @@ export const NavbarMobile: React.FC = () => {
         </Link>
 
         <Sheet open={navbarOpen} onOpenChange={setNavbarOpen}>
+          <SheetHeader>
+            <SheetTitle></SheetTitle>
+            <SheetDescription></SheetDescription>
+          </SheetHeader>
           <SheetTrigger asChild>
             <MenuIcon />
           </SheetTrigger>

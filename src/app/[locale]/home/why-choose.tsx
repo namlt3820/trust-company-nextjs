@@ -26,7 +26,7 @@ export const WhyChoose: React.FC = () => {
           <p className="max-w-[600px] text-gray-500 dark:text-gray-400 md:text-xl">
             {t('description')}
           </p>
-          <ul className="grid gap-2 md:py-4">
+          <ul className="grid gap-2">
             <li>
               <Check className="mr-2 inline-block h-4 w-4" />
               {t('benefit_1')}

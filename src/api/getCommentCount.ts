@@ -1,3 +1,4 @@
+import { getPayloadUrl } from '@/lib/getPayloadUrl'
 import qs from 'qs'
 
 export type GetCommentCount = (params: GetCommentCountParams) => Promise<number>
@@ -42,7 +43,7 @@ export const getCommentCount: GetCommentCount = async (
 
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_PAYLOAD_CMS_SERVER_URL}/api/comments/count${stringifiedQuery}`,
+      `${getPayloadUrl()}/api/comments/count${stringifiedQuery}`,
       {
         method: 'GET',
         credentials: 'include',

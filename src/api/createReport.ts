@@ -1,3 +1,4 @@
+import { getPayloadUrl } from '@/lib/getPayloadUrl'
 import { Report } from '@/lib/payloadTypes'
 import _ from 'lodash'
 
@@ -29,17 +30,14 @@ export const createReport: CreateReport = async (
       (value) => !value
     )
 
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_PAYLOAD_CMS_SERVER_URL}/api/reports`,
-      {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      }
-    )
+    const res = await fetch(`${getPayloadUrl()}/api/reports`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
 
     if (res.ok) {
       const { doc, errors } = await res.json()

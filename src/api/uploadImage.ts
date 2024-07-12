@@ -1,3 +1,4 @@
+import { getPayloadUrl } from '@/lib/getPayloadUrl'
 import { Media } from '@/lib/payloadTypes'
 
 export type UploadImage = (params: UploadImageParams) => Promise<Media>
@@ -11,14 +12,11 @@ export const uploadImage: UploadImage = async (params: UploadImageParams) => {
     const data = new FormData()
     data.append('file', params.file)
 
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_PAYLOAD_CMS_SERVER_URL}/api/media`,
-      {
-        method: 'POST',
-        credentials: 'include',
-        body: data,
-      }
-    )
+    const res = await fetch(`${getPayloadUrl()}/api/media`, {
+      method: 'POST',
+      credentials: 'include',
+      body: data,
+    })
 
     if (res.ok) {
       const { doc, errors } = await res.json()

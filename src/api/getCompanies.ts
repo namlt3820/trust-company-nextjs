@@ -1,3 +1,4 @@
+import { getPayloadUrl } from '@/lib/getPayloadUrl'
 import { Company } from '@/lib/payloadTypes'
 import qs from 'qs'
 
@@ -31,7 +32,7 @@ export const getCompanies: GetCompanies = async (
 
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_PAYLOAD_CMS_SERVER_URL}/api/companies${stringifiedQuery}`,
+      `${getPayloadUrl()}/api/companies${stringifiedQuery}`,
       {
         method: 'GET',
         credentials: 'include',

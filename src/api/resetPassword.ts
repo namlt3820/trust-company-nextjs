@@ -1,3 +1,5 @@
+import { getPayloadUrl } from '@/lib/getPayloadUrl'
+
 export type ResetPassword = (params: ResetPasswordParams) => Promise<boolean>
 
 export type ResetPasswordParams = {
@@ -10,20 +12,17 @@ export const resetPassword: ResetPassword = async (
 ) => {
   try {
     const { token, password } = params
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_PAYLOAD_CMS_SERVER_URL}/api/users/reset-password`,
-      {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          token,
-          password,
-        }),
-      }
-    )
+    const res = await fetch(`${getPayloadUrl()}/api/users/reset-password`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        token,
+        password,
+      }),
+    })
 
     if (res.ok) {
       const { errors } = await res.json()

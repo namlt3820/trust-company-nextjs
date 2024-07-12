@@ -1,3 +1,4 @@
+import { getPayloadUrl } from '@/lib/getPayloadUrl'
 import { User } from '@/lib/payloadTypes'
 
 export type CreateUser = (params: CreateUserParams) => Promise<User>
@@ -10,17 +11,14 @@ export type CreateUserParams = {
 
 export const createUser: CreateUser = async (params: CreateUserParams) => {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_PAYLOAD_CMS_SERVER_URL}/api/users`,
-      {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(params),
-      }
-    )
+    const res = await fetch(`${getPayloadUrl()}/api/users`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(params),
+    })
 
     if (res.ok) {
       const { doc, errors } = await res.json()

@@ -31,7 +31,7 @@ export const GetCompaniesSubtitle: React.FC = () => {
             {t('here')}
           </span>
         </DialogTrigger>
-        <DialogContent className="">
+        <DialogContent className="max-w-3xl">
           <DialogHeader>
             <DialogTitle>{t('create')}</DialogTitle>
             <DialogDescription>{t_general('follow_guide')}</DialogDescription>

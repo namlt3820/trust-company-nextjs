@@ -1,3 +1,4 @@
+import { getPayloadUrl } from '@/lib/getPayloadUrl'
 import { Feedback } from '@/lib/payloadTypes'
 
 export type CreateFeedback = (params: CreateFeedbackParams) => Promise<Feedback>
@@ -12,17 +13,14 @@ export const createFeedback: CreateFeedback = async (
   params: CreateFeedbackParams
 ) => {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_PAYLOAD_CMS_SERVER_URL}/api/feedbacks`,
-      {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(params),
-      }
-    )
+    const res = await fetch(`${getPayloadUrl()}/api/feedbacks`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(params),
+    })
 
     if (res.ok) {
       const { doc, errors } = await res.json()

@@ -1,3 +1,5 @@
+import { getPayloadUrl } from '@/lib/getPayloadUrl'
+
 export type VerifyEmail = (params: VerifyEmailParams) => Promise<boolean>
 
 export type VerifyEmailParams = {
@@ -7,7 +9,7 @@ export type VerifyEmailParams = {
 export const verifyEmail: VerifyEmail = async (params: VerifyEmailParams) => {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_PAYLOAD_CMS_SERVER_URL}/api/users/verify/${params.token}`,
+      `${getPayloadUrl()}/api/users/verify/${params.token}`,
       {
         method: 'POST',
         credentials: 'include',

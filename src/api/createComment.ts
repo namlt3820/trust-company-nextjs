@@ -1,3 +1,4 @@
+import { getPayloadUrl } from '@/lib/getPayloadUrl'
 import { Comment } from '@/lib/payloadTypes'
 
 export type CreateComment = (params: CreateCommentParams) => Promise<Comment>
@@ -12,17 +13,14 @@ export const createComment: CreateComment = async (
   params: CreateCommentParams
 ) => {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_PAYLOAD_CMS_SERVER_URL}/api/comments`,
-      {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(params),
-      }
-    )
+    const res = await fetch(`${getPayloadUrl()}/api/comments`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(params),
+    })
 
     if (res.ok) {
       const { doc, errors } = await res.json()

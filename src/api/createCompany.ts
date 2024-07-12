@@ -1,3 +1,4 @@
+import { getPayloadUrl } from '@/lib/getPayloadUrl'
 import { Company } from '@/lib/payloadTypes'
 
 export type CreateCompany = (params: CreateCompanyParams) => Promise<Company>
@@ -19,17 +20,14 @@ export const createCompany: CreateCompany = async (
   params: CreateCompanyParams
 ) => {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_PAYLOAD_CMS_SERVER_URL}/api/companies`,
-      {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(params),
-      }
-    )
+    const res = await fetch(`${getPayloadUrl()}/api/companies`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(params),
+    })
 
     if (res.ok) {
       const { doc, errors } = await res.json()

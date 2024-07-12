@@ -1,3 +1,4 @@
+import { getPayloadUrl } from '@/lib/getPayloadUrl'
 import { Comment } from '@/lib/payloadTypes'
 
 export type DeleteComment = (params: DeleteCommentParams) => Promise<Comment>
@@ -11,16 +12,13 @@ export const deleteComment: DeleteComment = async (
 ) => {
   const { id } = params
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_PAYLOAD_CMS_SERVER_URL}/api/comments/${id}`,
-      {
-        method: 'DELETE',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    )
+    const res = await fetch(`${getPayloadUrl()}/api/comments/${id}`, {
+      method: 'DELETE',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
 
     if (res.ok) {
       const { doc, errors } = await res.json()

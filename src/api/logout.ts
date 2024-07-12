@@ -1,17 +1,16 @@
+import { getPayloadUrl } from '@/lib/getPayloadUrl'
+
 export type Logout = () => Promise<void>
 
 export const logout: Logout = async () => {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_PAYLOAD_CMS_SERVER_URL}/api/users/logout`,
-      {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    )
+    const res = await fetch(`${getPayloadUrl()}/api/users/logout`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
 
     if (res.ok) {
       return

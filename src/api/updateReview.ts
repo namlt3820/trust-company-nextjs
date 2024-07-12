@@ -1,3 +1,4 @@
+import { getPayloadUrl } from '@/lib/getPayloadUrl'
 import { Comment as Review } from '@/lib/payloadTypes'
 import _ from 'lodash'
 import { Descendant } from 'slate'
@@ -46,22 +47,19 @@ export const updateReview: UpdateReview = async (
   )
 
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_PAYLOAD_CMS_SERVER_URL}/api/reviews/${id}`,
-      {
-        method: 'PATCH',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          rate,
-          relevantInformation,
-          basicReview,
-          detailedReview,
-        }),
-      }
-    )
+    const res = await fetch(`${getPayloadUrl()}/api/reviews/${id}`, {
+      method: 'PATCH',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        rate,
+        relevantInformation,
+        basicReview,
+        detailedReview,
+      }),
+    })
 
     if (res.ok) {
       const { doc, errors } = await res.json()

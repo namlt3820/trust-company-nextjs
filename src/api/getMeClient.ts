@@ -1,19 +1,17 @@
+import { getPayloadUrl } from '@/lib/getPayloadUrl'
 import { User } from '@/lib/payloadTypes'
 
 export type GetMe = () => Promise<User>
 
 export const getMeClient: GetMe = async () => {
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_PAYLOAD_CMS_SERVER_URL}/api/users/me`,
-      {
-        method: 'GET',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    )
+    const res = await fetch(`${getPayloadUrl()}/api/users/me`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
 
     if (res.ok) {
       const { user, errors } = await res.json()

@@ -13,7 +13,7 @@ export const WhyChoose: React.FC = () => {
     <SectionWrapper>
       <div className="grid items-center gap-12 xl:grid-cols-[1fr_1fr]">
         <Image
-          src={`${process.env.NEXT_PUBLIC_PAYLOAD_CMS_SERVER_URL}/media/homepage_2.jpg`}
+          src={`${process.env.NEXT_PUBLIC_PAYLOAD_URL_FROM_SERVER}/media/homepage_2.jpg`}
           alt="Hero"
           width={700}
           height={700}

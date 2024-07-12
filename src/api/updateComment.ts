@@ -1,3 +1,4 @@
+import { getPayloadUrl } from '@/lib/getPayloadUrl'
 import { Comment } from '@/lib/payloadTypes'
 
 export type UpdateComment = (params: UpdateCommentParams) => Promise<Comment>
@@ -12,19 +13,16 @@ export const updateComment: UpdateComment = async (
 ) => {
   const { content, id } = params
   try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_PAYLOAD_CMS_SERVER_URL}/api/comments/${id}`,
-      {
-        method: 'PATCH',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          content,
-        }),
-      }
-    )
+    const res = await fetch(`${getPayloadUrl()}/api/comments/${id}`, {
+      method: 'PATCH',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        content,
+      }),
+    })
 
     if (res.ok) {
       const { doc, errors } = await res.json()

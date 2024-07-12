@@ -52,7 +52,7 @@ export const GetCompaniesResult: React.FC<GetCompaniesResultProps> = ({
 
       {data?.map((company) => {
         const { id, name, media } = company
-        const url = `${process.env.NEXT_PUBLIC_PAYLOAD_CMS_SERVER_URL}${(media as Media)?.url || ''}`
+        const url = `${process.env.NEXT_PUBLIC_PAYLOAD_URL_FROM_SERVER}${(media as Media)?.url || ''}`
 
         return (
           <CommandItem

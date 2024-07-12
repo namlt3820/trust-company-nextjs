@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  web:
+    container_name: trust-company-nextjs
+    build: .
+    ports:
+      - '3001:3001'
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next

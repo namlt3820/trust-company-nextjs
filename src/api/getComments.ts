@@ -1,3 +1,4 @@
+import { getPayloadUrl } from '@/lib/getPayloadUrl'
 import { GetPaginationResponse } from '@/lib/paginationResponse'
 import { Comment } from '@/lib/payloadTypes'
 import qs from 'qs'
@@ -51,7 +52,7 @@ export const getComments: GetComments = async (params: GetCommentsParams) => {
 
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_PAYLOAD_CMS_SERVER_URL}/api/comments${stringifiedQuery}`,
+      `${getPayloadUrl()}/api/comments${stringifiedQuery}`,
       {
         method: 'GET',
         credentials: 'include',

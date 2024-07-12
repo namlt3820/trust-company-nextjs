@@ -1,3 +1,4 @@
+import { getPayloadUrl } from '@/lib/getPayloadUrl'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
@@ -14,14 +15,11 @@ export const getMeServer = async (args?: {
   const cookieStore = cookies()
   const token = cookieStore.get('payload-token')?.value
 
-  const meUserReq = await fetch(
-    `${process.env.NEXT_PUBLIC_PAYLOAD_CMS_SERVER_URL}/api/users/me`,
-    {
-      headers: {
-        Authorization: `JWT ${token}`,
-      },
-    }
-  )
+  const meUserReq = await fetch(`${getPayloadUrl()}/api/users/me`, {
+    headers: {
+      Authorization: `JWT ${token}`,
+    },
+  })
 
   const {
     user,

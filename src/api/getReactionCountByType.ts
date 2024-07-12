@@ -1,3 +1,4 @@
+import { getPayloadUrl } from '@/lib/getPayloadUrl'
 import { Reaction } from '@/lib/payloadTypes'
 import qs from 'qs'
 
@@ -42,7 +43,7 @@ export const getReactionCountByType: GetReactionCountByType = async (
 
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_PAYLOAD_CMS_SERVER_URL}/api/reactions/count-by-type${stringifiedQuery}`,
+      `${getPayloadUrl()}/api/reactions/count-by-type${stringifiedQuery}`,
       {
         method: 'GET',
         credentials: 'include',

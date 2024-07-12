@@ -31,7 +31,7 @@ export const Hero: React.FC = () => {
           </div>
         </div>
         <Image
-          src={`${process.env.NEXT_PUBLIC_PAYLOAD_CMS_SERVER_URL}/media/homepage_1.jpg`}
+          src={`${process.env.NEXT_PUBLIC_PAYLOAD_URL_FROM_SERVER}/media/homepage_1.jpg`}
           alt="Hero"
           width={700}
           height={700}

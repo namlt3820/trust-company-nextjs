@@ -55,7 +55,11 @@ const serialize = (children?: Children): React.ReactNode[] =>
 
     switch (node.type) {
       case 'ul':
-        return <ul key={i}>{serialize(node?.children)}</ul>
+        return (
+          <ul className="grid list-inside list-disc gap-2" key={i}>
+            {serialize(node?.children)}
+          </ul>
+        )
       case 'ol':
         return (
           <ol key={i} className="grid list-inside list-decimal gap-2">

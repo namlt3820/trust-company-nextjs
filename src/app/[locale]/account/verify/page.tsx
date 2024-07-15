@@ -21,7 +21,7 @@ export default function EmailVerification() {
     onSuccess: () => {
       setTimeout(() => {
         router.push('/')
-      }, 3000)
+      }, 1500)
     },
   })
 

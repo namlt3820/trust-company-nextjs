@@ -131,7 +131,7 @@
     "bad": "Bad",
     "terrible": "Terrible",
     "detailed_review": "Detailed review",
-    "branch_plaeceholder": "Optional. Max 100 characters. A large company can have many branches. Specify the geographical location or the name of the branch where you work.",
+    "branch_placeholder": "Optional. Max 100 characters. A large company can have many branches. Specify the geographical location or the name of the branch where you work.",
     "duration_placeholder": "Optional. Specify how many months you have worked at the company. Must be at least one month.",
     "title_placeholder": "Optional. Max 100 characters. List all the titles you have held while working at the company.",
     "facilities_placeholder": "Optional. Max 500 characters. Provide a brief description of the company's infrastructure or office working conditions, focusing on factors that support or hinder your work.",

@@ -95,7 +95,9 @@ export const ReviewEdit: React.FC<ReviewEditProps> = ({
     await updateReviewMutation.mutate({
       ...data,
       id,
-      detailedReview: editorData,
+      detailedReview: editorData.length
+        ? editorData
+        : (detailedReview as Descendant[]),
     })
   }
 

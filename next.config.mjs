@@ -12,7 +12,7 @@ const remotePattern = {
 }
 
 if (process.env.NODE_ENV !== 'production') {
-  remotePattern.port === '3000'
+  remotePattern.port = '3000'
 }
 
 const nextConfig = {

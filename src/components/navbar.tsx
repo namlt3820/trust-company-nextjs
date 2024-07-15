@@ -90,7 +90,7 @@ export const Navbar: React.FC = () => {
           className={cn(
             'self-start',
             { 'w-80': !isDesktop },
-            { 'w-[300px]': isDesktop }
+            { 'w-[350px]': isDesktop }
           )}
         >
           {pathName !== '/' ? <GetCompaniesCombobox /> : null}

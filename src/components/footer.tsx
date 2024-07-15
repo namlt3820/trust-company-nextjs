@@ -14,14 +14,14 @@ const Footer = () => {
               &copy; {currentYear} TrustCompany
             </h2>
             <p className="text-sm text-gray-400 md:text-base">
-              Email: trustcompanydev0@gmail.com
+              Email: trustcompanydev0@gladiolus.info
             </p>
           </div>
 
           {/* Social Media Icons */}
           <div className="flex h-full w-full gap-3 md:w-1/3 md:justify-end md:justify-items-stretch">
             <a
-              href="#"
+              href="https://github.com/namlt3820"
               className="flex items-center gap-1 text-sm text-gray-400 hover:text-white md:text-base"
             >
               Github <ExternalLink width={16} height={16} />

@@ -61,7 +61,14 @@ export const GetCompaniesResult: React.FC<GetCompaniesResultProps> = ({
             value={name}
             className="flex gap-2"
           >
-            <Image src={url} width={100} height={100} alt="company_logo" />
+            <Image
+              src={url}
+              width={0}
+              height={0}
+              sizes="100vw"
+              style={{ width: 'auto', height: '50px' }}
+              alt="company_logo"
+            />
             {name}
           </CommandItem>
         )

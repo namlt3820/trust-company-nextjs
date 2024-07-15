@@ -95,7 +95,7 @@ export function GetCompaniesCombobox() {
 
   const [selected, setSelected] = React.useState<Company | undefined>()
   const router = useRouter()
-  const isDesktop = useMediaQuery('(min-width: 768px)')
+  const isDesktop = useMediaQuery('(min-width: 1280px)')
 
   const handleSetActive = React.useCallback(
     (company: Company) => {

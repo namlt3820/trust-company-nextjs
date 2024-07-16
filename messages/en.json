@@ -26,7 +26,7 @@
     "create_verify": "The company form will be verified by an administrator and updated as soon as possible. Thank you for your contribution.",
     "create_fail": "Company creation failed.",
     "upload_company_logo": "Please upload an image first.",
-    "enter_name": "Enter the company name you want to find...",
+    "enter_name": "Your company name, e.g. Apple or Google",
     "not_found": "No companies found.",
     "name": "Name",
     "name_placeholder": "Required. Max 150 characters. The company name.",

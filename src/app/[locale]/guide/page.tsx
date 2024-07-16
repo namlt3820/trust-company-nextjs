@@ -15,6 +15,13 @@ import { cn } from '@/lib/utils'
 import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 
+const getButtonStyle = (selected: string, current: string) =>
+  cn(
+    { 'text-primary underline': selected === current },
+    { 'text-muted-foreground': selected !== current },
+    'justify-start'
+  )
+
 export default function Guide() {
   const t = useTranslations('Guide')
   const user = t('user')
@@ -29,61 +36,55 @@ export default function Guide() {
   const [selected, setSelected] = useState(company)
 
   return (
-    <div className="container flex min-h-[800px] flex-1 flex-col overflow-hidden px-10 md:flex-row md:px-20">
+    <div className="container flex min-h-[100dvh] flex-1 flex-col overflow-hidden px-10 md:flex-row md:px-20">
       {isDesktop ? (
-        <div className="flex flex-col gap-6 border-r-2 border-gray-200 pb-24 pt-28">
+        <div className="flex flex-col gap-6 border-x-[1px] border-gray-200 pb-24 pr-10 pt-28">
           <Button
             variant={'link'}
             onClick={() => setSelected(user)}
-            className={cn({ underline: selected === user }, 'justify-start')}
+            className={getButtonStyle(selected, user)}
           >
             {user}
           </Button>
           <Button
             variant={'link'}
             onClick={() => setSelected(company)}
-            className={cn({ underline: selected === company }, 'justify-start')}
+            className={getButtonStyle(selected, company)}
           >
             {company}
           </Button>
           <Button
             variant={'link'}
             onClick={() => setSelected(review)}
-            className={cn({ underline: selected === review }, 'justify-start')}
+            className={getButtonStyle(selected, review)}
           >
             {review}
           </Button>
           <Button
             variant={'link'}
             onClick={() => setSelected(comment)}
-            className={cn({ underline: selected === comment }, 'justify-start')}
+            className={getButtonStyle(selected, comment)}
           >
             {comment}
           </Button>
           <Button
             variant={'link'}
             onClick={() => setSelected(reaction)}
-            className={cn(
-              { underline: selected === reaction },
-              'justify-start'
-            )}
+            className={getButtonStyle(selected, reaction)}
           >
             {reaction}
           </Button>
           <Button
             variant={'link'}
             onClick={() => setSelected(report)}
-            className={cn({ underline: selected === report }, 'justify-start')}
+            className={getButtonStyle(selected, report)}
           >
             {report}
           </Button>
           <Button
             variant={'link'}
             onClick={() => setSelected(feedback)}
-            className={cn(
-              { underline: selected === feedback },
-              'justify-start'
-            )}
+            className={getButtonStyle(selected, feedback)}
           >
             {feedback}
           </Button>

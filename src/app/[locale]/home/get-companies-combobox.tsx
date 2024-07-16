@@ -112,7 +112,7 @@ export function GetCompaniesCombobox() {
     <div className="mt-14">
       <SectionWrapper>
         <div className="grid gap-8 xl:grid-cols-[1fr_1fr] xl:gap-20">
-          {isDesktop ? <CarouselIntro /> : null}
+          {isDesktop ? <CarouselIntro /> : <div></div>}
           <div className="flex flex-col">
             <div className="space-y-8">
               <h1 className="text-center text-3xl font-bold tracking-tighter sm:text-5xl md:text-left">

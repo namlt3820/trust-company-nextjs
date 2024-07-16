@@ -58,7 +58,7 @@ export const CarouselIntro: React.FC = () => {
       <CarouselContent>
         <CarouselItem>
           <Image
-            src={`${process.env.NEXT_PUBLIC_PAYLOAD_URL_FROM_SERVER}/media/slide_2.png`}
+            src={`/slide_2.png`}
             alt="carousel_intro"
             width={600}
             height={500}
@@ -67,7 +67,7 @@ export const CarouselIntro: React.FC = () => {
         </CarouselItem>
         <CarouselItem>
           <Image
-            src={`${process.env.NEXT_PUBLIC_PAYLOAD_URL_FROM_SERVER}/media/slide_3.png`}
+            src={`/slide_3.png`}
             alt="carousel_intro"
             width={600}
             height={500}
@@ -76,7 +76,7 @@ export const CarouselIntro: React.FC = () => {
         </CarouselItem>
         <CarouselItem>
           <Image
-            src={`${process.env.NEXT_PUBLIC_PAYLOAD_URL_FROM_SERVER}/media/slide_4.png`}
+            src={`/slide_4.png`}
             alt="carousel_intro"
             width={600}
             height={500}

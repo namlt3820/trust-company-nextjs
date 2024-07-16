@@ -26,7 +26,7 @@
     "create_verify": "Dữ liệu sẽ được kiểm tra bởi quản trị viên và cập nhật sớm nhất có thể. Cảm ơn vì sự đóng góp của bạn.",
     "create_fail": "Tạo công ty thất bại.",
     "upload_company_logo": "Bạn cần tải lên logo công ty trước.",
-    "enter_name": "Nhập tên công ty bạn muốn tìm...",
+    "enter_name": "Công ty của bạn, ví dụ Viettel hoặc FPT",
     "not_found": "Không tìm thấy công ty.",
     "name": "Tên",
     "name_placeholder": "Bắt buộc. Tối đa 150 ký tự. Tên công ty.",

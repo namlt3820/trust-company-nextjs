@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# TrustCompany Next.js
 
-## Getting Started
+This is the frontend for a review company website [TrustCompany](https://trustcompany.gladiolus.info/). It's powered by Next.js and created from its [create-next-app](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). It includes some basic features typically found on a review company website:
 
-First, run the development server:
+1. Register users by email.
+1. Create companies.
+1. CRUD (Create, Read, Update, Delete) reviews.
+1. CRUD comments.
+1. Emojis.
+1. Report/Feedback.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### ENV: NEXT_PUBLIC_PAYLOAD_URL_FROM_CLIENT and NEXT_PUBLIC_PAYLOAD_URL_FROM_SERVER
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. This project consists of two components: a Next.js server as the frontend and a PayloadCMS server as the backend.
+1. The request coming from the Next.js server to PayloadCMS can be generated either from its server-side or client-side. If it originates from the server-side, the PayloadCMS server URL will be `NEXT_PUBLIC_PAYLOAD_URL_FROM_SERVER`. If it originates from the client-side, the PayloadCMS server URL will be `NEXT_PUBLIC_PAYLOAD_URL_FROM_CLIENT`
+1. If you don't use Docker in local development, both values will have the same hostname (localhost) but different ports.
+1. If you use a domain name in production, both values will also have the same hostname (the domain).
+1. However, if you use Docker in local development, the `NEXT_PUBLIC_PAYLOAD_URL_FROM_CLIENT` and `NEXT_PUBLIC_PAYLOAD_URL_FROM_SERVER` might have different hostnames, hence the separation.
+1. For example, `NEXT_PUBLIC_PAYLOAD_URL_FROM_CLIENT` can't use a container name because it's outside of the Docker context. Similarly, `NEXT_PUBLIC_PAYLOAD_URL_FROM_SERVER` can't use `localhost` because it points to the container itself, not to the host machine where Docker is running.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Development
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+To spin up the project locally, follow these steps:
 
-## Learn More
+1. Spin up the [PayloadCMS server](https://github.com/namlt3820/trust-company-payloadcms) first, as it serves as the backend of the project.
+1. Clone the repo
+1. Then `cd YOUR_PROJECT_REPO && cp .env.example .env.development`
+1. Next `yarn && yarn dev` or `npm install && npm run dev`
+1. Open [http://localhost:3001](http://localhost:3001) with your browser to see the result.
+1. You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-To learn more about Next.js, take a look at the following resources:
+That's it! Changes made in `./src` will be reflected in your app.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Production with Docker
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+To start up a docker container in your production environment, follow these steps:
 
-## Deploy on Vercel
+1. First clone the repo
+1. Then `cd YOUR_PROJECT_REPO && cp .env.example .env.production`
+1. Next `docker compose up --build -d`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+That's it! The Docker instance will run and listen on port 3001 of your production machine.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Production without Docker
+
+To start up a Node.js server, you need to follow these steps:
+
+1. First running `yarn build` or `npm run build` in your project root.
+1. Then run `yarn start` or `npm run start` to run Node in production and serve Next.js from the `./next` directory.
+
+## Questions
+
+If you have any issues or questions, reach out to me on [Email](mailto:namlt3820@gmail.com) or start a [GitHub issue](https://github.com/namlt3820/trust-company-nextjs/issue).

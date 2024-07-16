@@ -29,62 +29,68 @@ export default function Guide() {
   const [selected, setSelected] = useState(company)
 
   return (
-    <div className="container mb-24 mt-28 flex flex-1 flex-col overflow-hidden px-10 md:flex-row md:px-20">
+    <div className="container flex min-h-[800px] flex-1 flex-col overflow-hidden px-10 md:flex-row md:px-20">
       {isDesktop ? (
-        <div className="flex h-full flex-col gap-6 border-r-2 border-gray-200">
+        <div className="flex flex-col gap-6 border-r-2 border-gray-200 pb-24 pt-28">
           <Button
             variant={'link'}
             onClick={() => setSelected(user)}
-            className={cn({ underline: selected === user })}
+            className={cn({ underline: selected === user }, 'justify-start')}
           >
             {user}
           </Button>
           <Button
             variant={'link'}
             onClick={() => setSelected(company)}
-            className={cn({ underline: selected === company })}
+            className={cn({ underline: selected === company }, 'justify-start')}
           >
             {company}
           </Button>
           <Button
             variant={'link'}
             onClick={() => setSelected(review)}
-            className={cn({ underline: selected === review })}
+            className={cn({ underline: selected === review }, 'justify-start')}
           >
             {review}
           </Button>
           <Button
             variant={'link'}
             onClick={() => setSelected(comment)}
-            className={cn({ underline: selected === comment })}
+            className={cn({ underline: selected === comment }, 'justify-start')}
           >
             {comment}
           </Button>
           <Button
             variant={'link'}
             onClick={() => setSelected(reaction)}
-            className={cn({ underline: selected === reaction })}
+            className={cn(
+              { underline: selected === reaction },
+              'justify-start'
+            )}
           >
             {reaction}
           </Button>
           <Button
             variant={'link'}
             onClick={() => setSelected(report)}
-            className={cn({ underline: selected === report })}
+            className={cn({ underline: selected === report }, 'justify-start')}
           >
             {report}
           </Button>
           <Button
             variant={'link'}
             onClick={() => setSelected(feedback)}
-            className={cn({ underline: selected === feedback })}
+            className={cn(
+              { underline: selected === feedback },
+              'justify-start'
+            )}
           >
             {feedback}
           </Button>
         </div>
       ) : null}
 
-      <div className="flex-1 space-y-6 overflow-y-auto md:space-y-0 md:pl-8">
+      <div className="flex-1 space-y-6 overflow-y-auto pb-24 pt-28 md:space-y-0 md:pl-8">
         <div className="flex flex-col items-center justify-center space-y-2 text-center md:mb-10">
           <h2 className="text-3xl font-bold leading-10 tracking-tighter sm:text-4xl/snug">
             {t('guide')}

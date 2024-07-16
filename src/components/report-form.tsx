@@ -134,7 +134,7 @@ export const ReportForm: React.FC<ReportFormProps> = ({
                         {t('misinformation')}
                       </SelectItem>
                       <SelectItem value="scam">{t('scam')}</SelectItem>
-                      <SelectItem value="spam">Spam</SelectItem>
+                      <SelectItem value="spam">Spam.</SelectItem>
                       <SelectItem value="violation">
                         {t('violation')}
                       </SelectItem>

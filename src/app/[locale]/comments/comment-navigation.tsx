@@ -45,7 +45,7 @@ export const CommentNavigation: React.FC = () => {
       {review ? (
         <Link
           className={buttonVariants({ variant: 'outline' })}
-          href={`/reviews?company=${company}&user=${user}&page=1&limit=10`}
+          href={`/reviews?company=${company || ''}&user=${user || ''}&page=1&limit=10`}
           prefetch={false}
         >
           {t('Comment.back_reviews')}

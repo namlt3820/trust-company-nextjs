@@ -2,8 +2,8 @@ import { Metadata } from 'next'
 
 export function constructMetadata({
   title = 'TrustCompany - Your source of honest company reviews',
-  description = "TrustCompany is your reliable source for honest reviews and insights about companies. Discover real experiences and detailed feedback to make informed decisions. Whether you're a consumer or a professional, TrustCompany helps you choose the best businesses with confidence.",
-  image = '/thumbnail.png',
+  description = 'TrustCompany is your reliable source for honest reviews and insights about companies. Discover real experiences and detailed feedback to make informed decisions.',
+  image = '/homepage_1.jpg',
   icons = '/icon.ico',
   noIndex = false,
 }: {
@@ -25,7 +25,7 @@ export function constructMetadata({
         },
       ],
     },
-    metadataBase: new URL('http://localhost:3001'),
+    metadataBase: new URL('https://trustcompany.gladiolus.info'),
     twitter: {
       card: 'summary_large_image',
       title,
@@ -49,7 +49,7 @@ const defaultOpenGraph: Metadata['openGraph'] = {
   description: 'Your source of honest company reviews.',
   images: [
     {
-      url: 'https://payloadcms.com/images/og-image.jpg',
+      url: 'https://trustcompany.gladiolus.info/homepage_1.jpg',
     },
   ],
 }
